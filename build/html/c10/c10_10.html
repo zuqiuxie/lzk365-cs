@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>10.10 【并发编程】深入异步IO框架：asyncio 中篇 &mdash; lzk365 0.1 文档</title>
+  <title>100 领导同事喜欢的职场习惯 &mdash; lzk365 0.1 文档</title>
   
 
   
@@ -43,7 +43,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="第十一章：101-110" href="../chapters/p11.html" />
-    <link rel="prev" title="10.9 【并发编程】初识异步IO框架：asyncio 上篇" href="c10_09.html" /> 
+    <link rel="prev" title="099 参加饭局没位置了怎么办" href="c10_09.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -100,26 +100,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="c10_01.html">10.1 【并发编程】从性能角度初探并发编程</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_02.html">10.2 【并发编程】创建多线程的几种方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_03.html">10.3 【并发编程】谈谈线程中的“锁机制”</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_05.html">10.5 【并发编程】线程中的信息隔离</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_07.html">10.7 【并发编程】从 yield 开始入门协程</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c10_09.html">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">1. 协程中的并发</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">2. 协程中的嵌套</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">3. 协程中的状态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_01.html">091 面试官问期望薪资如何答</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_02.html">092 休假收到工作微信怎么办</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_03.html">093 不巴结领导如何有好印象</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">094 3招教你应对抢功劳的人</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_05.html">095 别人背后议论你怎么应对</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">096 面对批评的5种处理方式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_07.html">097 如何让老板兑现画的大饼</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">098 不想借钱怎么高情商回应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_09.html">099 参加饭局没位置了怎么办</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">100 领导同事喜欢的职场习惯</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 协程中的并发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2. 协程中的嵌套</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">3. 协程中的状态</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gatherwait">4. gather与wait</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">5. 接收参数方式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">5. 接收参数方式</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#asyncio-wait">asyncio.wait</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#asyncio-gather">asyncio.gather</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">6. 返回结果不同</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">6. 返回结果不同</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#asyncio-wait-1">asyncio.wait</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#asyncio-gather-1">asyncio.gather</a></li>
 </ul>
@@ -207,7 +207,7 @@
         
           <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
         
-      <li>10.10 【并发编程】深入异步IO框架：asyncio 中篇</li>
+      <li>100 领导同事喜欢的职场习惯</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -226,8 +226,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="io-asyncio">
-<h1>10.10 【并发编程】深入异步IO框架：asyncio 中篇<a class="headerlink" href="#io-asyncio" title="此标题的永久链接">¶</a></h1>
+  <section id="id1">
+<h1>100 领导同事喜欢的职场习惯<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
 <p>今天的内容其实还挺多的，我准备了三天，到今天才整理完毕。希望大家看完，有所收获的，能给小明一个赞。这就是对小明最大的鼓励了。
 为了更好地衔接这一节，我们先来回顾一下上一节的内容。</p>
 <p>上一节，我们首先介绍了，如何创建一个协程对象. 主要有两种方法</p>
@@ -242,8 +242,8 @@
 <p>最后，我们还讲了，如何给一个协程添加回调函数。</p>
 <p>好了，用个形象的比喻，上一节，其实就只是讲了协程中的<code class="docutils literal notranslate"><span class="pre">单任务</span></code>。哈哈，是不是还挺难的？希望大家一定要多看几遍，多敲代码，不要光看。</p>
 <p>那么这一节，我们就来看下，协程中的<code class="docutils literal notranslate"><span class="pre">多任务</span></code>。</p>
-<section id="id1">
-<h2>1. 协程中的并发<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<section id="id2">
+<h2>1. 协程中的并发<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
 <p>协程的并发，和线程一样。举个例子来说，就好像
 一个人同时吃三个馒头，咬了第一个馒头一口，就得等这口咽下去，才能去啃第其他两个馒头。就这样交替换着吃。</p>
 <p><code class="docutils literal notranslate"><span class="pre">asyncio</span></code>实现并发，就需要多个协程来完成任务，每当有任务阻塞的时候就await，然后其他协程继续工作。</p>
@@ -325,8 +325,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id2">
-<h2>2. 协程中的嵌套<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<section id="id3">
+<h2>2. 协程中的嵌套<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
 <p>使用async可以定义协程，协程用于耗时的io操作，我们也可以封装更多的io操作过程，这样就实现了嵌套的协程，即一个协程中await了另外一个协程，如此连接起来。</p>
 <p>来看个例子。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
@@ -445,8 +445,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<h2>3. 协程中的状态<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<section id="id4">
+<h2>3. 协程中的状态<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
 <p>还记得我们在讲生成器的时候，有提及过生成器的状态。同样，在协程这里，我们也了解一下协程（准确的说，应该是Future对象，或者Task任务）有哪些状态。</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">Pending</span></code>：创建future，还未执行
@@ -528,8 +528,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id4">
-<h2>5. 接收参数方式<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<section id="id5">
+<h2>5. 接收参数方式<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h2>
 <section id="asyncio-wait">
 <h3>asyncio.wait<a class="headerlink" href="#asyncio-wait" title="此标题的永久链接">¶</a></h3>
 <p>接收的tasks，必须是一个list对象，这个list对象里，存放多个的task。</p>
@@ -597,10 +597,10 @@
 </div>
 </section>
 </section>
-<section id="id5">
-<h2>6. 返回结果不同<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h2>
+<section id="id6">
+<h2>6. 返回结果不同<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h2>
 <section id="asyncio-wait-1">
-<span id="id6"></span><h3>asyncio.wait<a class="headerlink" href="#asyncio-wait-1" title="此标题的永久链接">¶</a></h3>
+<span id="id7"></span><h3>asyncio.wait<a class="headerlink" href="#asyncio-wait-1" title="此标题的永久链接">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">asyncio.wait</span></code> 返回<code class="docutils literal notranslate"><span class="pre">dones</span></code>和<code class="docutils literal notranslate"><span class="pre">pendings</span></code> -
 <code class="docutils literal notranslate"><span class="pre">dones</span></code>：表示已经完成的任务 - <code class="docutils literal notranslate"><span class="pre">pendings</span></code>：表示未完成的任务</p>
 <p>如果我们需要获取，运行结果，需要手工去收集获取。</p>
@@ -612,7 +612,7 @@
 </div>
 </section>
 <section id="asyncio-gather-1">
-<span id="id7"></span><h3>asyncio.gather<a class="headerlink" href="#asyncio-gather-1" title="此标题的永久链接">¶</a></h3>
+<span id="id8"></span><h3>asyncio.gather<a class="headerlink" href="#asyncio-gather-1" title="此标题的永久链接">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">asyncio.gather</span></code> 它会把值直接返回给我们，不需要手工去收集。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
 
@@ -675,7 +675,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="../chapters/p11.html" class="btn btn-neutral float-right" title="第十一章：101-110" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="c10_09.html" class="btn btn-neutral float-left" title="10.9 【并发编程】初识异步IO框架：asyncio 上篇" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="c10_09.html" class="btn btn-neutral float-left" title="099 参加饭局没位置了怎么办" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

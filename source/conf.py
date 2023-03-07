@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'lzk365'
-copyright = '2023, wb'
+copyright = '2023, 365堂说话之道 教你学说话口才训练 卢战卡'
 author = 'wb'
 release = '0.1'
 

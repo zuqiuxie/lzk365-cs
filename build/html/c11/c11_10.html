@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>11.7 【代码美化】使用 flake8 保证代码风格 &mdash; lzk365 0.1 文档</title>
+  <title>110 饭局让人讨厌的7个动作 &mdash; lzk365 0.1 文档</title>
   
 
   
@@ -43,7 +43,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="第十二章：111-120" href="../chapters/p12.html" />
-    <link rel="prev" title="11.7 【代码美化】使用 flake8 保证代码风格" href="c11_09.html" /> 
+    <link rel="prev" title="109 饭局聚会必懂的6个规矩" href="c11_09.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -101,16 +101,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="c11_01.html">11.1 【代码美化】如何更好进行变量的命名？</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_02.html">11.2 【代码美化】写好函数的 6 个建议</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_03.html">11.3 【代码美化】自觉遵守 PEP8 代码风格</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_04.html">11.4 【代码美化】Pythonic 代码的 15 个案例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_05.html">11.5 【代码美化】写出漂亮 Python 代码的 20条准则</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_06.html">11.6 【代码美化】择优选择 EAFP 和 LBYL 代码风格</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_07.html">11.7 【代码美化】使用 flake8 保证代码风格</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_08.html">11.7 【代码美化】使用 flake8 保证代码风格</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c11_09.html">11.7 【代码美化】使用 flake8 保证代码风格</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">11.7 【代码美化】使用 flake8 保证代码风格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_01.html">101 和小人共事的5点建议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_02.html">102 高情商拒绝的4种方式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_03.html">103 搞定暗恋者的聊天法宝</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_04.html">104 遇到别人心情不好的时候，该怎么正确安慰呢？高情商的人(官方无104)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_05.html">105 遇到这4种人，有多远离多远，否则迟早被他们坑死(官方无105)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_06.html">106 高情商四步安慰法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_07.html">107 一定要远离的4种人</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_08.html">108 砍价必赢的“夹心公式”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c11_09.html">109 饭局聚会必懂的6个规矩</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">110 饭局让人讨厌的7个动作</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
@@ -190,7 +190,7 @@
         
           <li><a href="../chapters/p11.html">第十一章：101-110</a> &raquo;</li>
         
-      <li>11.7 【代码美化】使用 flake8 保证代码风格</li>
+      <li>110 饭局让人讨厌的7个动作</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -209,8 +209,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="flake8">
-<h1>11.7 【代码美化】使用 flake8 保证代码风格<a class="headerlink" href="#flake8" title="此标题的永久链接">¶</a></h1>
+  <section id="id1">
+<h1>110 饭局让人讨厌的7个动作<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">pep8</span></code> 是Python
 语言的一个代码编写规范。如若你是新手，目前只想快速掌握基础，而不想过多去注重代码的的编写风格（虽然这很重要），那你可以尝试一下这个工具
 - <code class="docutils literal notranslate"><span class="pre">autopep8</span></code></p>
@@ -247,7 +247,7 @@ Output filters: $FILE_PATH$\:$LINE$\:$COLUMN$\:.*
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="../chapters/p12.html" class="btn btn-neutral float-right" title="第十二章：111-120" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="c11_09.html" class="btn btn-neutral float-left" title="11.7 【代码美化】使用 flake8 保证代码风格" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="c11_09.html" class="btn btn-neutral float-left" title="109 饭局聚会必懂的6个规矩" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

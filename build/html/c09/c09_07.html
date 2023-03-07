@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9.7 【调试技巧】使用 PySnopper 调试疑难杂症 &mdash; lzk365 0.1 文档</title>
+  <title>087 吃饭偶遇领导该不该买单 &mdash; lzk365 0.1 文档</title>
   
 
   
@@ -42,8 +42,8 @@
     
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="9.8 【调试技巧】使用 PyCharm 进行远程调试" href="c09_08.html" />
-    <link rel="prev" title="9.6 【调试技巧】如何调试已经运行的程序？" href="c09_06.html" /> 
+    <link rel="next" title="088 故意找茬的人如何制服他" href="c09_08.html" />
+    <link rel="prev" title="086 鼓励孩子的3种方式" href="c09_06.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,30 +99,30 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="c09_01.html">9.1 【调试技巧】超详细图文教你调试代码</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c09_02.html">9.2 【调试技巧】PyCharm 中指定参数调试程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c09_03.html">9.3 【调试技巧】PyCharm跑完后立即进入调试模式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c09_04.html">9.4 【调试技巧】脚本报错后立即进入调试模式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c09_05.html">9.5 【调试技巧】使用 PDB 进行无界面调试</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c09_06.html">9.6 【调试技巧】如何调试已经运行的程序？</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">9.7 【调试技巧】使用 PySnopper 调试疑难杂症</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">1. 快速安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">2. 简单案例</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">3. 详细使用</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id4">2.1 重定向到日志文件</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">2.2 跟踪非局部变量值</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">2.3 设置跟踪函数的深度</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">2.4 设置调试日志的前缀</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">2.5 设置最大的输出长度</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">2.6 支持多线程调试模式</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">2.7 自定义对象的格式输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_01.html">081 被问工作是否遇到问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_02.html">082 被问最大缺点是什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_03.html">083 同事间别谈论这3个话题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_04.html">084 来闹事的怎么高情商摆平</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_05.html">085 谈加薪2个规避误区</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_06.html">086 鼓励孩子的3种方式</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">087 吃饭偶遇领导该不该买单</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 快速安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2. 简单案例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">3. 详细使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.1 重定向到日志文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.2 跟踪非局部变量值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">2.3 设置跟踪函数的深度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">2.4 设置调试日志的前缀</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">2.5 设置最大的输出长度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">2.6 支持多线程调试模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">2.7 自定义对象的格式输出</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="c09_08.html">9.8 【调试技巧】使用 PyCharm 进行远程调试</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c09_09.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c09_10.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_08.html">088 故意找茬的人如何制服他</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_09.html">089 面试官问离职原因怎么答</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_10.html">090 被问辞职原因不能这么说</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
@@ -204,7 +204,7 @@
         
           <li><a href="../chapters/p09.html">第九章：81-90</a> &raquo;</li>
         
-      <li>9.7 【调试技巧】使用 PySnopper 调试疑难杂症</li>
+      <li>087 吃饭偶遇领导该不该买单</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -223,8 +223,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="pysnopper">
-<h1>9.7 【调试技巧】使用 PySnopper 调试疑难杂症<a class="headerlink" href="#pysnopper" title="此标题的永久链接">¶</a></h1>
+  <section id="id1">
+<h1>087 吃饭偶遇领导该不该买单<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
 <p>对于每个程序开发者来说，调试几乎是必备技能。</p>
 <p>代码写到一半卡住了，不知道这个函数执行完的返回结果是怎样的？调试一下看看</p>
 <p>代码运行到一半报错了，什么情况？怎么跟预期的不一样？调试一下看看</p>
@@ -244,8 +244,8 @@ PyCharm 的远程调试</p></li>
 star，获得大家的一致好评。</p>
 <p><strong>有了这个工具后，就算是小萌新也可以直接无门槛上手，从此与 print
 说再见~</strong></p>
-<section id="id1">
-<h2>1. 快速安装<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<section id="id2">
+<h2>1. 快速安装<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
 <p>执行下面这些命令进行安装 PySnooper</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pysnooper
 
@@ -257,8 +257,8 @@ $<span class="w"> </span>yay<span class="w"> </span>-S<span class="w"> </span>py
 </pre></div>
 </div>
 </section>
-<section id="id2">
-<h2>2. 简单案例<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<section id="id3">
+<h2>2. 简单案例<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
 <p>下面这段代码，定义了一个 demo_func 的函数，在里面生成一个 profile
 的字典变量，然后去更新它，最后返回。</p>
 <p>代码本身没有什么实际意义，但是用来演示 PySnooper 已经足够。</p>
@@ -307,10 +307,10 @@ Elapsed<span class="w"> </span>time:<span class="w"> </span><span class="m">00</
 <p>而作为开发者，要得到这些如此详细的调试信息，你需要做的非常简单，只要给你想要调试的函数上带上一顶帽子（装饰器）
 – <code class="docutils literal notranslate"><span class="pre">&#64;pysnooper.snoop()</span></code> 即可。</p>
 </section>
-<section id="id3">
-<h2>3. 详细使用<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
 <section id="id4">
-<h3>2.1 重定向到日志文件<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h3>
+<h2>3. 详细使用<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<section id="id5">
+<h3>2.1 重定向到日志文件<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">&#64;pysnooper.snoop()</span></code>
 不加任何参数时，会默认将调试的信息输出到标准输出。</p>
 <p>对于单次调试就能解决的 BUG ，这样没有什么问题，但是有一些 BUG
@@ -322,8 +322,8 @@ Elapsed<span class="w"> </span>time:<span class="w"> </span><span class="m">00</
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h3>2.2 跟踪非局部变量值<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h3>
+<section id="id6">
+<h3>2.2 跟踪非局部变量值<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h3>
 <p>PySnooper
 是以函数为单位进行调试的，它默认只会跟踪函数体内的局部变量，若想跟踪全局变量，可以给
 <code class="docutils literal notranslate"><span class="pre">&#64;pysnooper.snoop()</span></code> 加上 <code class="docutils literal notranslate"><span class="pre">watch</span></code> 参数</p>
@@ -351,8 +351,8 @@ tuple），里面的元素为字符串表达式，什么意思呢？看下面例
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3>2.3 设置跟踪函数的深度<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h3>
+<section id="id7">
+<h3>2.3 设置跟踪函数的深度<a class="headerlink" href="#id7" title="此标题的永久链接">¶</a></h3>
 <p>当你使用 PySnooper 调试某个函数时，若该函数中还调用了其他函数，PySnooper
 是不会傻傻的跟踪进去的。</p>
 <p>如果你想继续跟踪该函数中调用的其他函数，可以通过指定 <code class="docutils literal notranslate"><span class="pre">depth</span></code>
@@ -363,8 +363,8 @@ tuple），里面的元素为字符串表达式，什么意思呢？看下面例
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h3>2.4 设置调试日志的前缀<a class="headerlink" href="#id7" title="此标题的永久链接">¶</a></h3>
+<section id="id8">
+<h3>2.4 设置调试日志的前缀<a class="headerlink" href="#id8" title="此标题的永久链接">¶</a></h3>
 <p>当你在使用 PySnooper
 跟踪多个函数时，调试的日志会显得杂乱无章，不方便查看。</p>
 <p>在这种情况下，PySnooper
@@ -377,8 +377,8 @@ tuple），里面的元素为字符串表达式，什么意思呢？看下面例
 <p>效果如下</p>
 <img alt="http://image.iswbm.com/20201114193131.png" src="http://image.iswbm.com/20201114193131.png" />
 </section>
-<section id="id8">
-<h3>2.5 设置最大的输出长度<a class="headerlink" href="#id8" title="此标题的永久链接">¶</a></h3>
+<section id="id9">
+<h3>2.5 设置最大的输出长度<a class="headerlink" href="#id9" title="此标题的永久链接">¶</a></h3>
 <p>默认情况下，PySnooper 输出的变量和异常信息，如果超过 100
 个字符，被会截断为 100 个字符。</p>
 <p>当然你也可以通过指定参数 进行修改</p>
@@ -394,8 +394,8 @@ def demo_func():
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3>2.6 支持多线程调试模式<a class="headerlink" href="#id9" title="此标题的永久链接">¶</a></h3>
+<section id="id10">
+<h3>2.6 支持多线程调试模式<a class="headerlink" href="#id10" title="此标题的永久链接">¶</a></h3>
 <p>PySnooper 同样支持多线程的调试，通过设置参数
 <code class="docutils literal notranslate"><span class="pre">thread_info=True</span></code>，它就会在日志中打印出是在哪个线程对变量进行的修改。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">thread_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -406,8 +406,8 @@ def demo_func():
 <p>效果如下</p>
 <img alt="http://image.iswbm.com/20201114194449.png" src="http://image.iswbm.com/20201114194449.png" />
 </section>
-<section id="id10">
-<h3>2.7 自定义对象的格式输出<a class="headerlink" href="#id10" title="此标题的永久链接">¶</a></h3>
+<section id="id11">
+<h3>2.7 自定义对象的格式输出<a class="headerlink" href="#id11" title="此标题的永久链接">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">pysnooper.snoop()</span></code> 函数有一个参数是
 <code class="docutils literal notranslate"><span class="pre">custom_repr</span></code>，它接收一个元组对象。</p>
 <p>在这个元组里，你可以指定特定类型的对象以特定格式进行输出。</p>
@@ -499,8 +499,8 @@ def demo_func():
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="c09_08.html" class="btn btn-neutral float-right" title="9.8 【调试技巧】使用 PyCharm 进行远程调试" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="c09_06.html" class="btn btn-neutral float-left" title="9.6 【调试技巧】如何调试已经运行的程序？" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="c09_08.html" class="btn btn-neutral float-right" title="088 故意找茬的人如何制服他" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c09_06.html" class="btn btn-neutral float-left" title="086 鼓励孩子的3种方式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

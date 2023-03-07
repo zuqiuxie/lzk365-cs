@@ -2,9 +2,9 @@
 关于作者
 ==============
 
-* 姓名：     王彬
-* 微信：     dz303241
-* 公众号：   《Python编程时光》&《Go编程时光》
+* 姓名：     彬少
+* 微信：     .......
+* 公众号：   《彬彬有礼的彬彬》
 * Email：    admin@wangbin.org
 * GitHub：   https://github.com/zuqiuxie
 
