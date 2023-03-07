@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>13.1 【静态检查】mypy 的使用 &mdash; lzk365 0.1 文档</title>
+  <title>231 会说话，走遍天下都不怕 &mdash; lzk365 0.1 文档</title>
   
 
   
@@ -42,7 +42,7 @@
     
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="13.2 【代码测试】pytest 的使用" href="c24_02.html" />
+    <link rel="next" title="232 会说话，走遍天下都不怕" href="c24_02.html" />
     <link rel="prev" title="第二十四章：231-240" href="../chapters/p24.html" /> 
 </head>
 
@@ -114,20 +114,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13.1 【静态检查】mypy 的使用</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">1. 有问题的代码</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">2. 添加类型标注</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">231 会说话，走遍天下都不怕</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 有问题的代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2. 添加类型标注</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="c24_02.html">13.2 【代码测试】pytest 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_03.html">13.3 【代码提交】pre-commit hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_04.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_05.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_06.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_07.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_08.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_09.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c24_10.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_02.html">232 会说话，走遍天下都不怕</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_03.html">233 会说话，走遍天下都不怕</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_04.html">234 会说话，走遍天下都不怕用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_05.html">235 会说话，走遍天下都不怕用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_06.html">236 会说话，走遍天下都不怕用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_07.html">237 会说话，走遍天下都不怕用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_08.html">238 会说话，走遍天下都不怕用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_09.html">239 会说话，走遍天下都不怕用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c24_10.html">240 会说话，走遍天下都不怕用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
@@ -142,6 +142,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p37.html">第三十六章：361-365</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
@@ -194,7 +195,7 @@
         
           <li><a href="../chapters/p24.html">第二十四章：231-240</a> &raquo;</li>
         
-      <li>13.1 【静态检查】mypy 的使用</li>
+      <li>231 会说话，走遍天下都不怕</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -213,16 +214,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="mypy">
-<h1>13.1 【静态检查】mypy 的使用<a class="headerlink" href="#mypy" title="此标题的永久链接">¶</a></h1>
+  <section id="id1">
+<h1>231 会说话，走遍天下都不怕<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
 <p>Python 3.6以后，允许为参数和函数返回类型添加类型标注（type hinting）。</p>
 <p>这就为程序进行静态类型检查提供了可能，mypy就是一个利用类型注解对python代码进行静态类型检查的工具。</p>
 <p>使用pip安装</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>mypy
 </pre></div>
 </div>
-<section id="id1">
-<h2>1. 有问题的代码<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<section id="id2">
+<h2>1. 有问题的代码<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
 <p>下面的代码在执行时不会报任何错误，但严格来讲是存在问题的。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Stu</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
@@ -242,8 +243,8 @@
 <p>在创建Stu实例时，age参数应该传入int类型数据。但由于python是动态类型语言，因此，传入float或者字符串都不会引发错误，除非在后续的属性使用中对类型有明确要求。</p>
 <p>这样的代码是不安全的，在程序运行前，可以通过静态类型检查来发现问题，这需要类型标注的帮助</p>
 </section>
-<section id="id2">
-<h2>2. 添加类型标注<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<section id="id3">
+<h2>2. 添加类型标注<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
 <p>将上面的代码修改成如下</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Stu</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -278,7 +279,7 @@ Found<span class="w"> </span><span class="m">2</span><span class="w"> </span>err
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="c24_02.html" class="btn btn-neutral float-right" title="13.2 【代码测试】pytest 的使用" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c24_02.html" class="btn btn-neutral float-right" title="232 会说话，走遍天下都不怕" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../chapters/p24.html" class="btn btn-neutral float-left" title="第二十四章：231-240" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
@@ -286,7 +287,7 @@ Found<span class="w"> </span><span class="m">2</span><span class="w"> </span>err
 
   <div role="contentinfo">
     <p>
-        &#169; 版权所有 2023, wb.
+        &#169; 版权所有 2023, 365堂说话之道 教你学说话口才训练 卢战卡.
 
     </p>
   </div>

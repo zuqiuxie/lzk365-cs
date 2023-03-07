@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>13.2 【代码测试】pytest 的使用 &mdash; lzk365 0.1 文档</title>
+  <title>162 4招教你赢得丈母娘芳心 &mdash; lzk365 0.1 文档</title>
   
 
   
@@ -42,8 +42,8 @@
     
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="13.3 【代码提交】pre-commit hook" href="c17_03.html" />
-    <link rel="prev" title="13.1 【静态检查】mypy 的使用" href="c17_01.html" /> 
+    <link rel="next" title="163 被人请客吃饭，这3件事一定不要做，否则会被人认为“不" href="c17_03.html" />
+    <link rel="prev" title="161 孩子早恋，家长如何沟通" href="c17_01.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -107,11 +107,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="c17_01.html">13.1 【静态检查】mypy 的使用</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13.2 【代码测试】pytest 的使用</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">1. 基本使用</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">用例查找规则</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">调用 pytest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_01.html">161 孩子早恋，家长如何沟通</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">162 4招教你赢得丈母娘芳心</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">用例查找规则</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pytest">调用 pytest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">部分参数介绍</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">执行选择用例</a></li>
 </ul>
@@ -132,14 +132,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#id12">8. 参考资料</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="c17_03.html">13.3 【代码提交】pre-commit hook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c17_04.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c17_05.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c17_06.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c17_07.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c17_08.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c17_09.html">13.4 【项目生成】cookiecutter 的使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="c17_10.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_03.html">163 被人请客吃饭，这3件事一定不要做，否则会被人认为“不</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_04.html">164 职场上，有4种话题禁区！你中了几个？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_05.html">165 发现孩子早恋了，家长该怎么办？教你一个3步沟通法！</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_06.html">166 如何赢得丈母娘的欢心，让她赶着把女儿嫁给你？教你4招</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_07.html">167 领导说“看着办吧”，你到底该怎么办？注意别踩到这些雷</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_08.html">168 老实人不善于社交？学会这3种场面话，你也能做一个“场</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_09.html">169 非工作时间收到领导微信，装没看见还是及时回复？.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c17_10.html">170 领导问你周末有空吗？如何回答才能让领导高兴，同时又不</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
@@ -161,6 +161,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p37.html">第三十六章：361-365</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
@@ -213,7 +214,7 @@
         
           <li><a href="../chapters/p17.html">第十七章：161-170</a> &raquo;</li>
         
-      <li>13.2 【代码测试】pytest 的使用</li>
+      <li>162 4招教你赢得丈母娘芳心</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -232,8 +233,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="pytest">
-<h1>13.2 【代码测试】pytest 的使用<a class="headerlink" href="#pytest" title="此标题的永久链接">¶</a></h1>
+  <section id="id1">
+<h1>162 4招教你赢得丈母娘芳心<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
 <blockquote>
 <div><p>转载自：<a class="reference external" href="http://kuanghy.github.io/2018/05/08/pytest">http://kuanghy.github.io/2018/05/08/pytest</a></p>
 </div></blockquote>
@@ -243,13 +244,13 @@
 nose, unittest 和 doctest 风格的测试用例，甚至 Django 和
 trial。支持良好的集成实践， 支持扩展的 xUnit 风格 setup，支持非 python
 测试。支持生成测试覆盖率报告，支持 PEP8 兼容的编码风格。</p>
-<section id="id1">
-<h2>1. 基本使用<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<section id="id2">
+<h2>1. 基本使用<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">file_or_dir</span><span class="p">]</span> <span class="p">[</span><span class="n">file_or_dir</span><span class="p">]</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </pre></div>
 </div>
-<section id="id2">
-<h3>用例查找规则<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h3>
+<section id="id3">
+<h3>用例查找规则<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h3>
 <p>如果不带参数运行
 pytest，那么其先从配置文件(pytest.ini，tox.ini，setup.cfg)中查找配置项
 <code class="docutils literal notranslate"><span class="pre">testpaths</span></code> 指定的路径中的 test
@@ -266,8 +267,8 @@ case，如果没有则从当前目录开始查找，否者，命令行参数就�
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<h3>调用 pytest<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h3>
+<section id="pytest">
+<h3>调用 pytest<a class="headerlink" href="#pytest" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>py.test：</p></li>
 </ul>
@@ -833,15 +834,15 @@ test_marker.py::test_one FAILED
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="c17_03.html" class="btn btn-neutral float-right" title="13.3 【代码提交】pre-commit hook" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="c17_01.html" class="btn btn-neutral float-left" title="13.1 【静态检查】mypy 的使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="c17_03.html" class="btn btn-neutral float-right" title="163 被人请客吃饭，这3件事一定不要做，否则会被人认为“不" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c17_01.html" class="btn btn-neutral float-left" title="161 孩子早恋，家长如何沟通" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; 版权所有 2023, wb.
+        &#169; 版权所有 2023, 365堂说话之道 教你学说话口才训练 卢战卡.
 
     </p>
   </div>
