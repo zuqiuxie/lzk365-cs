@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10.9 【并发编程】初识异步IO框架：asyncio 上篇 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="10.10 【并发编程】深入异步IO框架：asyncio 中篇" href="c10_10.html" />
+    <link rel="prev" title="10.8 【并发编程】深入理解yield from语法" href="c10_08.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c10_01.html">10.1 【并发编程】从性能角度初探并发编程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_02.html">10.2 【并发编程】创建多线程的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_03.html">10.3 【并发编程】谈谈线程中的“锁机制”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_05.html">10.5 【并发编程】线程中的信息隔离</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_07.html">10.7 【并发编程】从 yield 开始入门协程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 如何定义/创建协程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asyncio">2. asyncio的几个概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">3. 学习协程是如何工作的</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awaityield">4. await与yield对比</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">5. 绑定回调函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c10_10.html">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
+        
+      <li>10.9 【并发编程】初识异步IO框架：asyncio 上篇</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c10/c10_09.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="io-asyncio">
+<h1>10.9 【并发编程】初识异步IO框架：asyncio 上篇<a class="headerlink" href="#io-asyncio" title="此标题的永久链接">¶</a></h1>
+<p>通过前两节的铺垫（关于协程的使用），今天我们终于可以来介绍我们整个系列的重点
+– <code class="docutils literal notranslate"><span class="pre">asyncio</span></code>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">asyncio</span></code>是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。</p>
+<p>有些同学，可能很疑惑，既然有了以生成器为基础的协程，我们直接使用<code class="docutils literal notranslate"><span class="pre">yield</span></code>
+和 <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> 不就可以手动实现对IO的调度了吗？
+为何Python吃饱了没事干，老重复造轮子。</p>
+<p>这个问题很好回答，就跟为什么会有<code class="docutils literal notranslate"><span class="pre">Django</span></code>，为什么会有<code class="docutils literal notranslate"><span class="pre">Scrapy</span></code>，是一个道理。</p>
+<p>他们都是框架，将很多很重复性高，复杂度高的工作，提前给你做好，这样你就可以专注于业务代码的研发。</p>
+<p>跟着小明学完了协程的那些个难点，你是不是也发现了，协程的知识点我已经掌握了，但是我还是不知道怎么用，如何使用，都说它可以实现并发，但是我还是不知道如何入手？</p>
+<p>那是因为，我们现在还缺少一个成熟的框架，帮助你完成那些复杂的动作。这个时候，<code class="docutils literal notranslate"><span class="pre">ayncio</span></code>就这么应运而生了。</p>
+<section id="id1">
+<h2>1. 如何定义/创建协程<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>还记得在前两章节的时候，我们创建了生成器，是如何去检验我们创建的是不是生成器对象吗？</p>
+<p>我们是借助了<code class="docutils literal notranslate"><span class="pre">isinstance()</span></code>函数，来判断是否是<code class="docutils literal notranslate"><span class="pre">collections.abc</span></code>
+里的<code class="docutils literal notranslate"><span class="pre">Generator</span></code>类的子类实现的。</p>
+<p>同样的方法，我们也可以用在这里。</p>
+<p>只要在一个函数前面加上 <code class="docutils literal notranslate"><span class="pre">async</span></code>
+关键字，这个函数对象是一个协程，通过<code class="docutils literal notranslate"><span class="pre">isinstance</span></code>函数，它确实是<code class="docutils literal notranslate"><span class="pre">Coroutine</span></code>类型。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Coroutine</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello,&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># 生成协程对象，并不会运行函数内的代码</span>
+    <span class="n">coroutine</span> <span class="o">=</span> <span class="n">hello</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 检查是否是协程 Coroutine 类型</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">coroutine</span><span class="p">,</span> <span class="n">Coroutine</span><span class="p">))</span>  <span class="c1"># True</span>
+</pre></div>
+</div>
+<p>前两节，我们说，生成器是协程的基础，那我们是不是有办法，将一个生成器，直接变成协程使用呢。答案是有的。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Coroutine</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">只要在一个生成器函数头部用上 @asyncio.coroutine 装饰器</span>
+<span class="sd">就能将这个函数对象，【标记】为协程对象。注意这里是【标记】，划重点。</span>
+<span class="sd">实际上，它的本质还是一个生成器。</span>
+<span class="sd">标记后，它实际上已经可以当成协程使用。后面会介绍。</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="nd">@asyncio</span><span class="o">.</span><span class="n">coroutine</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="c1"># 异步调用asyncio.sleep(1):</span>
+    <span class="k">yield from</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">coroutine</span> <span class="o">=</span> <span class="n">hello</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">coroutine</span><span class="p">,</span> <span class="n">Generator</span><span class="p">))</span>  <span class="c1"># True</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">coroutine</span><span class="p">,</span> <span class="n">Coroutine</span><span class="p">))</span>  <span class="c1"># False</span>
+</pre></div>
+</div>
+</section>
+<section id="asyncio">
+<h2>2. asyncio的几个概念<a class="headerlink" href="#asyncio" title="此标题的永久链接">¶</a></h2>
+<p>在了解<code class="docutils literal notranslate"><span class="pre">asyncio</span></code>的使用方法前，首先有必要先介绍一下，这几个贯穿始终的概念。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">event_loop</span> <span class="pre">事件循环</span></code>：程序开启一个无限的循环，程序员会把一些函数（协程）注册到事件循环上。当满足事件发生的时候，调用相应的协程函数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coroutine</span> <span class="pre">协程</span></code>：协程对象，指一个使用async关键字定义的函数，它的调用不会立即执行函数，而是会返回一个协程对象。协程对象需要注册到事件循环，由事件循环调用。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">future</span> <span class="pre">对象</span></code>：
+代表将来执行或没有执行的任务的结果。它和task上没有本质的区别</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">任务</span></code>：一个协程对象就是一个原生可以挂起的函数，任务则是对协程进一步封装，其中包含任务的各种状态。Task
+对象是 Future 的子类，它将 coroutine 和 Future 联系在一起，将
+coroutine 封装成一个 Future 对象。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">async/await</span> <span class="pre">关键字</span></code>：python3.5
+用于定义协程的关键字，async定义一个协程，await用于挂起阻塞的异步调用接口。其作用在一定程度上类似于yield。</p></li>
+</ul>
+<p>这几个概念，干看可能很难以理解，没事，往下看实例，然后再回来，我相信你一定能够理解。</p>
+</section>
+<section id="id2">
+<h2>3. 学习协程是如何工作的<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>协程完整的工作流程是这样的 - 定义/创建协程对象 - 将协程转为task任务 -
+定义事件循环对象容器 - 将task任务扔进事件循环对象中触发</p>
+<p>光说不练假把戏，一起来看下</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello,&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="c1"># 定义协程对象</span>
+<span class="n">coroutine</span> <span class="o">=</span> <span class="n">hello</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+
+<span class="c1"># 定义事件循环对象容器</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="c1"># task = asyncio.ensure_future(coroutine)</span>
+
+<span class="c1"># 将协程转为task任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coroutine</span><span class="p">)</span>
+
+<span class="c1"># 将task任务扔进事件循环对象中并触发</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出结果，当然显而易见</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hello</span><span class="p">,</span> <span class="n">World</span>
+</pre></div>
+</div>
+</section>
+<section id="awaityield">
+<h2>4. await与yield对比<a class="headerlink" href="#awaityield" title="此标题的永久链接">¶</a></h2>
+<p>前面我们说，<code class="docutils literal notranslate"><span class="pre">await</span></code>用于挂起阻塞的异步调用接口。其作用在<code class="docutils literal notranslate"><span class="pre">一定程度上</span></code>类似于yield。</p>
+<p>注意这里是，一定程度上，意思是效果上一样（都能实现暂停的效果），但是功能上却不兼容。就是你不能在生成器中使用<code class="docutils literal notranslate"><span class="pre">await</span></code>，也不能在async
+定义的协程中使用<code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code>。</p>
+<p>小明不是胡说八道的。有实锤。 <img alt="普通函数中 不能使用 await" src="https://i.loli.net/2018/05/26/5b09794f45340.png" /> 再来一锤。
+<img alt="async 中 不能使用yield" src="https://i.loli.net/2018/05/26/5b0978b646230.png" /></p>
+<p>除此之外呢，还有一点很重要的。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> 后面可接
+<code class="docutils literal notranslate"><span class="pre">可迭代对象</span></code>，也可接<code class="docutils literal notranslate"><span class="pre">future对象</span></code>/协程对象；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">await</span></code> 后面必须要接 <code class="docutils literal notranslate"><span class="pre">future对象</span></code>/<code class="docutils literal notranslate"><span class="pre">协程对象</span></code></p></li>
+</ul>
+<p>如何验证呢？</p>
+<p><code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> 后面可接
+<code class="docutils literal notranslate"><span class="pre">可迭代对象</span></code>，这个前两章已经说过了，这里不再赘述。
+接下来，就只要验证，<code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code>和<code class="docutils literal notranslate"><span class="pre">await</span></code>都可以接<code class="docutils literal notranslate"><span class="pre">future对象</span></code>/<code class="docutils literal notranslate"><span class="pre">协程对象</span></code>就可以了。</p>
+<p>验证之前呢，要先介绍一下这个函数：
+<code class="docutils literal notranslate"><span class="pre">asyncio.sleep(n)</span></code>，这货是asyncio自带的工具函数，他可以模拟IO阻塞，他返回的是一个协程对象。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">Future</span><span class="p">))</span>      <span class="c1"># False</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">Coroutine</span><span class="p">))</span>   <span class="c1"># True</span>
+</pre></div>
+</div>
+<p>还有，要学习如何创建<code class="docutils literal notranslate"><span class="pre">Future对象</span></code>，不然怎么验证。
+前面概念里说过，Task是Future的子类，这么说，我们只要创建一个task对象即可。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">asyncio.futures</span> <span class="kn">import</span> <span class="n">Future</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello, &#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="n">coroutine</span> <span class="o">=</span> <span class="n">hello</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+
+<span class="c1"># 将协程转为task对象</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">Future</span><span class="p">))</span>   <span class="c1"># True</span>
+</pre></div>
+</div>
+<p>好了，接下来，开始验证。 <img alt="验证通过" src="https://i.loli.net/2018/05/26/5b09814dc4714.png" /></p>
+</section>
+<section id="id3">
+<h2>5. 绑定回调函数<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>异步IO的实现原理，就是在IO高的地方挂起，等IO结束后，再继续执行。在绝大部分时候，我们后续的代码的执行是需要依赖IO的返回值的，这就要用到回调了。</p>
+<p>回调的实现，有两种，一种是绝大部分程序员喜欢的，利用的同步编程实现的回调。
+这就要求我们要能够有办法取得协程的await的返回值。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">_sleep</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;暂停了</span><span class="si">{}</span><span class="s1">秒！&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+<span class="n">coroutine</span> <span class="o">=</span> <span class="n">_sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="c1"># task.result() 可以取得返回结果</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;返回结果：</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>输出</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>返回结果：暂停了2秒！
+</pre></div>
+</div>
+<p>还有一种是通过asyncio自带的添加回调函数功能来实现。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">_sleep</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;暂停了</span><span class="si">{}</span><span class="s1">秒！&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">future</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;这里是回调函数，获取返回结果是：&#39;</span><span class="p">,</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+
+<span class="n">coroutine</span> <span class="o">=</span> <span class="n">_sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine</span><span class="p">)</span>
+
+<span class="c1"># 添加回调函数</span>
+<span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>这里是回调函数，获取返回结果是： 暂停了2秒！
+</pre></div>
+</div>
+<p>和上面的结果是一样的。非常好。</p>
+<hr class="docutils" />
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c10_10.html" class="btn btn-neutral float-right" title="10.10 【并发编程】深入异步IO框架：asyncio 中篇" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c10_08.html" class="btn btn-neutral float-left" title="10.8 【并发编程】深入理解yield from语法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

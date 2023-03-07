@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10.10 【并发编程】深入异步IO框架：asyncio 中篇 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="第十一章：101-110" href="../chapters/p11.html" />
+    <link rel="prev" title="10.9 【并发编程】初识异步IO框架：asyncio 上篇" href="c10_09.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c10_01.html">10.1 【并发编程】从性能角度初探并发编程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_02.html">10.2 【并发编程】创建多线程的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_03.html">10.3 【并发编程】谈谈线程中的“锁机制”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_05.html">10.5 【并发编程】线程中的信息隔离</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_07.html">10.7 【并发编程】从 yield 开始入门协程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_09.html">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 协程中的并发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 协程中的嵌套</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 协程中的状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gatherwait">4. gather与wait</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">5. 接收参数方式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#asyncio-wait">asyncio.wait</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asyncio-gather">asyncio.gather</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">6. 返回结果不同</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#asyncio-wait-1">asyncio.wait</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asyncio-gather-1">asyncio.gather</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#wait">7. wait有控制功能</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
+        
+      <li>10.10 【并发编程】深入异步IO框架：asyncio 中篇</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c10/c10_10.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="io-asyncio">
+<h1>10.10 【并发编程】深入异步IO框架：asyncio 中篇<a class="headerlink" href="#io-asyncio" title="此标题的永久链接">¶</a></h1>
+<p>今天的内容其实还挺多的，我准备了三天，到今天才整理完毕。希望大家看完，有所收获的，能给小明一个赞。这就是对小明最大的鼓励了。
+为了更好地衔接这一节，我们先来回顾一下上一节的内容。</p>
+<p>上一节，我们首先介绍了，如何创建一个协程对象. 主要有两种方法</p>
+<ul class="simple">
+<li><p>通过<code class="docutils literal notranslate"><span class="pre">async</span></code>关键字，</p></li>
+<li><p>通过<code class="docutils literal notranslate"><span class="pre">&#64;asyncio.coroutine</span></code> 装饰函数。</p></li>
+</ul>
+<p>然后有了协程对象，就需要一个事件循环容器来运行我们的协程。其主要的步骤有如下几点：
+- 将协程对象转为task任务对象 - 定义一个事件循环对象容器用来存放task -
+将task任务扔进事件循环对象中并触发</p>
+<p>为了让大家，对生成器和协程有一个更加清晰的认识，我还介绍了<code class="docutils literal notranslate"><span class="pre">yield</span></code>和<code class="docutils literal notranslate"><span class="pre">async/await</span></code>的区别。</p>
+<p>最后，我们还讲了，如何给一个协程添加回调函数。</p>
+<p>好了，用个形象的比喻，上一节，其实就只是讲了协程中的<code class="docutils literal notranslate"><span class="pre">单任务</span></code>。哈哈，是不是还挺难的？希望大家一定要多看几遍，多敲代码，不要光看。</p>
+<p>那么这一节，我们就来看下，协程中的<code class="docutils literal notranslate"><span class="pre">多任务</span></code>。</p>
+<section id="id1">
+<h2>1. 协程中的并发<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>协程的并发，和线程一样。举个例子来说，就好像
+一个人同时吃三个馒头，咬了第一个馒头一口，就得等这口咽下去，才能去啃第其他两个馒头。就这样交替换着吃。</p>
+<p><code class="docutils literal notranslate"><span class="pre">asyncio</span></code>实现并发，就需要多个协程来完成任务，每当有任务阻塞的时候就await，然后其他协程继续工作。</p>
+<p>第一步，当然是创建多个协程的列表。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 协程函数</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">do_some_work</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Waiting: &#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;Done after </span><span class="si">{}</span><span class="s1">s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 协程对象</span>
+<span class="n">coroutine1</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">coroutine2</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">coroutine3</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># 将协程转成task，并组成list</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine1</span><span class="p">),</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine2</span><span class="p">),</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine3</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>第二步，如何将这些协程注册到事件循环中呢。</p>
+<p>有两种方法，至于这两种方法什么区别，稍后会介绍。 -
+使用<code class="docutils literal notranslate"><span class="pre">asyncio.wait()</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">asyncio.gather()</span></code></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 千万注意，这里的 「*」 不能省略</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>最后，return的结果，可以用<code class="docutils literal notranslate"><span class="pre">task.result()</span></code>查看。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task ret: &#39;</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>完整代码如下</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 协程函数</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">do_some_work</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Waiting: &#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;Done after </span><span class="si">{}</span><span class="s1">s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 协程对象</span>
+<span class="n">coroutine1</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">coroutine2</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">coroutine3</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># 将协程转成task，并组成list</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine1</span><span class="p">),</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine2</span><span class="p">),</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine3</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task ret: &#39;</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>输出结果</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Waiting</span><span class="p">:</span>  <span class="mi">1</span>
+<span class="n">Waiting</span><span class="p">:</span>  <span class="mi">2</span>
+<span class="n">Waiting</span><span class="p">:</span>  <span class="mi">4</span>
+<span class="n">Task</span> <span class="n">ret</span><span class="p">:</span>  <span class="n">Done</span> <span class="n">after</span> <span class="mi">1</span><span class="n">s</span>
+<span class="n">Task</span> <span class="n">ret</span><span class="p">:</span>  <span class="n">Done</span> <span class="n">after</span> <span class="mi">2</span><span class="n">s</span>
+<span class="n">Task</span> <span class="n">ret</span><span class="p">:</span>  <span class="n">Done</span> <span class="n">after</span> <span class="mi">4</span><span class="n">s</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>2. 协程中的嵌套<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>使用async可以定义协程，协程用于耗时的io操作，我们也可以封装更多的io操作过程，这样就实现了嵌套的协程，即一个协程中await了另外一个协程，如此连接起来。</p>
+<p>来看个例子。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 用于内部的协程函数</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">do_some_work</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Waiting: &#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;Done after </span><span class="si">{}</span><span class="s1">s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 外部的协程函数</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建三个协程对象</span>
+    <span class="n">coroutine1</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">coroutine2</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">coroutine3</span> <span class="o">=</span> <span class="n">do_some_work</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># 将协程转为task，并组成list</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine1</span><span class="p">),</span>
+        <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine2</span><span class="p">),</span>
+        <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">coroutine3</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="c1"># 【重点】：await 一个task列表（协程）</span>
+    <span class="c1"># dones：表示已经完成的任务</span>
+    <span class="c1"># pendings：表示未完成的任务</span>
+    <span class="n">dones</span><span class="p">,</span> <span class="n">pendings</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">dones</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task ret: &#39;</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>如果这边，使用的是<code class="docutils literal notranslate"><span class="pre">asyncio.gather()</span></code>，是这么用的</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 注意这边返回结果，与await不一样</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task ret: &#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出还是一样的。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Waiting</span><span class="p">:</span>  <span class="mi">1</span>
+<span class="n">Waiting</span><span class="p">:</span>  <span class="mi">2</span>
+<span class="n">Waiting</span><span class="p">:</span>  <span class="mi">4</span>
+<span class="n">Task</span> <span class="n">ret</span><span class="p">:</span>  <span class="n">Done</span> <span class="n">after</span> <span class="mi">1</span><span class="n">s</span>
+<span class="n">Task</span> <span class="n">ret</span><span class="p">:</span>  <span class="n">Done</span> <span class="n">after</span> <span class="mi">2</span><span class="n">s</span>
+<span class="n">Task</span> <span class="n">ret</span><span class="p">:</span>  <span class="n">Done</span> <span class="n">after</span> <span class="mi">4</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>仔细查看，可以发现这个例子完全是由
+上面「<code class="docutils literal notranslate"><span class="pre">协程中的并发</span></code>」例子改编而来。结果完全一样。只是把创建协程对象，转换task任务，封装成在一个协程函数里而已。外部的协程，嵌套了一个内部的协程。</p>
+<p>其实你如果去看下<code class="docutils literal notranslate"><span class="pre">asyncio.await()</span></code>的源码的话，你会发现下面这种写法</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>看似没有嵌套，实际上内部也是嵌套的。</p>
+<p>这里也把源码，贴出来，有兴趣可以看下，没兴趣，可以直接跳过。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 内部协程函数</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">_wait</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">return_when</span><span class="p">,</span> <span class="n">loop</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">fs</span><span class="p">,</span> <span class="s1">&#39;Set of Futures is empty.&#39;</span>
+    <span class="n">waiter</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_future</span><span class="p">()</span>
+    <span class="n">timeout_handle</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">timeout_handle</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">call_later</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="n">_release_waiter</span><span class="p">,</span> <span class="n">waiter</span><span class="p">)</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_completion</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="k">nonlocal</span> <span class="n">counter</span>
+        <span class="n">counter</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span>
+            <span class="n">return_when</span> <span class="o">==</span> <span class="n">FIRST_COMPLETED</span> <span class="ow">or</span>
+            <span class="n">return_when</span> <span class="o">==</span> <span class="n">FIRST_EXCEPTION</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span> <span class="ow">and</span>
+                                                <span class="n">f</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">timeout_handle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">timeout_handle</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">waiter</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+                <span class="n">waiter</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">_on_completion</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">waiter</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">timeout_handle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">timeout_handle</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+    <span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">remove_done_callback</span><span class="p">(</span><span class="n">_on_completion</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+            <span class="n">done</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pending</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">done</span><span class="p">,</span> <span class="n">pending</span>
+
+<span class="c1"># 外部协程函数</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">ALL_COMPLETED</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">futures</span><span class="o">.</span><span class="n">isfuture</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span> <span class="ow">or</span> <span class="n">coroutines</span><span class="o">.</span><span class="n">iscoroutine</span><span class="p">(</span><span class="n">fs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expect a list of futures, not </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fs</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Set of coroutines/Futures is empty.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">return_when</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">FIRST_COMPLETED</span><span class="p">,</span> <span class="n">FIRST_EXCEPTION</span><span class="p">,</span> <span class="n">ALL_COMPLETED</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid return_when value: </span><span class="si">{</span><span class="n">return_when</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">loop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">loop</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+    <span class="n">fs</span> <span class="o">=</span> <span class="p">{</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">fs</span><span class="p">)}</span>
+    <span class="c1"># 【重点】：await一个内部协程</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="n">_wait</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">return_when</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>3. 协程中的状态<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>还记得我们在讲生成器的时候，有提及过生成器的状态。同样，在协程这里，我们也了解一下协程（准确的说，应该是Future对象，或者Task任务）有哪些状态。</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">Pending</span></code>：创建future，还未执行
+<code class="docutils literal notranslate"><span class="pre">Running</span></code>：事件循环正在调用执行任务 <code class="docutils literal notranslate"><span class="pre">Done</span></code>：任务执行完毕
+<code class="docutils literal notranslate"><span class="pre">Cancelled</span></code>：Task被取消后的状态</p>
+</div></blockquote>
+<p>可手工 <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">xx.py</span></code> 执行这段代码，</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running in the loop...&quot;</span><span class="p">)</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">flag</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;F:</span><span class="se">\\</span><span class="s2">test.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;------&quot;</span><span class="p">)</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stop the loop&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">coroutine</span> <span class="o">=</span> <span class="n">hello</span><span class="p">()</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coroutine</span><span class="p">)</span>
+
+    <span class="c1"># Pending：未执行状态</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">task</span><span class="p">,))</span>
+        <span class="c1"># t1.daemon = True</span>
+        <span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># Running：运行中状态</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+        <span class="n">t1</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># 取消任务</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+        <span class="c1"># Cacelled：取消任务</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>顺利执行的话，将会打印 <code class="docutils literal notranslate"><span class="pre">Pending</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Pending：Runing</span></code> -&gt;
+<code class="docutils literal notranslate"><span class="pre">Finished</span></code> 的状态变化</p>
+<p>假如，执行后 立马按下 Ctrl+C，则会触发task取消，就会打印 <code class="docutils literal notranslate"><span class="pre">Pending</span></code> -&gt;
+<code class="docutils literal notranslate"><span class="pre">Cancelling</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Cancelling</span></code> 的状态变化。</p>
+</section>
+<section id="gatherwait">
+<h2>4. gather与wait<a class="headerlink" href="#gatherwait" title="此标题的永久链接">¶</a></h2>
+<p>还记得上面我说，把多个协程注册进一个事件循环中有两种方法吗？ -
+使用<code class="docutils literal notranslate"><span class="pre">asyncio.wait()</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>使用<code class="docutils literal notranslate"><span class="pre">asyncio.gather()</span></code></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 千万注意，这里的 「*」 不能省略</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">asyncio.gather</span></code> 和 <code class="docutils literal notranslate"><span class="pre">asyncio.wait</span></code>
+在asyncio中用得的比较广泛，这里有必要好好研究下这两货。</p>
+<p>还是照例用例子来说明，先定义一个协程函数</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">number</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Task </span><span class="si">%s</span><span class="s2">: Compute factorial(</span><span class="si">%s</span><span class="s2">)...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">*=</span> <span class="n">i</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Task </span><span class="si">%s</span><span class="s2">: factorial(</span><span class="si">%s</span><span class="s2">) = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>5. 接收参数方式<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<section id="asyncio-wait">
+<h3>asyncio.wait<a class="headerlink" href="#asyncio-wait" title="此标题的永久链接">¶</a></h3>
+<p>接收的tasks，必须是一个list对象，这个list对象里，存放多个的task。</p>
+<p>它可以这样，用<code class="docutils literal notranslate"><span class="pre">asyncio.ensure_future</span></code>转为task对象</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tasks</span><span class="o">=</span><span class="p">[</span>
+       <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+       <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+       <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="p">]</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>也可以这样，不转为task对象。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="n">tasks</span><span class="o">=</span><span class="p">[</span>
+       <span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+       <span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+       <span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="asyncio-gather">
+<h3>asyncio.gather<a class="headerlink" href="#asyncio-gather" title="此标题的永久链接">¶</a></h3>
+<p>接收的就比较广泛了，他可以接收list对象，但是 <code class="docutils literal notranslate"><span class="pre">*</span></code> 不能省略</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tasks</span><span class="o">=</span><span class="p">[</span>
+       <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+       <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+       <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="p">]</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>还可以这样，和上面的 <code class="docutils literal notranslate"><span class="pre">*</span></code>
+作用一致，这是因为<code class="docutils literal notranslate"><span class="pre">asyncio.gather()</span></code>的第一个参数是
+<code class="docutils literal notranslate"><span class="pre">*coros_or_futures</span></code>，它叫
+<code class="docutils literal notranslate"><span class="pre">非命名键值可变长参数列表</span></code>，可以集合所有没有命名的变量。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+    <span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+<p>甚至还可以这样</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="n">group1</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;A&quot;</span> <span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="n">group2</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+<span class="n">group3</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">factorial</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)])</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">group1</span><span class="p">,</span> <span class="n">group2</span><span class="p">,</span> <span class="n">group3</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2>6. 返回结果不同<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h2>
+<section id="asyncio-wait-1">
+<span id="id6"></span><h3>asyncio.wait<a class="headerlink" href="#asyncio-wait-1" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">asyncio.wait</span></code> 返回<code class="docutils literal notranslate"><span class="pre">dones</span></code>和<code class="docutils literal notranslate"><span class="pre">pendings</span></code> -
+<code class="docutils literal notranslate"><span class="pre">dones</span></code>：表示已经完成的任务 - <code class="docutils literal notranslate"><span class="pre">pendings</span></code>：表示未完成的任务</p>
+<p>如果我们需要获取，运行结果，需要手工去收集获取。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dones</span><span class="p">,</span> <span class="n">pendings</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">dones</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task ret: &#39;</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="asyncio-gather-1">
+<span id="id7"></span><h3>asyncio.gather<a class="headerlink" href="#asyncio-gather-1" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">asyncio.gather</span></code> 它会把值直接返回给我们，不需要手工去收集。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task ret: &#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="wait">
+<h2>7. wait有控制功能<a class="headerlink" href="#wait" title="此标题的永久链接">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">coro</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">coro</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+
+
+<span class="c1"># 【控制运行任务数】：运行第一个任务就返回</span>
+<span class="c1"># FIRST_COMPLETED ：第一个任务完全返回</span>
+<span class="c1"># FIRST_EXCEPTION：产生第一个异常返回</span>
+<span class="c1"># ALL_COMPLETED：所有任务完成返回 （默认选项）</span>
+<span class="n">dones</span><span class="p">,</span> <span class="n">pendings</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;第一次完成的任务数:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dones</span><span class="p">))</span>
+
+
+<span class="c1"># 【控制时间】：运行一秒后，就返回</span>
+<span class="n">dones2</span><span class="p">,</span> <span class="n">pendings2</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">pendings</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;第二次完成的任务数:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dones2</span><span class="p">))</span>
+
+
+<span class="c1"># 【默认】：所有任务完成后返回</span>
+<span class="n">dones3</span><span class="p">,</span> <span class="n">pendings3</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">pendings2</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;第三次完成的任务数:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dones3</span><span class="p">))</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>输出结果</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">第一次完成的任务数</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">第二次完成的任务数</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">第三次完成的任务数</span><span class="p">:</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../chapters/p11.html" class="btn btn-neutral float-right" title="第十一章：101-110" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c10_09.html" class="btn btn-neutral float-left" title="10.9 【并发编程】初识异步IO框架：asyncio 上篇" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

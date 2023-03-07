@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>9.5 【调试技巧】使用 PDB 进行无界面调试 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="9.6 【调试技巧】如何调试已经运行的程序？" href="c09_06.html" />
+    <link rel="prev" title="9.4 【调试技巧】脚本报错后立即进入调试模式" href="c09_04.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c09_01.html">9.1 【调试技巧】超详细图文教你调试代码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_02.html">9.2 【调试技巧】PyCharm 中指定参数调试程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_03.html">9.3 【调试技巧】PyCharm跑完后立即进入调试模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_04.html">9.4 【调试技巧】脚本报错后立即进入调试模式</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.5 【调试技巧】使用 PDB 进行无界面调试</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 准备文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 进入调试模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 调试指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4. 开始调试</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c09_06.html">9.6 【调试技巧】如何调试已经运行的程序？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_07.html">9.7 【调试技巧】使用 PySnopper 调试疑难杂症</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_08.html">9.8 【调试技巧】使用 PyCharm 进行远程调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_09.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_10.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p09.html">第九章：81-90</a> &raquo;</li>
+        
+      <li>9.5 【调试技巧】使用 PDB 进行无界面调试</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c09/c09_05.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="pdb">
+<h1>9.5 【调试技巧】使用 PDB 进行无界面调试<a class="headerlink" href="#pdb" title="此标题的永久链接">¶</a></h1>
+<p>Pycharm 的图形化界面虽然好用，但是在某些场景中，是无法使用的。而 Python
+本身已经给我们提供了一个调试神器 –
+pdb，可能你还不知道它，为了讲解这个神器，我写了这篇文章来帮助你轻松的理解它。</p>
+<section id="id1">
+<h2>1. 准备文件<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>在调试之前先将这两个文件准备好（做为演示用），并放在同级目录中。</p>
+<p><code class="docutils literal notranslate"><span class="pre">utils.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">mylist</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">mylist</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">item</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pdb_demo.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">utils</span>
+
+<span class="k">def</span> <span class="nf">myfunc</span><span class="p">(</span><span class="n">mylist</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mylist</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----start----&quot;</span><span class="p">)</span>
+    <span class="n">myfunc</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----end-----&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>2. 进入调试模式<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>主要有两种方法</p>
+<p>做为脚本调用，方法很简单，就像正常执行python脚本一样，只是多加了<code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">pdb</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="n">pdb_demo</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>使用这个方式进入调试模式，会在脚本的第一行开始单步调试。</p>
+<img alt="http://image.iswbm.com/20190118000111.png" src="http://image.iswbm.com/20190118000111.png" />
+<p>对于单文件的脚本并没有什么问题，如果是一个大型的项目，项目里有很多的文件，使用这种方式只能大大降低我们的效率。</p>
+<p>一般情况下，都会直接在你需要的地方打一个断点，那如何打呢？</p>
+<p>只需在你想要打断点的地方加上这两行。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pdb</span>
+<span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>然后执行时，也不需要再指定<code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">pdb</span></code>了，直接<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">pdb_demo.py</span></code>
+，就会直接在这个地方暂停。</p>
+<img alt="http://image.iswbm.com/20190118000234.png" src="http://image.iswbm.com/20190118000234.png" />
+<img alt="http://image.iswbm.com/20190118000557.png" src="http://image.iswbm.com/20190118000557.png" />
+</section>
+<section id="id3">
+<h2>3. 调试指令<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>熟悉 Pycharm 的人都知道，我们执行下一步，执行到下一个断点是</p>
+<p>同样的，pdb 也需要你更多记这样的命令。</p>
+<p>当你看到pdb模式的标识符 <code class="docutils literal notranslate"><span class="pre">(Pdb)</span></code>时，就可以输入这样的命令。</p>
+<p>我在这里将这些指令按使用频度分为三个等级。</p>
+<p><strong>最常用</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>指令</p></th>
+<th class="head"><p>英文</p></th>
+<th class="head"><p>解释</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>n</p></td>
+<td><p>Next</p></td>
+<td><p>下一步</p></td>
+</tr>
+<tr class="row-odd"><td><p>l</p></td>
+<td><p>list</p></td>
+<td><p>列出当前断点处源码</p></td>
+</tr>
+<tr class="row-even"><td><p>p</p></td>
+<td><p>print</p></td>
+<td><p>打印变量</p></td>
+</tr>
+<tr class="row-odd"><td><p>s</p></td>
+<td><p>step into</p></td>
+<td><p>执行当前行，可以进入函数</p></td>
+</tr>
+<tr class="row-even"><td><p>r</p></td>
+<td><p>return</p></td>
+<td><p>运行完当前函数，返回结果</p></td>
+</tr>
+<tr class="row-odd"><td><p>c</p></td>
+<td><p>continue</p></td>
+<td><p>执行到下一断点或者结束</p></td>
+</tr>
+<tr class="row-even"><td><p>b</p></td>
+<td><p>break</p></td>
+<td><p>设置断点</p></td>
+</tr>
+<tr class="row-odd"><td><p>q</p></td>
+<td><p>quit</p></td>
+<td><p>退出程序</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>有时使用</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>指令</p></th>
+<th class="head"><p>英文</p></th>
+<th class="head"><p>解释</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a</p></td>
+<td><p>args</p></td>
+<td><p>列出当前函数的参数</p></td>
+</tr>
+<tr class="row-odd"><td><p>pp</p></td>
+<td><p>pprint</p></td>
+<td><p>一种可视化更好的打印</p></td>
+</tr>
+<tr class="row-even"><td><p>j</p></td>
+<td><p>jump</p></td>
+<td><p>跳到指定行</p></td>
+</tr>
+<tr class="row-odd"><td><p>cl</p></td>
+<td><p>clear</p></td>
+<td><p>清除断点</p></td>
+</tr>
+<tr class="row-even"><td><p>w</p></td>
+<td><p>where</p></td>
+<td><p>打印当前堆栈</p></td>
+</tr>
+<tr class="row-odd"><td><p>u</p></td>
+<td><p>up</p></td>
+<td><p>执行跳转到当前堆栈的上一层</p></td>
+</tr>
+<tr class="row-even"><td><p>unt</p></td>
+<td><p>until</p></td>
+<td><p>行数递增执行(忽略循环和函数)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ll</p></td>
+<td><p>longlist</p></td>
+<td><p>列出更多的源码</p></td>
+</tr>
+<tr class="row-even"><td><p>run/restart</p></td>
+<td><p>run</p></td>
+<td><p>重新启动 debug(-m pdb)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>几乎不用</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>指令</p></th>
+<th class="head"><p>英文</p></th>
+<th class="head"><p>解释</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tbreak</p></td>
+<td><p>temporary break</p></td>
+<td><p>临时断点</p></td>
+</tr>
+<tr class="row-odd"><td><p>disable</p></td>
+<td></td>
+<td><p>停用断点</p></td>
+</tr>
+<tr class="row-even"><td><p>enable</p></td>
+<td></td>
+<td><p>启用断点</p></td>
+</tr>
+<tr class="row-odd"><td><p>alias</p></td>
+<td></td>
+<td><p>设置别名</p></td>
+</tr>
+<tr class="row-even"><td><p>unalias</p></td>
+<td></td>
+<td><p>删除别名</p></td>
+</tr>
+<tr class="row-odd"><td><p>whatis</p></td>
+<td></td>
+<td><p>打印对象类型</p></td>
+</tr>
+<tr class="row-even"><td><p>ignore</p></td>
+<td></td>
+<td><p>设置忽略的断点</p></td>
+</tr>
+<tr class="row-odd"><td><p>source</p></td>
+<td></td>
+<td><p>列出给定对象的源码</p></td>
+</tr>
+</tbody>
+</table>
+<p>其上全部是我翻译自官方文档，原文在这里：<a class="reference external" href="https://docs.python.org/3/library/pdb.html">https://docs.python.org/3/library/pdb.html</a></p>
+<p>其实你大可不必死记这些命令，忘记的时候，只要敲入<code class="docutils literal notranslate"><span class="pre">help</span></code>并回车，就可以看所有的指令了。</p>
+<img alt="http://image.iswbm.com/20190118083809.png" src="http://image.iswbm.com/20190118083809.png" />
+</section>
+<section id="id4">
+<h2>4. 开始调试<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p>这里就几个最常用的指定，来演示一遍。</p>
+<img alt="http://image.iswbm.com/20190118005507.png" src="http://image.iswbm.com/20190118005507.png" />
+<p>这个调试过程，我加了些注释，你应该能够很轻易地理解这种调试方式。</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c09_06.html" class="btn btn-neutral float-right" title="9.6 【调试技巧】如何调试已经运行的程序？" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c09_04.html" class="btn btn-neutral float-left" title="9.4 【调试技巧】脚本报错后立即进入调试模式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

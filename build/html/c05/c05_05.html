@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>045 3招制服胡搅蛮缠的人 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="046 扑克牌练习法" href="c05_06.html" />
+    <link rel="prev" title="044 辞职也要讲方法" href="c05_04.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c05_01.html">041 如何“接话”才不招人烦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c05_02.html">042 3招改掉老好人的臭毛病</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c05_03.html">043 如何高情商“请假”？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c05_04.html">044 辞职也要讲方法</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">045 3招制服胡搅蛮缠的人</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python">1. 学习 Python 模块的入口</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#help">help()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dir">dir()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 应用到实际开发中</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#type">type()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hasattr">hasattr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getattr">getattr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id">id()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isinstance">isinstance()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#callable">callable()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules">3. 模块（Modules）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#doc">__doc__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#name">__name__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#file">__file__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dict">__dict__</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#class">4. 类（Class）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#doc-1">__doc__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#name-1">__name__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dict-1">__dict__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module">__module__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bases">__bases__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c05_06.html">046 扑克牌练习法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c05_07.html">047 做到这4步让她不忍拒绝</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c05_08.html">048 万能即兴发言公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c05_09.html">049 3个习惯，炼就口才高手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c05_10.html">050 黄金三段论</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p05.html">第五章：41-50</a> &raquo;</li>
+        
+      <li>045 3招制服胡搅蛮缠的人</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c05/c05_05.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>045 3招制服胡搅蛮缠的人<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<p>自省，在我们日常生活中，通常是自我反省的意思。</p>
+<p>但在计算机编程中，自省并不是这个意思，它的英文单词是
+introspection，表示的是自我检查的行为或能力。</p>
+<p>它的内容包括</p>
+<ol class="arabic simple">
+<li><p>告诉别人，我是谁</p></li>
+<li><p>告诉别人，我能做什么</p></li>
+</ol>
+<p>Python
+是一门动态语言，有了自省，就能让程序在运行时能够获知对象的类型以及该对象下有哪些方法等。</p>
+<section id="python">
+<h2>1. 学习 Python 模块的入口<a class="headerlink" href="#python" title="此标题的永久链接">¶</a></h2>
+<section id="help">
+<h3>help()<a class="headerlink" href="#help" title="此标题的永久链接">¶</a></h3>
+<p>在 console 模式下，输入 <code class="docutils literal notranslate"><span class="pre">help()</span></code>
+，可以看到输出了一段帮助文档，教你如何使用这个
+help，当你看到提示符变成了 <code class="docutils literal notranslate"><span class="pre">help&gt;</span></code> 时，这时候就进入了 help 模式。</p>
+<img alt="http://image.iswbm.com/image-20200606121047415.png" src="http://image.iswbm.com/image-20200606121047415.png" />
+<p>此时你可以键入你想要了解的模块、语法等，help 告诉你如何使用。</p>
+<p>比如我输入 keywords ，就可以看到 Python 里所有的关键字。再输入 modules
+就可以查看 Python 中所有的内置模块。</p>
+<img alt="http://image.iswbm.com/image-20200606121544062.png" src="http://image.iswbm.com/image-20200606121544062.png" />
+<p>输入 modules + <code class="docutils literal notranslate"><span class="pre">指定包名</span></code>，就可以查看这个包下有哪些模块</p>
+<img alt="http://image.iswbm.com/image-20200606121942898.png" src="http://image.iswbm.com/image-20200606121942898.png" />
+<p>如果你想学习某个包要如何使用，可以直接在 help 模式下输入
+<code class="docutils literal notranslate"><span class="pre">包名</span></code>，就像下面这样，我就可以获得一份 json 的帮助文档。</p>
+<img alt="http://image.iswbm.com/image-20200606122408522.png" src="http://image.iswbm.com/image-20200606122408522.png" />
+<p>如果你想学习某个关键字的用法，可以在 help 模式下直接键入 <code class="docutils literal notranslate"><span class="pre">关键字</span></code>
+查询用法，比如我直接键入 <code class="docutils literal notranslate"><span class="pre">for</span></code> 。</p>
+<img alt="http://image.iswbm.com/image-20200606133933401.png" src="http://image.iswbm.com/image-20200606133933401.png" />
+<p>查完后，使用 quit 就可以退出 help 模式了。</p>
+<img alt="http://image.iswbm.com/image-20200606123145109.png" src="http://image.iswbm.com/image-20200606123145109.png" />
+<p>如果你觉得进入 help 模式太麻烦，可以在 console 模式下直接查询</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dir">
+<h3>dir()<a class="headerlink" href="#dir" title="此标题的永久链接">¶</a></h3>
+<p>dir() 函数可能是 Python
+自省机制中最著名的部分了。它返回传递给它的任何对象的属性名称经过排序的列表。如果不指定对象，则
+dir() 返回当前作用域中的名称。让我们将 dir() 函数应用于 keyword
+模块，并观察它揭示了什么：</p>
+<img alt="http://image.iswbm.com/image-20200606134519352.png" src="http://image.iswbm.com/image-20200606134519352.png" />
+</section>
+</section>
+<section id="id2">
+<h2>2. 应用到实际开发中<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<section id="type">
+<h3>type()<a class="headerlink" href="#type" title="此标题的永久链接">¶</a></h3>
+<p>type()
+函数有助于我们确定对象是字符串还是整数，或是其它类型的对象。它通过返回类型对象来做到这一点，可以将这个类型对象与
+types 模块中定义的类型相比较：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="go">&lt;class &#39;int&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">([])</span>
+<span class="go">&lt;class &#39;list&#39;&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="hasattr">
+<h3>hasattr()<a class="headerlink" href="#hasattr" title="此标题的永久链接">¶</a></h3>
+<p>使用 dir() 函数会返回一个对象的属性列表。</p>
+<p>但是，有时我们只想测试一个或多个属性是否存在。如果对象具有我们正在考虑的属性，那么通常希望只检索该属性。这个任务可以由
+hasattr() 来完成.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">hasattr</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="s2">&quot;dumps&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="getattr">
+<h3>getattr()<a class="headerlink" href="#getattr" title="此标题的永久链接">¶</a></h3>
+<p>使用 hasattr 获知了对象拥有某个属性后，可以搭配 getattr()
+函数来获取其属性值。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">getattr</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="s2">&quot;__path__&quot;</span><span class="p">)</span>
+<span class="go">[&#39;/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json&#39;]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>使用 getattr
+获取函数后，可以很方便地使用这个函数，比如下面这样，可以不再使写
+json.dumps 这么字。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dumps</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="s2">&quot;dumps&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MING&quot;</span><span class="p">})</span>
+<span class="go">&#39;{&quot;name&quot;: &quot;MING&quot;}&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+
+<span class="go"># 当然你还有更简单的方法</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mydumps</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mydumps</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MING&quot;</span><span class="p">})</span>
+<span class="go">&#39;{&quot;name&quot;: &quot;MING&quot;}&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="id">
+<h3>id()<a class="headerlink" href="#id" title="此标题的永久链接">¶</a></h3>
+<p><strong>id()</strong> 函数返回对象的唯一标识符，标识符是一个整数。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">4470767944</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="go">4499487408</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="isinstance">
+<h3>isinstance()<a class="headerlink" href="#isinstance" title="此标题的永久链接">¶</a></h3>
+<p>使用 isinstance() 函数可以确定一个对象是否是某个特定类型或定制类的实例。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+<section id="callable">
+<h3>callable()<a class="headerlink" href="#callable" title="此标题的永久链接">¶</a></h3>
+<p>使用 callable
+可以确定一个对象是否是可调用的，比如函数，类这些对象都是可以调用的对象。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">callable</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">callable</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="modules">
+<h2>3. 模块（Modules）<a class="headerlink" href="#modules" title="此标题的永久链接">¶</a></h2>
+<section id="doc">
+<h3>__doc__<a class="headerlink" href="#doc" title="此标题的永久链接">¶</a></h3>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">__doc__</span></code> 这个魔法方法，可以查询该模块的文档，它输出的内容和
+help() 一样。</p>
+<img alt="http://image.iswbm.com/image-20200606134858285.png" src="http://image.iswbm.com/image-20200606134858285.png" />
+</section>
+<section id="name">
+<h3>__name__<a class="headerlink" href="#name" title="此标题的永久链接">¶</a></h3>
+<p>始终是定义时的模块名；即使你使用import .. as
+为它取了别名，或是赋值给了另一个变量名。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="go">&#39;json&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">js</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">js</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="go">&#39;json&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="file">
+<h3>__file__<a class="headerlink" href="#file" title="此标题的永久链接">¶</a></h3>
+<p>包含了该模块的文件路径。需要注意的是内建的模块没有这个属性，访问它会抛出异常！</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json</span><span class="o">.</span><span class="vm">__file__</span>
+<span class="go">&#39;/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/json/__init__.py&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="dict">
+<h3>__dict__<a class="headerlink" href="#dict" title="此标题的永久链接">¶</a></h3>
+<p>包含了模块里可用的属性名-属性的字典；也就是可以使用模块名.属性名访问的对象。</p>
+</section>
+</section>
+<section id="class">
+<h2>4. 类（Class）<a class="headerlink" href="#class" title="此标题的永久链接">¶</a></h2>
+<section id="doc-1">
+<span id="id3"></span><h3>__doc__<a class="headerlink" href="#doc-1" title="此标题的永久链接">¶</a></h3>
+<p>文档字符串。如果类没有文档，这个值是None。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">People</span><span class="p">:</span>
+<span class="gp">... </span><span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="gp">... </span><span class="sd">    people class</span>
+<span class="gp">... </span><span class="sd">    &#39;&#39;&#39;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">People</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+
+<span class="go">    people class</span>
+
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="name-1">
+<span id="id4"></span><h3>__name__<a class="headerlink" href="#name-1" title="此标题的永久链接">¶</a></h3>
+<p>始终是定义时的类名。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">People</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="go">&#39;People&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="dict-1">
+<span id="id5"></span><h3>__dict__<a class="headerlink" href="#dict-1" title="此标题的永久链接">¶</a></h3>
+<p>包含了类里可用的属性名-属性的字典；也就是可以使用类名.属性名访问的对象。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">People</span><span class="o">.</span><span class="vm">__dict__</span>
+<span class="go">mappingproxy({&#39;__module__&#39;: &#39;__main__&#39;, &#39;__doc__&#39;: &#39;\n    people class\n    &#39;, &#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;People&#39; objects&gt;, &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;People&#39; objects&gt;})</span>
+</pre></div>
+</div>
+</section>
+<section id="module">
+<h3>__module__<a class="headerlink" href="#module" title="此标题的永久链接">¶</a></h3>
+<p>包含该类的定义的模块名；需要注意，是字符串形式的模块名而不是模块对象。</p>
+<p>由于我是在 交互式命令行的环境下，所以模块是 <code class="docutils literal notranslate"><span class="pre">__main__</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">People</span><span class="o">.</span><span class="vm">__module__</span>
+<span class="go">&#39;__main__&#39;</span>
+</pre></div>
+</div>
+<p>如果将上面的代码放入 demo.py，并且从 people 模块导入 People 类，其值就是
+people 模块</p>
+<img alt="http://image.iswbm.com/image-20200905115039771.png" src="http://image.iswbm.com/image-20200905115039771.png" />
+</section>
+<section id="bases">
+<h3>__bases__<a class="headerlink" href="#bases" title="此标题的永久链接">¶</a></h3>
+<p>直接父类对象的元组；但不包含继承树更上层的其他类，比如父类的父类。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">People</span><span class="p">:</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Teenager</span><span class="p">:</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">Teenager</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Student</span><span class="o">.</span><span class="vm">__bases__</span>
+<span class="go">(&lt;class &#39;__main__.Teenager&#39;&gt;,)</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c05_06.html" class="btn btn-neutral float-right" title="046 扑克牌练习法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c05_04.html" class="btn btn-neutral float-left" title="044 辞职也要讲方法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

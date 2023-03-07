@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10.1 【并发编程】从性能角度初探并发编程 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="10.2 【并发编程】创建多线程的几种方法" href="c10_02.html" />
+    <link rel="prev" title="第十章：91-100" href="../chapters/p10.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.1 【并发编程】从性能角度初探并发编程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 基本概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vsvs">2. 单线程VS多线程VS多进程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 性能对比成果总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c10_02.html">10.2 【并发编程】创建多线程的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_03.html">10.3 【并发编程】谈谈线程中的“锁机制”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_05.html">10.5 【并发编程】线程中的信息隔离</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_07.html">10.7 【并发编程】从 yield 开始入门协程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_09.html">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_10.html">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
+        
+      <li>10.1 【并发编程】从性能角度初探并发编程</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c10/c10_01.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>10.1 【并发编程】从性能角度初探并发编程<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<section id="id2">
+<h2>1. 基本概念<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>在开始讲解理论知识之前，先过一下几个基本概念。虽然咱是进阶教程，但我也希望写得更小白，更通俗易懂。</p>
+<p><code class="docutils literal notranslate"><span class="pre">串行</span></code>：一个人在同一时间段只能干一件事，譬如吃完饭才能看电视；
+<code class="docutils literal notranslate"><span class="pre">并行</span></code>：一个人在同一时间段可以干多件事，譬如可以边吃饭边看电视；</p>
+<p>在Python中，<code class="docutils literal notranslate"><span class="pre">多线程</span></code> 和 <code class="docutils literal notranslate"><span class="pre">协程</span></code>
+虽然是严格上来说是串行，但却比一般的串行程序执行效率高得很。
+一般的串行程序，在程序阻塞的时候，只能干等着，不能去做其他事。就好像，电视上播完正剧，进入广告时间，我们却不能去趁广告时间是吃个饭。对于程序来说，这样做显然是效率极低的，是不合理的。</p>
+<p>当然，学完这个课程后，我们就懂得，利用广告时间去做其他事，灵活安排时间。这也是我们<code class="docutils literal notranslate"><span class="pre">多线程</span></code>和<code class="docutils literal notranslate"><span class="pre">协程</span></code>
+要帮我们要完成的事情，内部合理调度任务，使得程序效率最大化。</p>
+<p>虽然 <code class="docutils literal notranslate"><span class="pre">多线程</span></code> 和 <code class="docutils literal notranslate"><span class="pre">协程</span></code>
+已经相当智能了。但还是不够高效，最高效的应该是一心多用，边看电视边吃饭边聊天。这就是我们的
+<code class="docutils literal notranslate"><span class="pre">多进程</span></code> 才能做的事了。</p>
+<p>为了更帮助大家更加直观的理解，在网上找到两张图，来生动形象的解释了多线程和多进程的区别。（侵删）</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">多线程</span></code>，交替执行，另一种意义上的串行。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">多进程</span></code>，并行执行，真正意义上的并发。</p></li>
+</ul>
+<img alt="http://image.iswbm.com/20201219162110.png" src="http://image.iswbm.com/20201219162110.png" />
+</section>
+<section id="vsvs">
+<h2>2. 单线程VS多线程VS多进程<a class="headerlink" href="#vsvs" title="此标题的永久链接">¶</a></h2>
+<p>文字总是苍白无力的，不如用代码直接来测试一下。</p>
+<p>在开始之前呢，我要声明一下，本文作为并发章节的第一篇文章，只为了让你对单线程、多线程、多进程有个直观的了解。因此下面的代码中，会有多线程和多进程的的知识点，这些知识点在后面几节才会讲到，如果你看不明白也没有关系。</p>
+<p>我的实验环境配置如下</p>
+<img alt="http://image.iswbm.com/20190112205155.png" src="http://image.iswbm.com/20190112205155.png" />
+<p>开始对比之前，首先定义四种类型的场景 - CPU计算密集型 - 磁盘IO密集型 -
+网络IO密集型 - 【模拟】IO密集型</p>
+<p>为什么是这几种场景，这和<code class="docutils literal notranslate"><span class="pre">多线程</span></code>
+<code class="docutils literal notranslate"><span class="pre">多进程</span></code>的适用场景有关。结论里，我再说明。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CPU计算密集型</span>
+<span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="c1"># 使程序完成150万计算</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="mi">500000</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="n">x</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="n">y</span>
+
+
+<span class="c1"># 磁盘读写IO密集型</span>
+<span class="k">def</span> <span class="nf">io_disk</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5000000</span><span class="p">):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;python-learning</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># 网络IO密集型</span>
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36&#39;</span><span class="p">}</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.tieba.com/&quot;</span>
+
+<span class="k">def</span> <span class="nf">io_request</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">webPage</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">webPage</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">return</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">e</span><span class="p">}</span>
+
+
+<span class="c1"># 【模拟】IO密集型</span>
+<span class="k">def</span> <span class="nf">io_simulation</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>比拼的指标，我们用时间来考量。时间耗费得越少，说明效率越高。</p>
+<p>为了方便，使得代码看起来，更加简洁，我这里先定义是一个简单的
+<code class="docutils literal notranslate"><span class="pre">时间计时器</span></code> 的装饰器。
+如果你对装饰器还不是很了解，也没关系，你只要知道它是用于
+计算函数运行时间的东西就可以了。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="n">mode</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">deco</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+            <span class="nb">type</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">t1</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+            <span class="n">t2</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">cost_time</span> <span class="o">=</span> <span class="n">t2</span><span class="o">-</span><span class="n">t1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">花费时间：</span><span class="si">{}</span><span class="s2">秒&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span><span class="n">cost_time</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">deco</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+<p>第一步，先来看看单线程的</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@timer</span><span class="p">(</span><span class="s2">&quot;【单线程】&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">single_thread</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+              <span class="n">func</span><span class="p">()</span>
+
+<span class="c1"># 单线程</span>
+<span class="n">single_thread</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;CPU计算密集型&quot;</span><span class="p">)</span>
+<span class="n">single_thread</span><span class="p">(</span><span class="n">io_disk</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;磁盘IO密集型&quot;</span><span class="p">)</span>
+<span class="n">single_thread</span><span class="p">(</span><span class="n">io_request</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;网络IO密集型&quot;</span><span class="p">)</span>
+<span class="n">single_thread</span><span class="p">(</span><span class="n">io_simulation</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;模拟IO密集型&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>看看结果</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>【单线程】-CPU计算密集型花费时间：83.42633867263794秒
+【单线程】-磁盘IO密集型花费时间：15.641993284225464秒
+【单线程】-网络IO密集型花费时间：1.1397218704223633秒
+【单线程】-模拟IO密集型花费时间：20.020972728729248秒
+</pre></div>
+</div>
+<p>第二步，再来看看多线程的</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@timer</span><span class="p">(</span><span class="s2">&quot;【多线程】&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">multi_thread</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">thread_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">t</span><span class="o">=</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">())</span>
+        <span class="n">thread_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">thread_list</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">thread_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">th</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+                <span class="n">e</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+
+<span class="c1"># 多线程</span>
+<span class="n">multi_thread</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;CPU计算密集型&quot;</span><span class="p">)</span>
+<span class="n">multi_thread</span><span class="p">(</span><span class="n">io_disk</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;磁盘IO密集型&quot;</span><span class="p">)</span>
+<span class="n">multi_thread</span><span class="p">(</span><span class="n">io_request</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;网络IO密集型&quot;</span><span class="p">)</span>
+<span class="n">multi_thread</span><span class="p">(</span><span class="n">io_simulation</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;模拟IO密集型&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>看看结果</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>【多线程】-CPU计算密集型花费时间：93.82986998558044秒
+【多线程】-磁盘IO密集型花费时间：13.270896911621094秒
+【多线程】-网络IO密集型花费时间：0.1828296184539795秒
+【多线程】-模拟IO密集型花费时间：2.0288875102996826秒
+</pre></div>
+</div>
+<p>第三步，最后来看看多进程</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@timer</span><span class="p">(</span><span class="s2">&quot;【多进程】&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">multi_process</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">process_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">())</span>
+        <span class="n">process_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">process_list</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pr</span> <span class="ow">in</span> <span class="n">process_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pr</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+                <span class="n">e</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+
+<span class="c1"># 多进程</span>
+<span class="n">multi_process</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;CPU计算密集型&quot;</span><span class="p">)</span>
+<span class="n">multi_process</span><span class="p">(</span><span class="n">io_disk</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;磁盘IO密集型&quot;</span><span class="p">)</span>
+<span class="n">multi_process</span><span class="p">(</span><span class="n">io_request</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;网络IO密集型&quot;</span><span class="p">)</span>
+<span class="n">multi_process</span><span class="p">(</span><span class="n">io_simulation</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;模拟IO密集型&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>看看结果</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>【多进程】-CPU计算密集型花费时间：9.082211017608643秒
+【多进程】-磁盘IO密集型花费时间：1.287339448928833秒
+【多进程】-网络IO密集型花费时间：0.13074755668640137秒
+【多进程】-模拟IO密集型花费时间：2.0076842308044434秒
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>3. 性能对比成果总结<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>将结果汇总一下，制成表格。</p>
+<img alt="http://image.iswbm.com/20190112204930.png" src="http://image.iswbm.com/20190112204930.png" />
+<p>我们来分析下这个表格。</p>
+<p>首先是<code class="docutils literal notranslate"><span class="pre">CPU密集型</span></code>，多线程以对比单线程，不仅没有优势，显然还由于要不断的加锁释放GIL全局锁，切换线程而耗费大量时间，效率低下，而多进程，由于是多个CPU同时进行计算工作，相当于十个人做一个人的作业，显然效率是成倍增长的。</p>
+<p>然后是IO密集型，<code class="docutils literal notranslate"><span class="pre">IO密集型</span></code>可以是<code class="docutils literal notranslate"><span class="pre">磁盘IO</span></code>，<code class="docutils literal notranslate"><span class="pre">网络IO</span></code>，<code class="docutils literal notranslate"><span class="pre">数据库IO</span></code>等，都属于同一类，计算量很小，主要是IO等待时间的浪费。通过观察，可以发现，我们磁盘IO，网络IO的数据，多线程对比单线程也没体现出很大的优势来。这是由于我们程序的的IO任务不够繁重，所以优势不够明显。</p>
+<p>所以我还加了一个「<code class="docutils literal notranslate"><span class="pre">模拟IO密集型</span></code>」，用<code class="docutils literal notranslate"><span class="pre">sleep</span></code>来模拟IO等待时间，就是为了体现出多线程的优势，也能让大家更加直观的理解多线程的工作过程。单线程需要每个线程都要<code class="docutils literal notranslate"><span class="pre">sleep(2)</span></code>，10个线程就是<code class="docutils literal notranslate"><span class="pre">20s</span></code>，而多线程，在<code class="docutils literal notranslate"><span class="pre">sleep(2)</span></code>的时候，会切换到其他线程，使得10个线程同时<code class="docutils literal notranslate"><span class="pre">sleep(2)</span></code>，最终10个线程也就只有<code class="docutils literal notranslate"><span class="pre">2s</span></code>.</p>
+<p>可以得出以下几点结论 - 单线程总是最慢的，多进程总是最快的。 -
+多线程适合在IO密集场景下使用，譬如爬虫，网站开发等 -
+多进程适合在对CPU计算运算要求较高的场景下使用，譬如大数据分析，机器学习等
+-
+多进程虽然总是最快的，但是不一定是最优的选择，因为它需要CPU资源支持下才能体现优势</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c10_02.html" class="btn btn-neutral float-right" title="10.2 【并发编程】创建多线程的几种方法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../chapters/p10.html" class="btn btn-neutral float-left" title="第十章：91-100" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

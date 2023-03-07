@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>13.3 【代码提交】pre-commit hook &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="13.4 【项目生成】cookiecutter 的使用" href="c13_04.html" />
+    <link rel="prev" title="13.2 【代码测试】pytest 的使用" href="c13_02.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c13_01.html">13.1 【静态检查】mypy 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_02.html">13.2 【代码测试】pytest 的使用</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.3 【代码提交】pre-commit hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_04.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_05.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_06.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_07.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_08.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_09.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_10.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p21.html">第二十一章：201-210</a> &raquo;</li>
+        
+      <li>13.3 【代码提交】pre-commit hook</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c21/c13_03.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="pre-commit-hook">
+<h1>13.3 【代码提交】pre-commit hook<a class="headerlink" href="#pre-commit-hook" title="此标题的永久链接">¶</a></h1>
+<blockquote>
+<div><p>转载自：<a class="reference external" href="https://juejin.cn/post/6844903844103585805">https://juejin.cn/post/6844903844103585805</a></p>
+</div></blockquote>
+<p>代码规范、测试是开发中很重要的一环，重要性无需我多说。我们需要一些自动化工具，来帮助我们更轻松地管理项目。本文推荐几个实用的自动化工具。</p>
+<p>pre-commit 我在之前的一篇文章 <a class="reference external" href="https://juejin.im/post/6844903838382555143">推荐一些维护大型 Python
+项目的工具</a>中简要提到过，这里再稍微讲一下。</p>
+<p>pre-commit
+用到一个配置文件：<code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>，官方文档在<a class="reference external" href="https://pre-commit.com">这里</a>。这里针对
+Python 项目，希望 git precommit hooks 能够实现以下功能：能找出不符合
+pep8规范的代码，并且能够自动格式化。这需要用到两个工具：<code class="docutils literal notranslate"><span class="pre">black</span></code>和<code class="docutils literal notranslate"><span class="pre">flake8</span></code>，<code class="docutils literal notranslate"><span class="pre">black</span></code>自动格式化，<code class="docutils literal notranslate"><span class="pre">flake8</span></code>检测代码不规范的地方。</p>
+<p>整个的 workflow 如下图所示：</p>
+<img alt="http://image.iswbm.com/20201213224702.png" src="http://image.iswbm.com/20201213224702.png" />
+<p>具体的执行步骤如下：</p>
+<ol class="arabic simple">
+<li><p>安装 pre-commit : <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pre-commit</span></code></p></li>
+<li><p>写<code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>配置文件</p></li>
+<li><p>用<code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code>安装git hooks到你的<code class="docutils literal notranslate"><span class="pre">.git/</span></code>目录</p></li>
+</ol>
+<p>我们的<code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>很简单，如下：</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">repos</span><span class="o">:</span>
+<span class="na">- repo</span><span class="o">:</span><span class="w"> </span><span class="s">https://github.com/ambv/black</span>
+<span class="w">  </span><span class="na">rev</span><span class="o">:</span><span class="w"> </span><span class="s">stable</span>
+<span class="w">  </span><span class="na">hooks</span><span class="o">:</span>
+<span class="w">    </span><span class="na">- id</span><span class="o">:</span><span class="w"> </span><span class="s">black</span>
+<span class="w">      </span><span class="na">language_version</span><span class="o">:</span><span class="w"> </span><span class="s">python3.7</span>
+<span class="na">- repo</span><span class="o">:</span><span class="w"> </span><span class="s">https://github.com/pre-commit/pre-commit-hooks</span>
+<span class="w">  </span><span class="na">rev</span><span class="o">:</span><span class="w"> </span><span class="s">v1.2.3</span>
+<span class="w">  </span><span class="na">hooks</span><span class="o">:</span>
+<span class="w">    </span><span class="na">- id</span><span class="o">:</span><span class="w"> </span><span class="s">flake8</span>
+</pre></div>
+</div>
+<p>然后我们下一次提交 commit
+的时候，会先运行<code class="docutils literal notranslate"><span class="pre">black</span></code>和<code class="docutils literal notranslate"><span class="pre">flake8</span></code>，检查出哪有不规范的地方，并且能自动帮你格式化。你修改之后重新提交
+commit，就能顺利提交了。</p>
+<p>实际操作一下：</p>
+<p>新建一个测试文件：<code class="docutils literal notranslate"><span class="pre">bad_pep8.py</span></code>：</p>
+<img alt="http://image.iswbm.com/20201213224716.png" src="http://image.iswbm.com/20201213224716.png" />
+<p>有好几处不符合 pep8规范，我们试着 commit 一下：</p>
+<img alt="http://image.iswbm.com/20201213224726.png" src="http://image.iswbm.com/20201213224726.png" />
+<p>可以看到两个 hook 都没有通过，另外 <code class="docutils literal notranslate"><span class="pre">black</span></code>帮我们把代码格式化了。</p>
+<img alt="http://image.iswbm.com/20201213224737.png" src="http://image.iswbm.com/20201213224737.png" />
+<p>同时<code class="docutils literal notranslate"><span class="pre">flake8</span></code>提示我们<code class="docutils literal notranslate"><span class="pre">x</span></code>变量定义了但是没有使用，把这一行删掉，然后重新add
+并 commit：</p>
+<img alt="http://image.iswbm.com/20201213224752.png" src="http://image.iswbm.com/20201213224752.png" />
+<p>如果你觉得没有必要强制要求不能定义变量而不使用（从输出可以看出这个规范的编号为F841），可以在项目根目录建一个<code class="docutils literal notranslate"><span class="pre">.flake8</span></code>配置文件，如下图。更加详细的配置请看<a class="reference external" href="http://flake8.pycqa.org/en/latest/user/configuration.html">官方文档</a>。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">flake8</span><span class="p">]</span>
+<span class="n">ignore</span> <span class="o">=</span> <span class="n">F841</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c13_04.html" class="btn btn-neutral float-right" title="13.4 【项目生成】cookiecutter 的使用" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c13_02.html" class="btn btn-neutral float-left" title="13.2 【代码测试】pytest 的使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

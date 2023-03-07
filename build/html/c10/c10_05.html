@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10.5 【并发编程】线程中的信息隔离 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="10.6 【并发编程】线程池创建的几种方法" href="c10_06.html" />
+    <link rel="prev" title="10.4 【并发编程】线程消息通信机制" href="c10_04.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c10_01.html">10.1 【并发编程】从性能角度初探并发编程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_02.html">10.2 【并发编程】创建多线程的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_03.html">10.3 【并发编程】谈谈线程中的“锁机制”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.5 【并发编程】线程中的信息隔离</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 信息隔离的意义何在</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_07.html">10.7 【并发编程】从 yield 开始入门协程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_09.html">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_10.html">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
+        
+      <li>10.5 【并发编程】线程中的信息隔离</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c10/c10_05.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>10.5 【并发编程】线程中的信息隔离<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<p>上一篇我们说，线程与线程之间要通过消息通信来控制程序的执行。</p>
+<p>讲完了消息通信，今天就来探讨下线程里的<code class="docutils literal notranslate"><span class="pre">信息隔离</span></code>是如何做到的。 ##
+1. 初步认识信息隔离</p>
+<p>什么是<code class="docutils literal notranslate"><span class="pre">信息隔离</span></code>？</p>
+<p>比如说，咱有两个线程，线程A里的变量，和线程B里的变量值不能共享。这就是<code class="docutils literal notranslate"><span class="pre">信息隔离</span></code>。</p>
+<p>你可能要说，那变量名取不一样不就好啦？</p>
+<p>是的，如果所有的线程都不是由一个class实例化出来的同一个对象，确实是可以。这个问题我们暂且挂着，后面我再说明。</p>
+<p>那么，如何实现<code class="docutils literal notranslate"><span class="pre">信息隔离</span></code>呢？</p>
+<p>在Python中，其提供了<code class="docutils literal notranslate"><span class="pre">threading.local</span></code>这个类，可以很方便的控制变量的隔离，即使是同一个变量，在不同的线程中，其值也是不能共享的。</p>
+<p>用代码来看下</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">local</span><span class="p">,</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">currentThread</span>
+
+<span class="c1"># 定义一个local实例</span>
+<span class="n">local_data</span> <span class="o">=</span> <span class="n">local</span><span class="p">()</span>
+<span class="c1"># 在主线中，存入name这个变量</span>
+<span class="n">local_data</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;local_data&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;赋值前-子线程：&quot;</span><span class="p">,</span> <span class="n">currentThread</span><span class="p">(),</span><span class="n">local_data</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+        <span class="c1"># 在子线程中存入name这个变量</span>
+        <span class="n">local_data</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;赋值后-子线程：&quot;</span><span class="p">,</span><span class="n">currentThread</span><span class="p">(),</span> <span class="n">local_data</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始前-主线程：&quot;</span><span class="p">,</span><span class="n">local_data</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">MyThread</span><span class="p">()</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    <span class="n">t2</span> <span class="o">=</span> <span class="n">MyThread</span><span class="p">()</span>
+    <span class="n">t2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">t2</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;结束后-主线程：&quot;</span><span class="p">,</span><span class="n">local_data</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>来看看输出结果</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>开始前-主线程： {&#39;name&#39;: &#39;local_data&#39;}
+
+赋值前-子线程： &lt;MyThread(Thread-1, started 4832)&gt; {}
+赋值后-子线程： &lt;MyThread(Thread-1, started 4832)&gt; {&#39;name&#39;: &#39;Thread-1&#39;}
+
+赋值前-子线程： &lt;MyThread(Thread-2, started 5616)&gt; {}
+赋值后-子线程： &lt;MyThread(Thread-2, started 5616)&gt; {&#39;name&#39;: &#39;Thread-2&#39;}
+
+结束后-主线程： {&#39;name&#39;: &#39;local_data&#39;}
+</pre></div>
+</div>
+<p>从输出来看，我们可以知道，<code class="docutils literal notranslate"><span class="pre">local</span></code>实际是一个<code class="docutils literal notranslate"><span class="pre">字典型</span></code>的对象，其内部可以以<code class="docutils literal notranslate"><span class="pre">key-value</span></code>的形式存入你要做信息隔离的变量。local实例可以是<code class="docutils literal notranslate"><span class="pre">全局唯一</span></code>的，只有一个。因为你在给local存入或访问变量时，它会根据当前的线程的不同从不同的<code class="docutils literal notranslate"><span class="pre">存储空间</span></code>存入或获取。</p>
+<p>基于此，我们可以得出以下三点结论： &gt;1.
+主线程中的变量，不会因为其是全局变量，而被子线程获取到； 2.
+主线程也不能获取到子线程中的变量； 3.
+子线程与子线程之间的变量也不能互相访问。</p>
+<p>所以如果想在当前线程保存一个全局值，并且各自线程（包括主线程）互不干扰，使用local类吧。</p>
+<section id="id2">
+<h2>2. 信息隔离的意义何在<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>细心的你，一定已经发现了，上面那个例子，即使我们不用<code class="docutils literal notranslate"><span class="pre">threading.local</span></code>来做信息隔离，两个线程<code class="docutils literal notranslate"><span class="pre">self.getName()</span></code>本身就是隔离的，没有任何关系的。因为这两个线程是由一个class实例出的两个不同的实例对象。自然是可以不用做隔离，因为其本身就是隔离的。</p>
+<p>但是，现实开发中。不可排除有多个线程，是由一个class实例出的同一个实例对象而实现的。</p>
+<p>譬如，现在新手特别喜欢的爬虫项目。通常都是先给爬虫一个主页，然后获取主页下的所有链接，对这个链接再进行遍历，一直往下，直到把所有的链接都爬完，获取到我们所需的内容。</p>
+<p>由于单线程的爬取效率实在是太低了，我们考虑使用多线程来工作。先使用<code class="docutils literal notranslate"><span class="pre">socket</span></code>和<code class="docutils literal notranslate"><span class="pre">www.sina.con.cn</span></code>建立一个TCP连接。然后在这个连接的基础上，对主页上的每个链接（我们这里只举<code class="docutils literal notranslate"><span class="pre">news.sina.com.cn</span></code>和<code class="docutils literal notranslate"><span class="pre">blog.sina.com.cn</span></code>这两个子链接做例子）创建一个线程，这样效率就高多了。
+&gt;<strong>友情提醒</strong>：
+&gt;以下代码，若要理解，可能需要你了解下socket的网络编程相关内容。我在前几天的文章中有发布一篇相关的文章，没有基础的同学可以先去看看那篇文章。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">socket</span><span class="p">,</span> <span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span>
+
+<span class="k">class</span> <span class="nc">LazyConnection</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">AF_INET</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">SOCK_STREAM</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">family</span> <span class="o">=</span> <span class="n">AF_INET</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">SOCK_STREAM</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="p">,</span> <span class="s1">&#39;sock&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Already connected&#39;</span><span class="p">)</span>
+        <span class="c1"># 把socket连接存入local中</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">family</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">sock</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_ty</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">sock</span>
+
+<span class="k">def</span> <span class="nf">spider</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">website</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">conn</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;GET / HTTP/1.1</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">{}</span><span class="se">\r\n</span><span class="s1">Connection: close</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">website</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">,</span> <span class="mi">100000</span><span class="p">),</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Got </span><span class="si">{}</span><span class="s1"> bytes&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">resp</span><span class="p">)))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># 建立一个TCP连接</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">LazyConnection</span><span class="p">((</span><span class="s1">&#39;www.sina.com.cn&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+
+    <span class="c1"># 爬取两个页面</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">spider</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span><span class="s2">&quot;news.sina.com.cn&quot;</span><span class="p">))</span>
+    <span class="n">t2</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">spider</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span><span class="s2">&quot;blog.sina.com.cn&quot;</span><span class="p">))</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">t2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">t2</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>输出结果</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Got</span> <span class="mi">765</span> <span class="nb">bytes</span>
+<span class="n">Got</span> <span class="mi">513469</span> <span class="nb">bytes</span>
+</pre></div>
+</div>
+<p>如果是在这种场景下，要做到线程之间的状态信息的隔离，就肯定要借助<code class="docutils literal notranslate"><span class="pre">threading.local</span></code>，所以<code class="docutils literal notranslate"><span class="pre">threading.local</span></code>的存在是有存在的意义的。其他还有很多场景是必须借助<code class="docutils literal notranslate"><span class="pre">threading.local</span></code>才能实现的，而这些就要靠你们在真正的业务开发中去发现咯。</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c10_06.html" class="btn btn-neutral float-right" title="10.6 【并发编程】线程池创建的几种方法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c10_04.html" class="btn btn-neutral float-left" title="10.4 【并发编程】线程消息通信机制" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>13.2 【代码测试】pytest 的使用 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="13.3 【代码提交】pre-commit hook" href="c13_03.html" />
+    <link rel="prev" title="13.1 【静态检查】mypy 的使用" href="c13_01.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c13_01.html">13.1 【静态检查】mypy 的使用</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.2 【代码测试】pytest 的使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">用例查找规则</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">调用 pytest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">部分参数介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">执行选择用例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2. 断言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conftest-py">3. conftest.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixtures">4. Fixtures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">作为参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup">作为 setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">作用范围</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">反向请求</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">自动执行</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-teardown">5. setup/teardown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#markers">6. Markers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">7. 第三方插件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">8. 参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c13_03.html">13.3 【代码提交】pre-commit hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_04.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_05.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_06.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_07.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_08.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_09.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_10.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p28.html">第二十八章：271-280</a> &raquo;</li>
+        
+      <li>13.2 【代码测试】pytest 的使用</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c28/c13_02.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="pytest">
+<h1>13.2 【代码测试】pytest 的使用<a class="headerlink" href="#pytest" title="此标题的永久链接">¶</a></h1>
+<blockquote>
+<div><p>转载自：<a class="reference external" href="http://kuanghy.github.io/2018/05/08/pytest">http://kuanghy.github.io/2018/05/08/pytest</a></p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">Pytest</span></code> 是一个比较成熟且功能完备的 Python
+测试框架。其提供完善的在线文档，并有着大量的第三方插件和内置帮助，适用于许多小型或大型项目。Pytest
+灵活易学，打印调试和测试执行期间可以捕获标准输出，适合简单的单元测试到复杂的功能测试。还可以执行
+nose, unittest 和 doctest 风格的测试用例，甚至 Django 和
+trial。支持良好的集成实践， 支持扩展的 xUnit 风格 setup，支持非 python
+测试。支持生成测试覆盖率报告，支持 PEP8 兼容的编码风格。</p>
+<section id="id1">
+<h2>1. 基本使用<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">file_or_dir</span><span class="p">]</span> <span class="p">[</span><span class="n">file_or_dir</span><span class="p">]</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>用例查找规则<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h3>
+<p>如果不带参数运行
+pytest，那么其先从配置文件(pytest.ini，tox.ini，setup.cfg)中查找配置项
+<code class="docutils literal notranslate"><span class="pre">testpaths</span></code> 指定的路径中的 test
+case，如果没有则从当前目录开始查找，否者，命令行参数就用于目录、文件查找。查找的规则如下：</p>
+<ul class="simple">
+<li><p>查找指定目录中以 <code class="docutils literal notranslate"><span class="pre">test</span></code> 开头的目录</p></li>
+<li><p>递归遍历目录，除非目录指定了不同递归</p></li>
+<li><p>查找文件名以 <code class="docutils literal notranslate"><span class="pre">test_</span></code> 开头的文件</p></li>
+<li><p>查找以 <code class="docutils literal notranslate"><span class="pre">Test</span></code> 开头的类(该类不能有 init 方法)</p></li>
+<li><p>查找以 <code class="docutils literal notranslate"><span class="pre">test_</span></code> 开头的函数和方法并进行测试</p></li>
+</ul>
+<p>如果要从默认的查找规则中忽略查找路径，可以加上 <code class="docutils literal notranslate"><span class="pre">--ingore</span></code> 参数，例如：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pytest<span class="w"> </span>–ignore<span class="o">=</span>tests/test_foobar.py
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>调用 pytest<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h3>
+<ul class="simple">
+<li><p>py.test：</p></li>
+</ul>
+<p>Pytest 提供直接调用的命令行工具，即 <code class="docutils literal notranslate"><span class="pre">py.test</span></code>，最新版本 <code class="docutils literal notranslate"><span class="pre">pytest</span></code>
+和 <code class="docutils literal notranslate"><span class="pre">py.test</span></code> 两个命令行工具都可用</p>
+<ul class="simple">
+<li><p>python -m pytest：</p></li>
+</ul>
+<p>效果和 <code class="docutils literal notranslate"><span class="pre">py.test</span></code> 一样, 这种调用方式在多 Python 版本测试的时候是有用的,
+例如测试 Python3：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span><span class="o">[</span>…<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>部分参数介绍<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">version</span>               <span class="n">查看版本</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">fixtures</span><span class="p">,</span> <span class="o">--</span><span class="n">funcargs</span>  <span class="n">查看可用的</span> <span class="n">fixtures</span>
+<span class="n">pytest</span> <span class="o">--</span><span class="n">markers</span>                <span class="n">查看可用的</span> <span class="n">markers</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>              <span class="n">命令行和配置文件帮助</span>
+
+<span class="c1"># 失败后停止</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">x</span>           <span class="n">首次失败后停止执行</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">maxfail</span><span class="o">=</span><span class="mi">2</span>  <span class="n">两次失败之后停止执行</span>
+
+<span class="c1"># 调试输出</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="o">--</span><span class="n">showlocals</span>  <span class="n">在</span> <span class="n">traceback</span> <span class="n">中显示本地变量</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">q</span><span class="p">,</span> <span class="o">--</span><span class="n">quiet</span>       <span class="n">静默模式输出</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">verbose</span>     <span class="n">输出更详细的信息</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">s</span>                <span class="n">捕获输出</span><span class="p">,</span> <span class="n">例如显示</span> <span class="nb">print</span> <span class="n">函数的输出</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">r</span> <span class="n">char</span>           <span class="n">显示指定测试类型的额外摘要信息</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">tb</span><span class="o">=</span><span class="n">style</span>        <span class="n">错误信息输出格式</span>
+    <span class="o">-</span> <span class="n">long</span>    <span class="n">默认的traceback信息格式化形式</span>
+    <span class="o">-</span> <span class="n">native</span>  <span class="n">标准库格式化形式</span>
+    <span class="o">-</span> <span class="n">short</span>   <span class="n">更短的格式</span>
+    <span class="o">-</span> <span class="n">line</span>    <span class="n">每个错误一行</span>
+
+<span class="c1"># 运行指定 marker 的测试</span>
+<span class="n">pytest</span> <span class="o">-</span><span class="n">m</span> <span class="n">MARKEXPR</span>
+
+<span class="c1"># 运行匹配的测试</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">k</span> <span class="n">stringexpr</span>
+
+<span class="c1"># 只收集并显示可用的测试用例，但不运行测试用例</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">collect</span><span class="o">-</span><span class="n">only</span>
+
+<span class="c1"># 失败时调用 PDB</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">--</span><span class="n">pdb</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>执行选择用例<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h3>
+<ul class="simple">
+<li><p>执行单个模块中的全部用例:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>py.test<span class="w"> </span>test_mod.py
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>执行指定路径下的全部用例:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>py.test<span class="w"> </span>somepath
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>执行字符串表达式中的用例:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>py.test<span class="w"> </span>-k<span class="w"> </span>stringexpr
+</pre></div>
+</div>
+<p>比如 “MyClass?and not method”，选择
+TestMyClass.test_something，排除了TestMyClass.test_method_simple。</p>
+<ul class="simple">
+<li><p>导入 package，使用其文件系统位置来查找和执行用例。执行 pkg
+目录下的所有用例:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>py.test<span class="w"> </span>–pyargs<span class="w"> </span>pkg
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>运行指定模块中的某个用例，如运行 test_mod.py 模块中的 test_func
+测试函数:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pytest<span class="w"> </span>test_mod.py::test_func
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>运行某个类下的某个用例，如运行 TestClass 类下的 test_method 测试方法:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pytest<span class="w"> </span>test_mod.py::TestClass::test_method
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>2. 断言<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h2>
+<p>通常情况下使用 <code class="docutils literal notranslate"><span class="pre">assert</span></code>
+语句就能对大多数测试进行断言。对于异常断言，可以使用上下文管理器
+<code class="docutils literal notranslate"><span class="pre">pytest.raises</span></code>：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_zero_division</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ZeroDivisionError</span><span class="p">):</span>
+        <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+
+<span class="c1"># 还可以捕获异常信息</span>
+<span class="k">def</span> <span class="nf">test_zero_division</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;integer division or modulo by zero&#39;</span><span class="p">):</span>
+        <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>对于警告断言，可以使用上下文管理器 <code class="docutils literal notranslate"><span class="pre">pytest.</span> <span class="pre">warns</span></code>：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">warns</span><span class="p">(</span><span class="ne">RuntimeWarning</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;my warning&quot;</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">warns</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s1">&#39;must be 0 or None&#39;</span><span class="p">):</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;value must be 0 or None&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">warns</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;must be \d+$&#39;</span><span class="p">):</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;value must be 42&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>如果仅需断言 <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">PendingDeprecationWarning</span></code>
+警告，可以使用 <code class="docutils literal notranslate"><span class="pre">pytest.deprecated_call</span></code>：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">api_call_v2</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;use v3 of this api&#39;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">200</span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">deprecated_call</span><span class="p">():</span>
+        <span class="k">assert</span> <span class="n">api_call_v2</span><span class="p">()</span> <span class="o">==</span> <span class="mi">200</span>
+</pre></div>
+</div>
+<p>对于自定义类型的 assert 比较断言，可以通过在 <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code>
+文件中实现<code class="docutils literal notranslate"><span class="pre">pytest_assertrepr_compare</span></code> 函数来实现：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># content of test_foocompare.py</span>
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">test_compare</span><span class="p">():</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">f3</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">f1</span> <span class="o">==</span> <span class="n">f3</span>
+    <span class="k">assert</span> <span class="n">f1</span> <span class="o">==</span> <span class="n">f2</span>
+
+
+<span class="c1"># content of conftest.py</span>
+<span class="k">def</span> <span class="nf">pytest_assertrepr_compare</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">test_foocompare</span> <span class="kn">import</span> <span class="n">Foo</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">Foo</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">Foo</span><span class="p">)</span> <span class="ow">and</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;==&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;Comparing Foo instances:&#39;</span><span class="p">,</span> <span class="s1">&#39;vals: </span><span class="si">%s</span><span class="s1"> != </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">left</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">right</span><span class="o">.</span><span class="n">val</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>如果需要手动设置失败原因，可以使用 <code class="docutils literal notranslate"><span class="pre">pytest.fail</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_sys_version</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s2">&quot;python2 not supported&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">pytest.skip</span></code> 和 <code class="docutils literal notranslate"><span class="pre">pytest.xfail</span></code> 能够实现跳过测试的功能，skip
+表示直接跳过测试，而 xfail 则表示存在预期的失败，但两者的效果差不多：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_skip_and_xfail</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;only support python3&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- start&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">xfail</span><span class="p">(</span><span class="s2">&quot;division by zero: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- end&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pytest.importorskip</span></code>
+可以在导入失败的时候跳过测试，还可以要求导入的包要满足特定的版本：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docutils</span> <span class="o">=</span> <span class="n">pytest</span><span class="o">.</span><span class="n">importorskip</span><span class="p">(</span><span class="s2">&quot;docutils&quot;</span><span class="p">)</span>
+<span class="n">docutils</span> <span class="o">=</span> <span class="n">pytest</span><span class="o">.</span><span class="n">importorskip</span><span class="p">(</span><span class="s2">&quot;docutils&quot;</span><span class="p">,</span> <span class="n">minversion</span> <span class="o">=</span> <span class="s2">&quot;0.3&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>断言近似相等可以使用 <code class="docutils literal notranslate"><span class="pre">pytest.approx</span></code>：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="mf">2.2</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">2.3</span><span class="p">)</span>
+<span class="k">assert</span> <span class="mf">2.2</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">==</span> <span class="mf">2.2</span>
+</pre></div>
+</div>
+</section>
+<section id="conftest-py">
+<h2>3. conftest.py<a class="headerlink" href="#conftest-py" title="此标题的永久链接">¶</a></h2>
+<p>从广义理解，<code class="docutils literal notranslate"><span class="pre">conftest.py</span></code> 是一个本地的 <code class="docutils literal notranslate"><span class="pre">per-directory</span></code>
+插件，在该文件中可以定义目录特定的 hooks 和 fixtures。<code class="docutils literal notranslate"><span class="pre">py.test</span></code>
+框架会在它测试的项目中寻找 conftest.py
+文件，然后在这个文件中寻找针对整个目录的测试选项，比如是否检测并运行
+doctest 以及应该使用哪种模式检测测试文件和函数。</p>
+<p>总结起来，<code class="docutils literal notranslate"><span class="pre">conftest.py</span></code> 文件大致有如下几种功能：</p>
+<ul class="simple">
+<li><p><strong>Fixtures:</strong>
+用于给测试用例提供静态的测试数据，其可以被所有的测试用于访问，除非指定了范围</p></li>
+<li><p><strong>加载插件:</strong> 用于导入外部插件或模块:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest_plugins</span> <span class="o">=</span><span class="s2">&quot;myapp.testsupport.myplugin&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>定义钩子:</strong> 用于配置钩子(hook)，如
+pytest_runtest_setup、pytest_runtest_teardown、pytest_config 等：</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pytest_runtest_setup</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;called before `pytest_runtest_call(item)`&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>再比如添加命令行选项的钩子：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># content of conftest.py</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="k">def</span> <span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span><span class="s2">&quot;--full&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_ture&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;run full test&quot;</span><span class="p">)</span>
+
+<span class="c1"># content of test.py</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">pytest</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--runslow&quot;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">test_func_slow_1</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;当在命令行执行 --runslow 参数时才执行该测试&quot;&quot;&quot;</span>
+    <span class="nb">print</span> <span class="s1">&#39;skip slow&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>测试根路径:</strong> 如果将 conftest.py 文件放在项目根路径中，则 pytest
+会自己搜索项目根目录下的子模块，并加入到 sys.path
+中，这样便可以对项目中的所有模块进行测试，而不用设置 PYTHONPATH
+来指定项目模块的位置。</p></li>
+</ul>
+<p>可以有多个 <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code>
+文件同时存在，其作用范围是目录。例如测试非常复杂时，可以为特定的一组测试创建子目录，并在该目录中创建
+conftest.py 文件，并定义一个 futures 或 hooks。就像如下的结构：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tests
+├── conftest.py
+├── mod
+│   └── conftest.py
+├── mod2
+│   └── conftest.py
+└── mod3
+    └── conftest.py
+</pre></div>
+</div>
+</section>
+<section id="fixtures">
+<h2>4. Fixtures<a class="headerlink" href="#fixtures" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">fixture</span></code> 是 pytest 特有的功能，它用 pytest.fixture
+标识，定义在函数前面。在编写测试函数的时候，可以将此函数名称做为传入参数，pytest
+将会以依赖注入方式，将该函数的返回值作为测试函数的传入参数。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s1">&#39;function&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">autouse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="id7">
+<h3>作为参数<a class="headerlink" href="#id7" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fixture</span></code> 可以作为其他测试函数的参数被使用，前提是其必须返回一个值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;hello&quot;</span>
+
+<span class="k">def</span> <span class="nf">test_string</span><span class="p">(</span><span class="n">hello</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">hello</span> <span class="o">==</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;fixture should return hello&quot;</span>
+</pre></div>
+</div>
+<p>一个更加实用的例子：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">smtp</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">smtplib</span>
+    <span class="k">return</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s2">&quot;smtp.gmail.com&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_ehlo</span><span class="p">(</span><span class="n">smtp</span><span class="p">):</span>
+    <span class="n">response</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">smtp</span><span class="o">.</span><span class="n">ehlo</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">response</span> <span class="o">==</span> <span class="mi">250</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="c1"># for demo purposes</span>
+</pre></div>
+</div>
+</section>
+<section id="setup">
+<h3>作为 setup<a class="headerlink" href="#setup" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fixture</span></code> 也可以不返回值，这样可以用于在测试方法运行前运行一段代码：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>  <span class="c1"># 默认参数，每个测试方法前调用</span>
+<span class="k">def</span> <span class="nf">before</span><span class="p">():</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;before each test&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_1</span><span class="p">(</span><span class="n">before</span><span class="p">):</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test_1()&#39;</span><span class="p">)</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">usefixtures</span><span class="p">(</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_2</span><span class="p">():</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test_2()&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这种方式与 setup_method、setup_module 等的用法相同，其实它们也是特殊的
+fixture。</p>
+<p>在上例中，有一个测试用了 <code class="docutils literal notranslate"><span class="pre">pytest.mark.usefixtures</span></code>
+装饰器来标记使用哪个 fixture，这中用法表示在开始测试前应用该 fixture
+函数但不需要其返回值。使用这种用法时，通过 <code class="docutils literal notranslate"><span class="pre">addfinallizer</span></code>
+注册释放函数，以此来做一些“善后”工作，这类似于
+teardown_function、teardown_module 等用法。示例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">smtp</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">smtplib</span>
+    <span class="n">smtp</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s2">&quot;smtp.gmail.com&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">fin</span><span class="p">():</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;teardown smtp&quot;</span><span class="p">)</span>
+        <span class="n">smtp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">request</span><span class="o">.</span><span class="n">addfinalizer</span><span class="p">(</span><span class="n">fin</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">smtp</span>  <span class="c1"># provide the fixture value</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>作用范围<a class="headerlink" href="#id8" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fixtrue</span></code> 可以通过设置 scope
+参数来控制其作用域（同时也控制了调用的频率）。如果
+<code class="docutils literal notranslate"><span class="pre">scope='module'</span></code>，那么 fixture 就是模块级的，这个 fixture
+函数只会在每次相同模块加载的时候执行。这样就可以复用一些需要时间进行创建的对象。fixture
+提供三种作用域，用于指定 fixture 初始化的规则：</p>
+<ul class="simple">
+<li><p>function：每个测试函数之前执行一次，默认</p></li>
+<li><p>module：每个模块加载之前执行一次</p></li>
+<li><p>session：每次 session 之前执行一次，即每次测试执行一次</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>反向请求<a class="headerlink" href="#id9" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fixture</span></code> 函数可以通过接受 <code class="docutils literal notranslate"><span class="pre">request</span></code>
+对象来反向获取请求中的测试函数、类或模块上下文。例如：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">smtp</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">smtplib</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;smtpserver&quot;</span><span class="p">,</span> <span class="s2">&quot;smtp.qq.com&quot;</span><span class="p">)</span>
+    <span class="n">smtp</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="mi">587</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">smtp</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>有时需要全面测试多种不同条件下的一个对象，功能是否符合预期。可以通过设置
+fixture 的 params 参数，然后通过 request 获取设置的值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+
+    <span class="k">def</span> <span class="nf">echo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]])</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Foo</span><span class="p">(</span><span class="o">*</span><span class="n">request</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="n">foo</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">echo</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>设置 params 参数后，运行 test 时将生成不同的测试 id，可以通过 ids 自定义
+id：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">param_a</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span>
+
+<span class="k">def</span> <span class="nf">test_param_a</span><span class="p">(</span><span class="n">param_a</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="n">param_a</span>
+</pre></div>
+</div>
+<p>运行以上实例会有如下结果：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test_fixture</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_param_a</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="mi">1</span>
+<span class="n">PASSED</span>
+<span class="n">test_fixture</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_param_a</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="mi">2</span>
+<span class="n">PASSED</span>
+<span class="n">test_fixture</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_param_a</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="mi">4</span>
+<span class="n">PASSED</span>
+<span class="n">test_fixture</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_param_a</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="mi">8</span>
+<span class="n">PASSED</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>自动执行<a class="headerlink" href="#id10" title="此标题的永久链接">¶</a></h3>
+<p>有时候需要某些 fixture
+在全局自动执行，如某些全局变量的初始化工作，亦或一些全局化的清理或者初始化函数。这时可以通过设置
+fixture 的 autouse 参数来让 fixture 自动执行。设置为 autouse=True
+即可使得函数默认执行。以下例子会在开始测试前清理可能残留的文件，接着将程序目录设置为该目录，：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">work_dir</span> <span class="o">=</span> <span class="s2">&quot;/tmp/app&quot;</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">,</span> <span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">clean_workdir</span><span class="p">():</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">work_dir</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">work_dir</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chrdir</span><span class="p">(</span><span class="n">work_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setup-teardown">
+<h2>5. setup/teardown<a class="headerlink" href="#setup-teardown" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">setup/teardown</span></code>
+是指在模块、函数、类开始运行以及结束运行时执行一些动作。比如在一个函数中测试一个数据库应用，测需要在函数开始前连接数据库，在函数运行结束后断开与数据库的连接。setup/teardown
+是特殊的 fixture，其可以有一下几种实现方式：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 模块级别</span>
+<span class="k">def</span> <span class="nf">setup_module</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">teardown_module</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># 类级别</span>
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">setup_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">teardown_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># 方法级别</span>
+<span class="k">def</span> <span class="nf">setup_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">teardown_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># 函数级别</span>
+<span class="k">def</span> <span class="nf">setup_function</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">teardown_function</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>有时候，还希望有全局的 setup 或
+teardown，以便在测试开始时做一些准备工作，或者在测试结束之后做一些清理工作。这可以用
+hook 来实现：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pytest_sessionstart</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="c1"># setup_stuff</span>
+
+<span class="k">def</span> <span class="nf">pytest_sessionfinish</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">exitstatus</span><span class="p">):</span>
+    <span class="c1"># teardown_stuff</span>
+</pre></div>
+</div>
+<p>也可以用 fixture 的方式实现：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_fixture</span><span class="p">():</span>
+    <span class="c1"># setup_stuff</span>
+    <span class="k">yield</span>
+    <span class="c1"># teardown_stuff</span>
+</pre></div>
+</div>
+</section>
+<section id="markers">
+<h2>6. Markers<a class="headerlink" href="#markers" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">marker</span></code> 的作用是，用来标记测试，以便于选择性的执行测试用例。Pytest
+提供了一些内建的 marker：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 跳过测试</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># 满足某个条件时跳过该测试</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+
+<span class="c1"># 预期该测试是失败的</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">xfail</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">raises</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># 参数化测试函数。给测试用例添加参数，供运行时填充到测试中</span>
+<span class="c1"># 如果 parametrize 的参数名称与 fixture 名冲突，则会覆盖掉 fixture</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="n">argnames</span><span class="p">,</span> <span class="n">argvalues</span><span class="p">)</span>
+
+<span class="c1"># 对给定测试执行给定的 fixtures</span>
+<span class="c1"># 这种用法与直接用 fixture 效果相同</span>
+<span class="c1"># 只不过不需要把 fixture 名称作为参数放在方法声明当中</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">usefixtures</span><span class="p">(</span><span class="n">fixturename1</span><span class="p">,</span> <span class="n">fixturename2</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># 让测试尽早地被执行</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">tryfirst</span>
+
+<span class="c1"># 让测试尽量晚执行</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">trylast</span>
+</pre></div>
+</div>
+<p>例如一个使用参数化测试的例子：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">((</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;expected&quot;</span><span class="p">),</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_increment</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+     <span class="k">assert</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">expected</span>
+</pre></div>
+</div>
+<p>除了内建的 markers 外，pytest 还支持没有实现定义的 markers，如：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">old_test</span>
+<span class="k">def</span> <span class="nf">test_one</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="kc">False</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">new_test</span>
+<span class="k">def</span> <span class="nf">test_two</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="kc">False</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">windows_only</span>
+<span class="k">def</span> <span class="nf">test_three</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>通过使用 <code class="docutils literal notranslate"><span class="pre">-m</span></code> 参数可以让 pytest 选择性的执行部分测试：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pytest test.py -m &#39;not windows_only&#39;
+...
+collected 3 items / 1 deselected
+
+test_marker.py::test_one FAILED
+</pre></div>
+</div>
+<p>更详细的关于 marker 的说明可以参考官方文档：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/mark.html">https://docs.pytest.org/en/latest/mark.html</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/example/markers.html">https://docs.pytest.org/en/latest/example/markers.html</a></p></li>
+</ul>
+</section>
+<section id="id11">
+<h2>7. 第三方插件<a class="headerlink" href="#id11" title="此标题的永久链接">¶</a></h2>
+<ul class="simple">
+<li><p>pytest-randomly: 测试顺序随机</p></li>
+<li><p>pytest-xdist: 分布式测试</p></li>
+<li><p>pytest-cov: 生成测试覆盖率报告</p></li>
+<li><p>pytest-pep8: 检测代码是否符合 PEP8 规范</p></li>
+<li><p>pytest-flakes: 检测代码风格</p></li>
+<li><p>pytest-html: 生成 html 报告</p></li>
+<li><p>pytest-rerunfailures: 失败重试</p></li>
+<li><p>pytest-timeout: 超时测试</p></li>
+</ul>
+</section>
+<section id="id12">
+<h2>8. 参考资料<a class="headerlink" href="#id12" title="此标题的永久链接">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/example/">https://docs.pytest.org/en/latest/example/</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/assert.html">https://docs.pytest.org/en/latest/assert.html</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/reference.html">https://docs.pytest.org/en/latest/reference.html</a></p></li>
+<li><p><a class="reference external" href="http://doc.pytest.org/en/latest/xunit_setup.html">http://doc.pytest.org/en/latest/xunit_setup.html</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/skipping.html">https://docs.pytest.org/en/latest/skipping.html</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/fixture.html">https://docs.pytest.org/en/latest/fixture.html</a></p></li>
+<li><p><a class="reference external" href="http://senarukana.github.io/2015/05/29/pytest-fixture/">http://senarukana.github.io/2015/05/29/pytest-fixture/</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/parametrize.html">https://docs.pytest.org/en/latest/parametrize.html</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/plugins.html">https://docs.pytest.org/en/latest/plugins.html</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c13_03.html" class="btn btn-neutral float-right" title="13.3 【代码提交】pre-commit hook" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c13_01.html" class="btn btn-neutral float-left" title="13.1 【静态检查】mypy 的使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

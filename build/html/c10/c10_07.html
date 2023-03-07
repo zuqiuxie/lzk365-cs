@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10.7 【并发编程】从 yield 开始入门协程 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="10.8 【并发编程】深入理解yield from语法" href="c10_08.html" />
+    <link rel="prev" title="10.6 【并发编程】线程池创建的几种方法" href="c10_06.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c10_01.html">10.1 【并发编程】从性能角度初探并发编程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_02.html">10.2 【并发编程】创建多线程的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_03.html">10.3 【并发编程】谈谈线程中的“锁机制”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_05.html">10.5 【并发编程】线程中的信息隔离</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.7 【并发编程】从 yield 开始入门协程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">简单介绍 yield</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">向生成器中发送消息</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_09.html">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_10.html">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
+        
+      <li>10.7 【并发编程】从 yield 开始入门协程</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c10/c10_07.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="yield">
+<h1>10.7 【并发编程】从 yield 开始入门协程<a class="headerlink" href="#yield" title="此标题的永久链接">¶</a></h1>
+<section id="id1">
+<h2>简单介绍 yield<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>本篇文章会先向你介绍一个陌生的 Python 关键词，他和 <code class="docutils literal notranslate"><span class="pre">return</span></code>
+就像一对新兄弟，有相似之处，又各有不同。</p>
+<ul class="simple">
+<li><p><strong>相似的是</strong>：yield 和 return 都可以在一个函数里将值返回给调用方；</p></li>
+<li><p><strong>不同的是</strong>：return 后，函数运行就终止了，而 yield
+则只是暂停运行。</p></li>
+</ul>
+<p>关于 yield 的简单使用，请先看如下例子</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">demo</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">yield</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="k">yield</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="k">yield</span> <span class="mi">3</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">demo</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span>
+<span class="go">&lt;generator object demo at 0x10a9f5970&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>重点有如下几个：</p>
+<ol class="arabic simple">
+<li><p>含有 yield 的函数，不再是普通的函数，直接调用含有 yield
+的函数，返回的是一个生成器对象（generator object）</p></li>
+<li><p>可以使用 for 循环（实际还可以使用 list 或者 next
+函数）来遍历该生成器对象，将 yield 的内容一个一个打印出来</p></li>
+</ol>
+<p>更多关于 yield
+和生成器的内容，请前往前面的文章，里面有非常详细的讲解：<a class="reference external" href="http://python.iswbm.com/c03/c03_06.html">3.6
+【基础】生成器</a></p>
+</section>
+<section id="id2">
+<h2>向生成器中发送消息<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>函数暂停之后，如果调用者能在下一次恢复函数运行的时候，向它传递一些信息，那么整个程序的灵活性会大大提升。</p>
+<p>下面通过一个简明的演示来看看，如何往生成器中发送消息：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">jumping_range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">:</span>
+        <span class="c1"># 通过send()发送的信息将赋值给jump</span>
+        <span class="n">jump</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">index</span>
+        <span class="k">if</span> <span class="n">jump</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">jump</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">index</span> <span class="o">+=</span> <span class="n">jump</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">itr</span> <span class="o">=</span> <span class="n">jumping_range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">itr</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">itr</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">itr</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">itr</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>输出。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">2</span>
+</pre></div>
+</div>
+<p>这里解释下为什么这么输出。 重点是<code class="docutils literal notranslate"><span class="pre">jump</span> <span class="pre">=</span> <span class="pre">yield</span> <span class="pre">index</span></code>这个语句。</p>
+<p>分成两部分： - <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">index</span></code> 是将index <code class="docutils literal notranslate"><span class="pre">return</span></code>给外部调用程序。 -
+<code class="docutils literal notranslate"><span class="pre">jump</span> <span class="pre">=</span> <span class="pre">yield</span></code>
+可以接收外部程序通过send()发送的信息，并赋值给<code class="docutils literal notranslate"><span class="pre">jump</span></code></p>
+<p>下一节，我将讲一个Python3.5新引入的语法：<code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code>。篇幅也比较多，所以就单独拿出来讲。</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c10_08.html" class="btn btn-neutral float-right" title="10.8 【并发编程】深入理解yield from语法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c10_06.html" class="btn btn-neutral float-left" title="10.6 【并发编程】线程池创建的几种方法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

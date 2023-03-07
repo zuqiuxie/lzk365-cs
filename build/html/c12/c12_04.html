@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>12.4 【虚拟环境】方案三：使用 pipx &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="12.5 【虚拟环境】方案四：使用 poetry" href="c12_05.html" />
+    <link rel="prev" title="12.3 【虚拟环境】方案二：使用 pipenv" href="c12_03.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c12_01.html">12.1 【虚拟环境】为什么要有虚拟环境？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_02.html">12.2 【虚拟环境】方案一：使用 virtualenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_03.html">12.3 【虚拟环境】方案二：使用 pipenv</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.4 【虚拟环境】方案三：使用 pipx</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 什么是 pipx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 安装使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 查看包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4. 安装包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app">4. 运行APP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">5. 升级包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">6. 卸载包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pip">7. 使用 pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">8. 其他</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pipx-vs-pip">9. pipx vs pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">10. 参考文章</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c12_05.html">12.5 【虚拟环境】方案四：使用 poetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_06.html">12.6 【虚拟环境】方案五：使用 venv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_07.html">12.7 【本地环境】方案六：使用 PDM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_08.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_09.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_10.html">12.7 【最强工具】方案六：pyenv</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p12.html">第十二章：111-120</a> &raquo;</li>
+        
+      <li>12.4 【虚拟环境】方案三：使用 pipx</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c12/c12_04.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="pipx">
+<h1>12.4 【虚拟环境】方案三：使用 pipx<a class="headerlink" href="#pipx" title="此标题的永久链接">¶</a></h1>
+<section id="id1">
+<h2>1. 什么是 pipx<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>pipx 是一款用于帮助你安装和运行那些用 python 编写的终端程序，它类似于
+macOS 上的 brew，Ubuntu 上的 apt，CentOS 上的 yum。</p>
+<p>pipx 依赖 pip 和 venv，它只能在 python 3.6+ 的 Python 版本中才能使用。</p>
+<p>默认情况下，pipx 和 pip 一样会从 pypi 上安装包，同时 pipx 也能像 pip
+一样从本地、git仓库、wheel 文件中安装包。</p>
+<p>为了避免你在安装 python app时，由于多版本而导致冲突，通常我们会使用 venv
+或者 virtualenv 新建一个虚拟环境，然后将 app 安装到虚拟环境中。</p>
+<p>后续你对这个 app 的管理操作，都得先进入这个虚拟环境。</p>
+<p>发现没有？好像有点麻烦。</p>
+<p>pipx 的存在使这个流程变得更加舒畅，使用 pipx
+你可以无需关注虚拟环境的存在，并在你的机器上安装多个版本的 python app。</p>
+</section>
+<section id="id2">
+<h2>2. 安装使用<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>安装 pipx</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>pipx
+$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>userpath<span class="w"> </span>append<span class="w"> </span>~/.local/bin
+Success!
+</pre></div>
+</div>
+<p>使用 Pipx 需要注意两个路径</p>
+<ol class="arabic simple">
+<li><p>二进制文件的保存位置：默认是 <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code>，可使用环境变量
+<code class="docutils literal notranslate"><span class="pre">PIPX_BIN_DIR</span></code>
+进行更改，或者执行如下命令(<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">userpath</span> <span class="pre">append</span> <span class="pre">${you_path}</span></code>)</p></li>
+<li><p>虚拟环境的保存位置：默认是 <code class="docutils literal notranslate"><span class="pre">~/.local/pipx</span></code>，可使用环境变量
+<code class="docutils literal notranslate"><span class="pre">PIPX_HOME</span></code> 进行更改</p></li>
+</ol>
+<p>在我安装好 pipx ，准备使用的时候，发现全局找不到 pipx 这个命令。</p>
+<img alt="http://image.iswbm.com/image-20201130124107950.png" src="http://image.iswbm.com/image-20201130124107950.png" />
+<p>按照如上图所示，难道使用全路径执行命令？</p>
+<p><strong>不，怎么都觉得不太对劲。。</strong></p>
+<p>想要解决这个问题，其实很简单，有两种方法（两种都可以，我演示使用的第一种方法）：</p>
+<ol class="arabic simple">
+<li><p>添加个软链接指向刚刚那个全路径就好啦</p></li>
+<li><p>将这个路径添加到 PATH 中 <code class="docutils literal notranslate"><span class="pre">/Users/MING/Library/Python/3.9/bin/</span></code></p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/Users/MING//Library/Python/3.9/bin/pipx<span class="w"> </span>/usr/local/bin/pipx
+</pre></div>
+</div>
+<p>软链接建好后，就可以直接使用 <code class="docutils literal notranslate"><span class="pre">pipx</span></code> 的命令啦。</p>
+<img alt="http://image.iswbm.com/image-20201130124554404.png" src="http://image.iswbm.com/image-20201130124554404.png" />
+<p>刚刚我使用 pipx 安装了 youtube-dl 后，其实并没有将这个 youtube-dl
+安装到系统全局的 Python 环境中。</p>
+<p>还记得最开始，我强调过两个非常重要的路径吗？</p>
+<p>现在来看一下，这个路径下面都有哪些东西？</p>
+<img alt="http://image.iswbm.com/image-20201130125257203.png" src="http://image.iswbm.com/image-20201130125257203.png" />
+<p>从截图上可以看出</p>
+<ul class="simple">
+<li><p>pipx 在 <code class="docutils literal notranslate"><span class="pre">~/.local/pipx/venvs</span></code> 目录下新建了个名叫 <code class="docutils literal notranslate"><span class="pre">youtube-dl</span></code>
+的虚拟机环境</p></li>
+<li><p>并将 <code class="docutils literal notranslate"><span class="pre">youtube-dl</span></code> 安装到这个虚拟机环境中</p></li>
+<li><p>然后在 <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code> 的目录下新建一个软链接，指向这个虚拟环境中</p></li>
+<li><p>这样 <code class="docutils literal notranslate"><span class="pre">youtube-dl</span></code> 就变成全局的工具啦。</p></li>
+</ul>
+<img alt="http://image.iswbm.com/image-20201130131138939.png" src="http://image.iswbm.com/image-20201130131138939.png" />
+<p>为了避免你新安装的 youtube-dl 与全局的冲突，你也可以指定 pipx
+的命令来运行 youtube-dl</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>youtube-dl<span class="w"> </span>--no-check-certificate<span class="w"> </span>https://www.bilibili.com/video/BV1jK4y1h7uA
+</pre></div>
+</div>
+<p>运行效果如下：</p>
+<img alt="http://image.iswbm.com/image-20201130210539907.png" src="http://image.iswbm.com/image-20201130210539907.png" />
+<p>pip run 也可以直接执行在线的 python 脚本</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>https://gist.githubusercontent.com/cs01/fa721a17a326e551ede048c5088f9e0f/raw/6bdfbb6e9c1132b1c38fdd2f195d4a24c540c324/pipx-demo.py
+pipx<span class="w"> </span>is<span class="w"> </span>working!
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>3. 查看包<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>查看已安装过的包</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>list
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>4. 安装包<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p>下载最新版本的 python 包，并安装到新建的虚拟环境中</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>install<span class="w"> </span>&lt;PACKAGE&gt;
+</pre></div>
+</div>
+</section>
+<section id="app">
+<h2>4. 运行APP<a class="headerlink" href="#app" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pipx</span> <span class="pre">run</span></code> 后面可接一个包的 url
+链接，会将这个包下载下来并运行，也可以接已安装过的应用名来直接运行它</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>&lt;PACKAGE_URL/APP&gt;
+</pre></div>
+</div>
+<p>如果一个 app 有多个版本，那么可以通过 <code class="docutils literal notranslate"><span class="pre">spec</span></code> 指定版本号</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>--spec<span class="w"> </span><span class="nv">PACKAGE</span><span class="o">==</span><span class="m">1</span>.0.0<span class="w"> </span>app
+</pre></div>
+</div>
+<p>更神奇的是，pipx 支持指定 git 代码仓库直接运行</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>--spec<span class="w"> </span>git+https://github.com/psf/black.git<span class="w"> </span>black
+
+<span class="c1"># 指定分支</span>
+$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>--spec<span class="w"> </span>git+https://github.com/psf/black.git@branch<span class="w"> </span>black
+
+<span class="c1"># 指定某个git hash</span>
+$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>--spec<span class="w"> </span>git+https://github.com/psf/black.git@ce14fa8b497bae2b50ec48b3bd7022573a59cdb1<span class="w"> </span>black
+
+<span class="c1"># 指定某个发行版本</span>
+$<span class="w"> </span>pipx<span class="w"> </span>run<span class="w"> </span>--spec<span class="w"> </span>https://github.com/psf/black/archive/18.9b0.zip<span class="w"> </span>black<span class="w"> </span><span class="c1"># install a release</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h2>5. 升级包<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h2>
+<p>升级某个包</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>upgrade<span class="w"> </span>&lt;pkg&gt;
+</pre></div>
+</div>
+<p>升级全部包</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>upgrade-all
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h2>6. 卸载包<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h2>
+<p>卸载某个包</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>uninstall<span class="w"> </span>&lt;pkg&gt;
+</pre></div>
+</div>
+<p>卸载全部包</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>uninstall-all
+</pre></div>
+</div>
+<p>重装全部包</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>reinstall-all
+</pre></div>
+</div>
+</section>
+<section id="pip">
+<h2>7. 使用 pip<a class="headerlink" href="#pip" title="此标题的永久链接">¶</a></h2>
+<p>每执行一次 pipx install
+就会新建一个虚拟环境，那我们有没有办法管理这些虚拟机环境呢？</p>
+<p>比如我想看这个虚拟环境里安装了哪些包？</p>
+<p>使用如下命令就可以像使用 pip 一样，来管理 pipx 的虚拟环境</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pipx<span class="w"> </span>runpip<span class="w"> </span>&lt;env_name&gt;<span class="w"> </span>&lt;args&gt;
+</pre></div>
+</div>
+<p>效果如下</p>
+<img alt="http://image.iswbm.com/image-20201130215320069.png" src="http://image.iswbm.com/image-20201130215320069.png" />
+</section>
+<section id="id7">
+<h2>8. 其他<a class="headerlink" href="#id7" title="此标题的永久链接">¶</a></h2>
+<p>执行 <code class="docutils literal notranslate"><span class="pre">pipx</span> <span class="pre">completions</span></code> 可以启用 pipx 的补全说明。</p>
+<p>对于不同的终端开启方式不一样，我使用的是 zsh，方法是</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>autoload<span class="w"> </span>-U<span class="w"> </span>bashcompinit
+$<span class="w"> </span>bashcompinit
+$<span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>register-python-argcomplete<span class="w"> </span>pipx<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>我安装好后，可以使用 tab 键进行命令补全。</p>
+<img alt="http://image.iswbm.com/image-20201130220233001.png" src="http://image.iswbm.com/image-20201130220233001.png" />
+<p>执行 <code class="docutils literal notranslate"><span class="pre">pipx</span> <span class="pre">ensurepath</span></code> 可以确保 <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code>
+这个重要的目录，已经放入到 <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> 的变量中。</p>
+<img alt="http://image.iswbm.com/image-20201130215826513.png" src="http://image.iswbm.com/image-20201130215826513.png" />
+</section>
+<section id="pipx-vs-pip">
+<h2>9. pipx vs pip<a class="headerlink" href="#pipx-vs-pip" title="此标题的永久链接">¶</a></h2>
+<p>pipx 只是解决 pip
+的一个痛点，因此他的适用场景比较单一，它只适用于安装和运行那些有提供命令行入口的app。</p>
+<ul class="simple">
+<li><p>pip 适用于大多数的 Python 版本，而 pipx 需要 Python 3.6+ 才可以使用</p></li>
+<li><p>pipx 依赖 pip 和 venv，可以使用 pip 安装pipx ，反过来则不行。</p></li>
+<li><p>pip 和 pipx 默认都是从 pypi 上安装包</p></li>
+<li><p>pipx 在安装和管理 cli 应用程序时，比 pip
+更灵活，它可以在允许在隔离环境中安装和运行 Python 应用</p></li>
+</ul>
+</section>
+<section id="id8">
+<h2>10. 参考文章<a class="headerlink" href="#id8" title="此标题的永久链接">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/pipxproject/pipx">https://github.com/pipxproject/pipx</a></p></li>
+<li><p><a class="reference external" href="https://pipxproject.github.io/pipx/comparisons/">https://pipxproject.github.io/pipx/comparisons/</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c12_05.html" class="btn btn-neutral float-right" title="12.5 【虚拟环境】方案四：使用 poetry" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c12_03.html" class="btn btn-neutral float-left" title="12.3 【虚拟环境】方案二：使用 pipenv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

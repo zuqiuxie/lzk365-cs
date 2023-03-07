@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>12.6 【虚拟环境】方案五：使用 venv &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="12.7 【本地环境】方案六：使用 PDM" href="c12_07.html" />
+    <link rel="prev" title="12.5 【虚拟环境】方案四：使用 poetry" href="c12_05.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c12_01.html">12.1 【虚拟环境】为什么要有虚拟环境？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_02.html">12.2 【虚拟环境】方案一：使用 virtualenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_03.html">12.3 【虚拟环境】方案二：使用 pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_04.html">12.4 【虚拟环境】方案三：使用 pipx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_05.html">12.5 【虚拟环境】方案四：使用 poetry</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.6 【虚拟环境】方案五：使用 venv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 创建虚拟环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 进入创建环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 退出虚拟环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4. 总结一下</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c12_07.html">12.7 【本地环境】方案六：使用 PDM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_08.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_09.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_10.html">12.7 【最强工具】方案六：pyenv</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p12.html">第十二章：111-120</a> &raquo;</li>
+        
+      <li>12.6 【虚拟环境】方案五：使用 venv</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c12/c12_06.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="venv">
+<h1>12.6 【虚拟环境】方案五：使用 venv<a class="headerlink" href="#venv" title="此标题的永久链接">¶</a></h1>
+<p>在前面介绍的几种方法中，都需要借助第三方模块来完成虚拟环境的管理。</p>
+<p>但其实在 Python 3 中就自带了一个专门用门管理虚拟环境的模块，它叫
+<code class="docutils literal notranslate"><span class="pre">venv</span></code>。</p>
+<section id="id1">
+<h2>1. 创建虚拟环境<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">venv</span></code>
+后可以接一个目录（如果此目录不存在，会自动创建）用于创建你的虚拟环境，他可以是绝对路径，也可以是相对路径。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># mac or linux</span>
+$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="o">[</span>venv_dir<span class="o">]</span>
+
+<span class="c1"># windows: 一定要指定  --without-pip</span>
+<span class="c1"># 最后再手动执行命令安装 python -m ensurepip</span>
+$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>--without-pip<span class="w"> </span><span class="o">[</span>venv_dir<span class="o">]</span>
+</pre></div>
+</div>
+<p>使用 venv 创建虚拟环境的速度非常快，大概只需要两三秒的样子。</p>
+<img alt="http://image.iswbm.com/image-20201226172542169.png" src="http://image.iswbm.com/image-20201226172542169.png" />
+<p>创建完成后，在你所指定的目录下会有一个 <code class="docutils literal notranslate"><span class="pre">pyvenv.cfg</span></code>
+的配置文件，它记录着虚拟环境的基本信息，包括你使用的 Python
+的家目录，还有当前虚拟环境的 Python 版本，是否开启使用系统的
+site-packages
+模块，如果开启了，那么当你就可以直接使用系统中已经装过的第三方模块，但是你在虚拟环境下装的模块就不能被其他地方的程序使用。</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">home</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/usr/local/bin</span>
+<span class="na">include-system-site-packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+<span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3.9.1</span>
+</pre></div>
+</div>
+<p>如果你的环境中有 Python 3.8 也有 Python 3.9 ，那该怎么办呢？</p>
+<p>只要你在创建时，用你预期版本的 Python 去执行就好啦</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3.8<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="o">[</span>venv_dir<span class="o">]</span>
+$<span class="w"> </span>python3.9<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="o">[</span>venv_dir<span class="o">]</span>
+</pre></div>
+</div>
+<p>可如果你的环境中有两个 Python 3.9 呢？你想使用不在 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> 的中的
+Python 去创建，就要用绝对路径去创建了。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>/usr/local/bin/python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="o">[</span>venv_dir<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>2. 进入创建环境<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>进入虚拟环境的方法，对比之前介绍的方案，venv 的方法就相当原始了。</p>
+<p>如果你使用 Windows ，那么在 cmd 下进行 <code class="docutils literal notranslate"><span class="pre">Scripts</span></code> 目录，执行
+<code class="docutils literal notranslate"><span class="pre">activate.bat</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># cmd.exe</span>
+$<span class="w"> </span>.<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.bat
+
+<span class="c1"># PowserShell</span>
+$<span class="w"> </span>.<span class="se">\S</span>cripts<span class="se">\A</span>ctivate.ps1
+</pre></div>
+</div>
+<p>如果你使用PowserShell激活虚拟环境出现如下错误，那要先执行这个命令：<code class="docutils literal notranslate"><span class="pre">Set-ExecutionPolicy</span> <span class="pre">RemoteSigned</span></code>，再按
+<code class="docutils literal notranslate"><span class="pre">Y</span></code></p>
+<img alt="http://image.iswbm.com/20201231140727.png" src="http://image.iswbm.com/20201231140727.png" />
+<p>而如果你使用的 Mac 或者 Linux，那么直接执行下面命令就行</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>bin/activate
+</pre></div>
+</div>
+<p>执行完后，若在你的命令行下有 <code class="docutils literal notranslate"><span class="pre">demo</span></code> 字样（之所以是 demo
+，因为我们创建时的目录名就是 demo），说明你已经处于虚拟环境下。
+由于虚拟环境是全新的干净环境，此时你使用 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code>
+，会看到啥包都没有，只有最基本的 pip 和 setuptools 。</p>
+<img alt="http://image.iswbm.com/image-20201226174305992.png" src="http://image.iswbm.com/image-20201226174305992.png" />
+</section>
+<section id="id3">
+<h2>3. 退出虚拟环境<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>退出虚拟环境，无论是 Windows 、 Mac 、 还是 Linux
+，方法都是同一条命令。退出后，你的虚拟环境名称（如上面的 <code class="docutils literal notranslate"><span class="pre">demo</span></code>
+）也会消失。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>deactivate
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>4. 总结一下<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">venv</span></code> 是 Python3
+中自带的虚拟环境管理工具，不需要额外安装，功能简单，用法也简单。但是它不能像
+poetry 和 pipenv 用于项目的管理，因此 venv
+建议只做了解，在一些简单的场景中可以使用，如果是复杂的项目中，可以直接上
+poetry 和 pipenv。</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c12_07.html" class="btn btn-neutral float-right" title="12.7 【本地环境】方案六：使用 PDM" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c12_05.html" class="btn btn-neutral float-left" title="12.5 【虚拟环境】方案四：使用 poetry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

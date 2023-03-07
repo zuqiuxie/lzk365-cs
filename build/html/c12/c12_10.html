@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>12.7 【最强工具】方案六：pyenv &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="第十三章：121-130" href="../chapters/p13.html" />
+    <link rel="prev" title="12.7 【最强工具】方案六：pyenv" href="c12_09.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c12_01.html">12.1 【虚拟环境】为什么要有虚拟环境？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_02.html">12.2 【虚拟环境】方案一：使用 virtualenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_03.html">12.3 【虚拟环境】方案二：使用 pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_04.html">12.4 【虚拟环境】方案三：使用 pipx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_05.html">12.5 【虚拟环境】方案四：使用 poetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_06.html">12.6 【虚拟环境】方案五：使用 venv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_07.html">12.7 【本地环境】方案六：使用 PDM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_08.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_09.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.7 【最强工具】方案六：pyenv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 安装与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 基本使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 虚拟环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4. 总结一下</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p12.html">第十二章：111-120</a> &raquo;</li>
+        
+      <li>12.7 【最强工具】方案六：pyenv</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c12/c12_10.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="pyenv">
+<h1>12.7 【最强工具】方案六：pyenv<a class="headerlink" href="#pyenv" title="此标题的永久链接">¶</a></h1>
+<p>前面介绍过非常地 Python 包管理工具，有 pip、 venv、pipenv、poetry、pdm
+等</p>
+<p>今天来介绍一个更高层次的管理工具，可以直接管理 Python
+解释器的版本，同时也可以管理虚拟环境，它就是 pyenv。</p>
+<p>pyenv 的一个典型使用场景就是，比如一个老项目需要使用 Python 2.x
+，而另一个新项目需要 Python 3.x 。而 virtualenv 主要是用来管理相同版本
+Python 不同项目的包的依赖不同的问题，就无法解决这个问题，这个时候就需要
+pyenv。</p>
+<p>有了 pyenv，你可以一键安装、切换到任意你需要的 python 版本，从 2.1.3 -&gt;
+3.12-dev（稿前为止最新版本）。</p>
+<p>除了常规的 CPython 之外，它还可以管理其他的 python 和 工具，包括：</p>
+<ul class="simple">
+<li><p>graalpython</p></li>
+<li><p>ironpython</p></li>
+<li><p>jython</p></li>
+<li><p>micropython</p></li>
+<li><p>pypy</p></li>
+<li><p>miniconda</p></li>
+<li><p>anaconda</p></li>
+<li><p>pyston</p></li>
+<li><p>stackless</p></li>
+<li><p>等等</p></li>
+</ul>
+<p>好家伙，我愿称之为 Python Env
+Master，而上面每个工具，还有细分的版本，不用担心，pyenv
+全部都有收录，可以满足你几乎所有需求了。</p>
+<section id="id1">
+<h2>1. 安装与配置<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>先安装 pyenv，由于我使用 macOS，使用 brew 可以很方便的安装它</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>update
+brew<span class="w"> </span>install<span class="w"> </span>pyenv
+</pre></div>
+</div>
+<p>安装 pyenv 会安装相当多的依赖包，包括：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pyenv</span></code>: pyenv 工具自身</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyenv-update</span></code>: 用来更新 pyenv 的插件</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyenv-doctor</span></code>: 验证 pyenv 和依赖是否安装的插件</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyenv-which-ext</span></code>: 用来寻找相同命令的插件</p></li>
+</ul>
+<p>使用 pyenv help 查看一下帮助命令，如果没有报错，说明安装成功</p>
+<img alt="https://image.iswbm.com/20221211183415.png" src="https://image.iswbm.com/20221211183415.png" />
+<p>另外，除了 pyenv，还要安装一个插件 pyenv-virtualenv，它是专门用来管理
+vitual environments 的</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>pyenv-virtualenv
+</pre></div>
+</div>
+<p>安装好后，还要进行一下初始化。</p>
+<p>为了下次新开终端也可以立马使用 pyenv，可以将下面两条初始化命令写入
+<code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code>或 <code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>（根据自己实际情况而定）</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>pyenv<span class="w"> </span>init<span class="w"> </span>-<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>pyenv<span class="w"> </span>virtualenv-init<span class="w"> </span>-<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>然后再次执行 source 使之立即执行</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bash_profile
+<span class="c1"># 或</span>
+<span class="nb">source</span><span class="w"> </span>~/.zshrc
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>2. 基本使用<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>环境配置好后，那如何知道有哪些版本可以安装呢？</p>
+<p>可以使用如下命令查询所有可安装的项</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>install<span class="w"> </span>--list
+</pre></div>
+</div>
+<p>比如我现在需要安装的是
+python3.8，但我不知道最新的小版本是多少，就可以使用上面命令查询一下</p>
+<img alt="https://image.iswbm.com/20221211205459.png" src="https://image.iswbm.com/20221211205459.png" />
+<p>发现最新的版本是 3.8.16，于是直接使用 install 来安装它，再使用 pyenv
+versions 就可以看到我们安装的版本了。</p>
+<img alt="https://image.iswbm.com/20221211183934.png" src="https://image.iswbm.com/20221211183934.png" />
+<p>从上面截图可以看到，安装完后并不会自动切换过去，目前还是指向系统自带的
+Python，需要手动进行版本的切换，切换方法有如下两种：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>global<span class="w"> </span><span class="m">3</span>.8.16
+<span class="c1"># 或</span>
+pyenv<span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="m">3</span>.8.16
+</pre></div>
+</div>
+<p>那这种有什么区别呢？简单来说：</p>
+<ul class="simple">
+<li><p>global：设置全局的 Python 解释器，不管你在任何路径下都是使用该版本的
+Python</p></li>
+<li><p>local： 设置的是某特定目录（或项目）的 Python
+解释器，只有在该目录下才能用该版本的 Python</p></li>
+</ul>
+<p>我们使用 pyenv versions 可以观察下指向的 Python 版本，可以发现</p>
+<ul class="simple">
+<li><p>只要进入 wechat-chatgpt 目录，就会使用
+<code class="docutils literal notranslate"><span class="pre">.python-version</span></code>里的解释器</p></li>
+<li><p>一旦离开 wechat-chatgpt 目录，就又会使用全局的 Python 解释器</p></li>
+</ul>
+<img alt="https://image.iswbm.com/20221211211322.png" src="https://image.iswbm.com/20221211211322.png" />
+<p>想要切换回系统自带的 Python ，也是同样道理，将版本换成 system 即可</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>global<span class="w"> </span>system
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>3. 虚拟环境<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>pyenv 管理的每一个版本在 <code class="docutils literal notranslate"><span class="pre">~/.pyenv/versions</span></code> 下都有对应的目录</p>
+<img alt="https://image.iswbm.com/20221211212217.png" src="https://image.iswbm.com/20221211212217.png" />
+<p>当然 pyenv 创建的虚拟环境也是在这下面，只不过我还没有创建过虚拟环境。</p>
+<p>现在使用使用如下命令创建一个</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>virtualenv<span class="w"> </span><span class="m">3</span>.8.16<span class="w"> </span>wechat-chatgpt
+</pre></div>
+</div>
+<p>可以发现不管在 <code class="docutils literal notranslate"><span class="pre">~/.pyenv/versions</span></code>目录下还是
+<code class="docutils literal notranslate"><span class="pre">pyenv</span> <span class="pre">versions</span></code>都会新增一个环境</p>
+<img alt="https://image.iswbm.com/20221211212513.png" src="https://image.iswbm.com/20221211212513.png" />
+<p>只要在对应的目录下使用 local 指定 Python 版本，就实现了项目与 Python
+版本的绑定。实在是太友好啦～</p>
+<img alt="https://image.iswbm.com/20221211212735.png" src="https://image.iswbm.com/20221211212735.png" />
+<p>另外列几个虚拟环境管理的命令</p>
+<ul class="simple">
+<li><p>查看所有虚拟环境：pyenv virtualenvs</p></li>
+<li><p>删除指定虚拟环境：pyenv virtualenv-delete</p></li>
+<li><p>查看虚拟环境的真实的 Python 环境：pyenv virtualenv-prefix</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>4. 总结一下<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p>pyenv 从解释器管理到虚拟环境管理，给了 Python
+工程师一站式的体验，对于那些需要维护很多项目并且有些项目依赖了不同的
+Python 版本的人来说，请一定在你的电脑上安装 pyenv，因为它实在太方便了。</p>
+<p>目前我发现的唯一的不足，可能就是它只能管理通过 pyenv
+安装的解释器，而对于系统上早已存在的 Python
+解释器，并不会去扫描纳管，但这问题实在太小，小到可以忽略不计。</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../chapters/p13.html" class="btn btn-neutral float-right" title="第十三章：121-130" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c12_09.html" class="btn btn-neutral float-left" title="12.7 【最强工具】方案六：pyenv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

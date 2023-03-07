@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>9.3 【调试技巧】PyCharm跑完后立即进入调试模式 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="9.4 【调试技巧】脚本报错后立即进入调试模式" href="c09_04.html" />
+    <link rel="prev" title="9.2 【调试技巧】PyCharm 中指定参数调试程序" href="c09_02.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c09_01.html">9.1 【调试技巧】超详细图文教你调试代码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_02.html">9.2 【调试技巧】PyCharm 中指定参数调试程序</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.3 【调试技巧】PyCharm跑完后立即进入调试模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_04.html">9.4 【调试技巧】脚本报错后立即进入调试模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_05.html">9.5 【调试技巧】使用 PDB 进行无界面调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_06.html">9.6 【调试技巧】如何调试已经运行的程序？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_07.html">9.7 【调试技巧】使用 PySnopper 调试疑难杂症</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_08.html">9.8 【调试技巧】使用 PyCharm 进行远程调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_09.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_10.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p09.html">第九章：81-90</a> &raquo;</li>
+        
+      <li>9.3 【调试技巧】PyCharm跑完后立即进入调试模式</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c09/c09_03.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="pycharm">
+<h1>9.3 【调试技巧】PyCharm跑完后立即进入调试模式<a class="headerlink" href="#pycharm" title="此标题的永久链接">¶</a></h1>
+<p>假如我们在一个爬虫的项目中，会使用到 正则表达式
+来匹配我们想要抓取的内容。正则这种东西，有几个人能够一步到位的呢，通常都需要经过很多次的调试才能按预期匹配。在我们改了一次正则后，运行了下，需要重新向网站抓取请求，才能发现没有匹配上，然后又改了一版，再次运行同样需要发起请求，结果还是发现还是没有匹配上，往往复复，正则不好的同学可能要进行几十次的尝试。</p>
+<p>（上面这个例子可能不太贴切，毕竟是有很多种方法实现不用重新发请求，只是列举了一种很笨拙且低效的调试过程，你看看就好了）</p>
+<p>而我们在这几十次的调试中，向同一网站发起请求都是没有意义的重复工作。如果在
+Pycharm 中可以像 IPython Shell 和 Jupyter Notebook
+那样，可以记住运行后所有的变量信息，可以在不需要重新运行项目或脚本，就可以通过执行命令表达式，来调整我们的代码，进行我们的正则调试。</p>
+<p>答案当然是有。</p>
+<p>假如我在调试如下几行简单的代码。在第 3 行处打了个断点。然后点击图示位置
+<code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Python</span> <span class="pre">Prompt</span></code> 按钮。</p>
+<img alt="http://image.iswbm.com/Fi3N02x9OeOPatGdaReam_icn9G_" src="http://image.iswbm.com/Fi3N02x9OeOPatGdaReam_icn9G_" />
+<p>就进入了 <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Shell</span></code> 的界面，这个Shell
+环境和我们当前运行的程序环境是打通的，变量之间可以互相访问，这下你可以轻松地进行调试了。</p>
+<img alt="http://image.iswbm.com/Fj1W53Txj0iFs5eYhFYh_dHlPtIL" src="http://image.iswbm.com/Fj1W53Txj0iFs5eYhFYh_dHlPtIL" />
+<p>上面我们打了个断点，是为了方便说明这个效果。并不是说一定要打断点。如果不打断点，在脚本执行完成后，也仍然可以在这个界面查看并操作所有变量。</p>
+<img alt="http://image.iswbm.com/FlMsB7B1x6ET9mLOgydTWuTEXuOe" src="http://image.iswbm.com/FlMsB7B1x6ET9mLOgydTWuTEXuOe" />
+<p>现在我们已经可以满足我们的调试的需求，但是每次运行脚本，都要手动点击
+<code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Python</span> <span class="pre">Prompt</span></code>
+，有点麻烦。嗯？其实这个有地方可以设置默认打开的。这个开关还比较隐秘，一般人还真发现不了。</p>
+<p>你需要点击图示位置 <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">Configurations</span></code> 处。</p>
+<img alt="http://image.iswbm.com/FmfL3r0iWx_srT_xMASBEp1ZaaId" src="http://image.iswbm.com/FmfL3r0iWx_srT_xMASBEp1ZaaId" />
+<p>然后在这里打勾选中。</p>
+<img alt="http://image.iswbm.com/FiNCYpVlI93gk1zhOdQn4c0A8FMX" src="http://image.iswbm.com/FiNCYpVlI93gk1zhOdQn4c0A8FMX" />
+<p>设置上之后，之后你每次运行后脚本后，都会默认为你存储所有变量的值，并为你打开
+console 命令行调试界面。</p>
+<p>除了上面这种方法，其实还有一种方法可以在调试过程中，执行命令表达式，而这种大家可能比较熟悉了，这边也提一下，就当是汇总一下。但是从功能上来说，是没有上面这种方法来得方便易用的。因为这种方法，必须要求你使用
+debug 模式运行项目，并打断点。</p>
+<p>使用方法就是，在你打了断点后，在图示位置处，点击右键使用
+<code class="docutils literal notranslate"><span class="pre">Evaluate</span> <span class="pre">Expression</span></code></p>
+<img alt="http://image.iswbm.com/FrAq1tVRM7Bz948wRqZFzU2PQnI0" src="http://image.iswbm.com/FrAq1tVRM7Bz948wRqZFzU2PQnI0" />
+<p>就弹出了一个 <code class="docutils literal notranslate"><span class="pre">Evaluate</span> <span class="pre">Expression</span></code> 窗口，这里
+可以运行命令表达式，直接操作变量。</p>
+<img alt="http://image.iswbm.com/Fo2aEraqbj_2KqDt44EzJTVe8pEf" src="http://image.iswbm.com/Fo2aEraqbj_2KqDt44EzJTVe8pEf" />
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c09_04.html" class="btn btn-neutral float-right" title="9.4 【调试技巧】脚本报错后立即进入调试模式" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c09_02.html" class="btn btn-neutral float-left" title="9.2 【调试技巧】PyCharm 中指定参数调试程序" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

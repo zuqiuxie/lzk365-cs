@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>12.2 【虚拟环境】方案一：使用 virtualenv &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="12.3 【虚拟环境】方案二：使用 pipenv" href="c12_03.html" />
+    <link rel="prev" title="12.1 【虚拟环境】为什么要有虚拟环境？" href="c12_01.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c12_01.html">12.1 【虚拟环境】为什么要有虚拟环境？</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.2 【虚拟环境】方案一：使用 virtualenv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 安装virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#virtualenvwrapper">2. 使用 virtualenvwrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">3. 实战演示</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">3.1 交互式中</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">3.2 工程项目中</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pycharm">3.3 PyCharm中</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c12_03.html">12.3 【虚拟环境】方案二：使用 pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_04.html">12.4 【虚拟环境】方案三：使用 pipx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_05.html">12.5 【虚拟环境】方案四：使用 poetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_06.html">12.6 【虚拟环境】方案五：使用 venv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_07.html">12.7 【本地环境】方案六：使用 PDM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_08.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_09.html">12.7 【最强工具】方案六：pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c12_10.html">12.7 【最强工具】方案六：pyenv</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p12.html">第十二章：111-120</a> &raquo;</li>
+        
+      <li>12.2 【虚拟环境】方案一：使用 virtualenv</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c12/c12_02.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="virtualenv">
+<h1>12.2 【虚拟环境】方案一：使用 virtualenv<a class="headerlink" href="#virtualenv" title="此标题的永久链接">¶</a></h1>
+<section id="id1">
+<h2>1. 安装virtualenv<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>由于 virtualenvwrapper 是 virtualenv 的一组扩展，所以如果要使用
+virtualenvwrapper，就必须先安装 virtualenv。</p>
+<p><strong>基本使用</strong></p>
+<p>由于virtualenv创建虚拟环境是在当前环境下创建的。所以我们要准备一个专门存放虚拟环境的目录。（以下操作在Linux在完成，windows相对简单，请自行完成，有不明白的请微信与我联系。）</p>
+<p><strong>创建</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 准备目录并进入</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/wangbm/Envs
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>!$
+
+<span class="c1"># 创建虚拟环境（按默认的Python版本）</span>
+<span class="c1"># 执行完，当前目录下会有一个my_env01的目录</span>
+$<span class="w"> </span>virtualenv<span class="w"> </span>my_env01
+
+<span class="c1"># 你也可以指定版本</span>
+$<span class="w"> </span>virtualenv<span class="w"> </span>-p<span class="w"> </span>/usr/bin/python2.7<span class="w"> </span>my_env01
+$<span class="w"> </span>virtualenv<span class="w"> </span>-p<span class="w"> </span>/usr/bin/python3.6<span class="w"> </span>my_env02
+
+<span class="c1"># 你肯定觉得每次都要指定版本，相当麻烦吧？</span>
+<span class="c1"># 在Linux下，你可以把这个选项写进入环境变量中</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+<p><strong>进入/退出</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/home/wangbm/Envs
+
+<span class="c1"># 进入</span>
+$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>my_env01/bin/activate
+
+<span class="c1"># 退出</span>
+$<span class="w"> </span>deactivate
+</pre></div>
+</div>
+<p><strong>删除</strong>
+删除虚拟环境，只需删除对应的文件夹就行了。并不会影响全局的Python和其他环境。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/home/wangbm/Envs
+$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>my_env01
+</pre></div>
+</div>
+<blockquote>
+<div><p>注意：
+创建的虚拟环境，不会包含原生全局环境的第三方包，其会保证新建虚拟环境的干净。</p>
+</div></blockquote>
+<p>如果你需要和全局环境使用相同的第三方包。可以使用如下方法：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导出依赖包</span>
+$<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+
+<span class="c1"># 安装依赖包</span>
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="virtualenvwrapper">
+<h2>2. 使用 virtualenvwrapper<a class="headerlink" href="#virtualenvwrapper" title="此标题的永久链接">¶</a></h2>
+<p>virtualenv 虽然已经相当好用了，可是功能还是不够完善。</p>
+<p>你可能也发现了，要进入虚拟环境，必须得牢记之前设置的虚拟环境目录，如果你每次按规矩来，都将环境安装在固定目录下也没啥事。但是很多情况下，人是会懒惰的，到时可能会有很多个虚拟环境散落在系统各处，你将有可能忘记它们的名字或者位置。</p>
+<p>还有一点，virtualenv 切换环境需要两步，退出 -&gt; 进入。不够简便。</p>
+<p>为了解决这两个问题，virtualenvwrapper就诞生了。</p>
+<p><strong>安装</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 安装 - Linux</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span>
+
+<span class="c1"># 安装 - Windows</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span><span class="o">-</span><span class="n">win</span>
+</pre></div>
+</div>
+<p><strong>配置</strong> 先find一下<code class="docutils literal notranslate"><span class="pre">virtualenvwrapper.sh</span></code>文件的位置</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="p">/</span> <span class="n">-name</span> <span class="n">virtualenvwrapper</span><span class="p">.</span><span class="n">sh</span>
+<span class="c"># /usr/bin/virtualenvwrapper.sh</span>
+</pre></div>
+</div>
+<p>若是 windows 则使用everything 查找 virtualenvwrapper.bat 脚本</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="p">:</span>\<span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)</span>\<span class="n">Python38</span><span class="o">-</span><span class="mi">32</span>\<span class="n">Scripts</span>\<span class="n">virtualenvwrapper</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+<p>在~/.bashrc 文件新增配置</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/workspace
+export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper.sh
+</pre></div>
+</div>
+<p>若是 windows 则新增环境变量：<code class="docutils literal notranslate"><span class="pre">WORKON_HOME</span></code></p>
+<img alt="http://image.iswbm.com/20200209161935.png" src="http://image.iswbm.com/20200209161935.png" />
+<p><strong>基本语法</strong>：</p>
+<p>mkvirtualenv [-a project_path] [-i package] [-r requirements_file]
+[virtualenv options] ENVNAME</p>
+<p><strong>常用方法</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建</span>
+$<span class="w"> </span>mkvirtualenv<span class="w"> </span>my_env01
+
+<span class="c1"># 进入</span>
+$<span class="w"> </span>workon<span class="w"> </span>my_env01
+
+<span class="c1"># 退出</span>
+$<span class="w"> </span>deactivate
+
+<span class="c1"># 列出所有的虚拟环境，两种方法</span>
+$<span class="w"> </span>workon
+$<span class="w"> </span>lsvirtualenv
+
+<span class="c1"># 在虚拟环境内直接切换到其他环境</span>
+$<span class="w"> </span>workon<span class="w"> </span>my_env02
+
+<span class="c1"># 删除虚拟环境</span>
+$<span class="w"> </span>rmvirtualenv<span class="w"> </span>my_env01
+</pre></div>
+</div>
+<p><strong>其他命令</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 列出帮助文档</span>
+$<span class="w"> </span>virtualenvwrapper
+
+<span class="c1"># 拷贝虚拟环境</span>
+$<span class="w"> </span>cpvirtualenv<span class="w"> </span>ENVNAME<span class="w"> </span><span class="o">[</span>TARGETENVNAME<span class="o">]</span>
+
+<span class="c1"># 在所有的虚拟环境上执行命令</span>
+$<span class="w"> </span>allvirtualenv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
+
+<span class="c1"># 删除当前环境的所有第三方包</span>
+$<span class="w"> </span>wipeenv
+
+<span class="c1"># 进入到当前虚拟环境的目录</span>
+$<span class="w"> </span>cdsitepackages
+
+<span class="c1"># 进入到当前虚拟环境的site-packages目录</span>
+$<span class="w"> </span>cdvirtualenv
+
+<span class="c1"># 显示 site-packages 目录中的内容</span>
+$<span class="w"> </span>lssitepackages
+</pre></div>
+</div>
+<p>更多内容，可查看 官方文档
+<a class="reference external" href="https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html">https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html</a></p>
+</section>
+<section id="id2">
+<h2>3. 实战演示<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>以上内容，是一份使用指南。接下来，一起来看看，如何在项目中使用虚拟环境。</p>
+<p>如何使用在我们的开发中使用我们的虚拟环境呢</p>
+<p>通常我们使用的场景有如下几种</p>
+<ul class="simple">
+<li><p>交互式中</p></li>
+<li><p>PyCharm中</p></li>
+<li><p>工程中</p></li>
+</ul>
+<p>接下来，我将一一展示。</p>
+<section id="id3">
+<h3>3.1 交互式中<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h3>
+<p>先对比下，全局环境和虚拟环境的区别，全局环境中有requests包，而虚拟环境中并未安装。
+当我们敲入
+<code class="docutils literal notranslate"><span class="pre">workon</span> <span class="pre">my_env01</span></code>，前面有<code class="docutils literal notranslate"><span class="pre">my_env01</span></code>的标识，说明我们已经处在虚拟环境中。后面所有的操作，都将在虚拟环境下执行。
+<img alt="image1" src="https://i.loli.net/2018/06/11/5b1e7d36ce8ad.png" /></p>
+</section>
+<section id="id4">
+<h3>3.2 工程项目中<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h3>
+<p>我们的工程项目，都有一个入口文件，仔细观察，其首行可以指定Python解释器。</p>
+<p>倘若我们要在虚拟环境中运行这个项目，只要更改这个文件头部即可。</p>
+<p>现在我还是以，<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">requests</span></code>
+为例，来说明，是否是在虚拟环境下运行的，如果是，则和上面一样，会报错。</p>
+<p>文件内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/root/.virtualenvs/my_env01/bin/python</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="nb">print</span> <span class="s2">&quot;ok&quot;</span>
+</pre></div>
+</div>
+<p>运行前，注意添加执行权限。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>ming.py
+</pre></div>
+</div>
+<p>好了。来执行一下</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./ming.py
+</pre></div>
+</div>
+<p>发现和预期一样，真的报错了。说明我们指定的虚拟环境有效果。 <img alt="image2" src="https://i.loli.net/2018/06/11/5b1e7f140be6a.png" /></p>
+</section>
+<section id="pycharm">
+<h3>3.3 PyCharm中<a class="headerlink" href="#pycharm" title="此标题的永久链接">¶</a></h3>
+<p>点击 File - Settings - Project - Interpreter <img alt="image3" src="https://i.loli.net/2018/06/11/5b1e805c996c8.png" />
+点击小齿轮。如图点击添加，按提示添加一个虚拟环境。然后点 OK
+就可以使用这个虚拟环境，之后的项目都会在这个虚拟环境下运行。 <img alt="image4" src="https://i.loli.net/2018/06/11/5b1e812db603f.png" /></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c12_03.html" class="btn btn-neutral float-right" title="12.3 【虚拟环境】方案二：使用 pipenv" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c12_01.html" class="btn btn-neutral float-left" title="12.1 【虚拟环境】为什么要有虚拟环境？" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

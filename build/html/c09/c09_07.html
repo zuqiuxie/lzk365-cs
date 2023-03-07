@@ -1,0 +1,544 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>9.7 【调试技巧】使用 PySnopper 调试疑难杂症 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="9.8 【调试技巧】使用 PyCharm 进行远程调试" href="c09_08.html" />
+    <link rel="prev" title="9.6 【调试技巧】如何调试已经运行的程序？" href="c09_06.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c09_01.html">9.1 【调试技巧】超详细图文教你调试代码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_02.html">9.2 【调试技巧】PyCharm 中指定参数调试程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_03.html">9.3 【调试技巧】PyCharm跑完后立即进入调试模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_04.html">9.4 【调试技巧】脚本报错后立即进入调试模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_05.html">9.5 【调试技巧】使用 PDB 进行无界面调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_06.html">9.6 【调试技巧】如何调试已经运行的程序？</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.7 【调试技巧】使用 PySnopper 调试疑难杂症</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 快速安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 简单案例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 详细使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.1 重定向到日志文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2 跟踪非局部变量值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.3 设置跟踪函数的深度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">2.4 设置调试日志的前缀</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">2.5 设置最大的输出长度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">2.6 支持多线程调试模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">2.7 自定义对象的格式输出</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c09_08.html">9.8 【调试技巧】使用 PyCharm 进行远程调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_09.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c09_10.html">9.10 【调试技巧】报错后直接切换pdb调试</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p09.html">第九章：81-90</a> &raquo;</li>
+        
+      <li>9.7 【调试技巧】使用 PySnopper 调试疑难杂症</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c09/c09_07.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="pysnopper">
+<h1>9.7 【调试技巧】使用 PySnopper 调试疑难杂症<a class="headerlink" href="#pysnopper" title="此标题的永久链接">¶</a></h1>
+<p>对于每个程序开发者来说，调试几乎是必备技能。</p>
+<p>代码写到一半卡住了，不知道这个函数执行完的返回结果是怎样的？调试一下看看</p>
+<p>代码运行到一半报错了，什么情况？怎么跟预期的不一样？调试一下看看</p>
+<p>调试的方法多种多样，不同的调试方法适合不同的场景和人群。</p>
+<ul class="simple">
+<li><p>如果你是刚接触编程的小萌新，对很多工具的使用还不是很熟练，那么 print
+和 log 大法好</p></li>
+<li><p>如果你在本地（Win或者Mac）电脑上开发，那么 IDE
+的图形化界面调试无疑是最适合的；</p></li>
+<li><p>如果你在服务器上排查BUG，那么使用 PDB
+进行无图形界面的调试应该是首选；</p></li>
+<li><p>如果你要在本地进行开发，但是项目的进行需要依赖复杂的服务器环境，那么可以了解下
+PyCharm 的远程调试</p></li>
+</ul>
+<p>除了以上，今天明哥再给你介绍一款非常好用的调试工具，它能在一些场景下，大幅度提高调试的效率，
+那就是 <code class="docutils literal notranslate"><span class="pre">PySnooper</span></code>，它在 Github 上已经收到了 13k 的
+star，获得大家的一致好评。</p>
+<p><strong>有了这个工具后，就算是小萌新也可以直接无门槛上手，从此与 print
+说再见~</strong></p>
+<section id="id1">
+<h2>1. 快速安装<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<p>执行下面这些命令进行安装 PySnooper</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pysnooper
+
+<span class="c1"># 或者</span>
+$<span class="w"> </span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>pysnooper
+
+<span class="c1"># 或者</span>
+$<span class="w"> </span>yay<span class="w"> </span>-S<span class="w"> </span>python-pysnooper
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>2. 简单案例<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>下面这段代码，定义了一个 demo_func 的函数，在里面生成一个 profile
+的字典变量，然后去更新它，最后返回。</p>
+<p>代码本身没有什么实际意义，但是用来演示 PySnooper 已经足够。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pysnooper</span>
+
+<span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;写代码的明哥&quot;</span>
+    <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">27</span>
+    <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;male&quot;</span>
+
+    <span class="k">return</span> <span class="n">profile</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">demo_func</span><span class="p">()</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>现在我使用终端命令行的方式来运行它</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>root@iswbm<span class="w"> </span>~<span class="o">]</span><span class="c1"># python3 demo.py</span>
+Source<span class="w"> </span>path:...<span class="w"> </span>demo.py
+<span class="m">17</span>:52:49.624943<span class="w"> </span>call<span class="w">         </span><span class="m">4</span><span class="w"> </span>def<span class="w"> </span>demo_func<span class="o">()</span>:
+<span class="m">17</span>:52:49.625124<span class="w"> </span>line<span class="w">         </span><span class="m">5</span><span class="w">     </span><span class="nv">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{}</span>
+New<span class="w"> </span>var:.......<span class="w"> </span><span class="nv">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{}</span>
+<span class="m">17</span>:52:49.625156<span class="w"> </span>line<span class="w">         </span><span class="m">6</span><span class="w">     </span>profile<span class="o">[</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;写代码的明哥&quot;</span>
+Modified<span class="w"> </span>var:..<span class="w"> </span><span class="nv">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;写代码的明哥&#39;</span><span class="o">}</span>
+<span class="m">17</span>:52:49.625207<span class="w"> </span>line<span class="w">         </span><span class="m">7</span><span class="w">     </span>profile<span class="o">[</span><span class="s2">&quot;age&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">27</span>
+Modified<span class="w"> </span>var:..<span class="w"> </span><span class="nv">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;写代码的明哥&#39;</span>,<span class="w"> </span><span class="s1">&#39;age&#39;</span>:<span class="w"> </span><span class="m">27</span><span class="o">}</span>
+<span class="m">17</span>:52:49.625254<span class="w"> </span>line<span class="w">         </span><span class="m">8</span><span class="w">     </span>profile<span class="o">[</span><span class="s2">&quot;gender&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;male&quot;</span>
+Modified<span class="w"> </span>var:..<span class="w"> </span><span class="nv">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;写代码的明哥&#39;</span>,<span class="w"> </span><span class="s1">&#39;age&#39;</span>:<span class="w"> </span><span class="m">27</span>,<span class="w"> </span><span class="s1">&#39;gender&#39;</span>:<span class="w"> </span><span class="s1">&#39;male&#39;</span><span class="o">}</span>
+<span class="m">17</span>:52:49.625306<span class="w"> </span>line<span class="w">        </span><span class="m">10</span><span class="w">     </span><span class="k">return</span><span class="w"> </span>profile
+<span class="m">17</span>:52:49.625344<span class="w"> </span><span class="k">return</span><span class="w">      </span><span class="m">10</span><span class="w">     </span><span class="k">return</span><span class="w"> </span>profile
+Return<span class="w"> </span>value:..<span class="w"> </span><span class="o">{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;写代码的明哥&#39;</span>,<span class="w"> </span><span class="s1">&#39;age&#39;</span>:<span class="w"> </span><span class="m">27</span>,<span class="w"> </span><span class="s1">&#39;gender&#39;</span>:<span class="w"> </span><span class="s1">&#39;male&#39;</span><span class="o">}</span>
+Elapsed<span class="w"> </span>time:<span class="w"> </span><span class="m">00</span>:00:00.000486
+</pre></div>
+</div>
+<p>可以看到 PySnooper 把函数运行的过程全部记录了下来，包括：</p>
+<ul class="simple">
+<li><p>代码的片段、行号等信息，以及每一行代码是何时调用的？</p></li>
+<li><p>函数内局部变量的值如何变化的？何时新增了变量，何时修改了变量。</p></li>
+<li><p>函数的返回值是什么？</p></li>
+<li><p>运行函数消耗了多少时间？</p></li>
+</ul>
+<p>而作为开发者，要得到这些如此详细的调试信息，你需要做的非常简单，只要给你想要调试的函数上带上一顶帽子（装饰器）
+– <code class="docutils literal notranslate"><span class="pre">&#64;pysnooper.snoop()</span></code> 即可。</p>
+</section>
+<section id="id3">
+<h2>3. 详细使用<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<section id="id4">
+<h3>2.1 重定向到日志文件<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;pysnooper.snoop()</span></code>
+不加任何参数时，会默认将调试的信息输出到标准输出。</p>
+<p>对于单次调试就能解决的 BUG ，这样没有什么问题，但是有一些 BUG
+只有在特定的场景下才会出现，需要你把程序放在后面跑个一段时间才能复现。</p>
+<p>这种情况下，你可以将调试信息重定向输出到某一日志文件中，方便追溯排查。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;/var/log/debug.log&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>2.2 跟踪非局部变量值<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h3>
+<p>PySnooper
+是以函数为单位进行调试的，它默认只会跟踪函数体内的局部变量，若想跟踪全局变量，可以给
+<code class="docutils literal notranslate"><span class="pre">&#64;pysnooper.snoop()</span></code> 加上 <code class="docutils literal notranslate"><span class="pre">watch</span></code> 参数</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">}</span>
+
+<span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">watch</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;out[&quot;foo&quot;]&#39;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>如此一来，PySnooper 会在 <code class="docutils literal notranslate"><span class="pre">out[&quot;foo&quot;]</span></code> 值有变化时，也将其打印出来</p>
+<img alt="http://image.iswbm.com/20201114183018.png" src="http://image.iswbm.com/20201114183018.png" />
+<p>watch 参数，接收一个可迭代对象（可以是list 或者
+tuple），里面的元素为字符串表达式，什么意思呢？看下面例子就知道了</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">watch</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;out[&quot;foo&quot;]&#39;</span><span class="p">,</span> <span class="s1">&#39;foo.bar&#39;</span><span class="p">,</span> <span class="s1">&#39;self.foo[&quot;bar&quot;]&#39;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>和 <code class="docutils literal notranslate"><span class="pre">watch</span></code> 相对的，<code class="docutils literal notranslate"><span class="pre">pysnooper.snoop()</span></code> 还可以接收一个函数
+<code class="docutils literal notranslate"><span class="pre">watch_explode</span></code>，表示除了这几个参数外的其他所有全局变量都监控。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">watch_explode</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>2.3 设置跟踪函数的深度<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h3>
+<p>当你使用 PySnooper 调试某个函数时，若该函数中还调用了其他函数，PySnooper
+是不会傻傻的跟踪进去的。</p>
+<p>如果你想继续跟踪该函数中调用的其他函数，可以通过指定 <code class="docutils literal notranslate"><span class="pre">depth</span></code>
+参数来设置跟踪深度（不指定的话默认为 1）。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">depth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>2.4 设置调试日志的前缀<a class="headerlink" href="#id7" title="此标题的永久链接">¶</a></h3>
+<p>当你在使用 PySnooper
+跟踪多个函数时，调试的日志会显得杂乱无章，不方便查看。</p>
+<p>在这种情况下，PySnooper
+提供了一个参数，方便你为不同的函数设置不同的标志，方便你在查看日志时进行区分。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;/var/log/debug.log&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;demo_func: &quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>效果如下</p>
+<img alt="http://image.iswbm.com/20201114193131.png" src="http://image.iswbm.com/20201114193131.png" />
+</section>
+<section id="id8">
+<h3>2.5 设置最大的输出长度<a class="headerlink" href="#id8" title="此标题的永久链接">¶</a></h3>
+<p>默认情况下，PySnooper 输出的变量和异常信息，如果超过 100
+个字符，被会截断为 100 个字符。</p>
+<p>当然你也可以通过指定参数 进行修改</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>@pysnooper.snoop(max_variable_length=200）
+def demo_func():
+    ...
+</pre></div>
+</div>
+<p>您也可以使用max_variable_length=None它从不截断它们。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>@pysnooper.snoop(max_variable_length=None）
+def demo_func():
+    ...
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>2.6 支持多线程调试模式<a class="headerlink" href="#id9" title="此标题的永久链接">¶</a></h3>
+<p>PySnooper 同样支持多线程的调试，通过设置参数
+<code class="docutils literal notranslate"><span class="pre">thread_info=True</span></code>，它就会在日志中打印出是在哪个线程对变量进行的修改。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">thread_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>效果如下</p>
+<img alt="http://image.iswbm.com/20201114194449.png" src="http://image.iswbm.com/20201114194449.png" />
+</section>
+<section id="id10">
+<h3>2.7 自定义对象的格式输出<a class="headerlink" href="#id10" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pysnooper.snoop()</span></code> 函数有一个参数是
+<code class="docutils literal notranslate"><span class="pre">custom_repr</span></code>，它接收一个元组对象。</p>
+<p>在这个元组里，你可以指定特定类型的对象以特定格式进行输出。</p>
+<p>这边我举个例子。</p>
+<p>假如我要跟踪 person 这个 Person 类型的对象，由于它不是常规的 Python
+基础类型，PySnooper 是无法正常输出它的信息的。</p>
+<p>因此我在 <code class="docutils literal notranslate"><span class="pre">pysnooper.snoop()</span></code> 函数中设置了 <code class="docutils literal notranslate"><span class="pre">custom_repr</span></code>
+参数，该参数的第一个元素为 Person，第二个元素为 <code class="docutils literal notranslate"><span class="pre">print_persion_obj</span></code>
+函数。</p>
+<p>PySnooper 在打印对象的调试信息时，会逐个判断它是否是 Person
+类型的对象，若是，就将该对象传入 <code class="docutils literal notranslate"><span class="pre">print_persion_obj</span></code>
+函数中，由该函数来决定如何显示这个对象的信息。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span><span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">print_person_obj</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Person </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">gender</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+<span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">custom_repr</span><span class="o">=</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">print_person_obj</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>完整的代码如下</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pysnooper</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">:</span><span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">print_person_obj</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Person </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">gender</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+<span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">custom_repr</span><span class="o">=</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">print_person_obj</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+    <span class="n">person</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;写代码的明哥&quot;</span>
+    <span class="n">person</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">27</span>
+    <span class="n">person</span><span class="o">.</span><span class="n">gender</span> <span class="o">=</span> <span class="s2">&quot;male&quot;</span>
+
+    <span class="k">return</span> <span class="n">person</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">demo_func</span><span class="p">()</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>运行一下，观察一下效果。</p>
+<img alt="http://image.iswbm.com/20201114201042.png" src="http://image.iswbm.com/20201114201042.png" />
+<p>如果你要自定义格式输出的有很多个类型，那么 <code class="docutils literal notranslate"><span class="pre">custom_repr</span></code>
+参数的值可以这么写</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">custom_repr</span><span class="o">=</span><span class="p">((</span><span class="n">Person</span><span class="p">,</span> <span class="n">print_person_obj</span><span class="p">),</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">print_ndarray</span><span class="p">)))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>还有一点我提醒一下，元组的第一个元素可以是类型（如类名Person
+或者其他基础类型 list等），也可以是一个判断对象类型的函数。</p>
+<p>也就是说，下面三种写法是等价的。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 【第一种写法】</span>
+<span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">custom_repr</span><span class="o">=</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">print_persion_obj</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+
+
+<span class="c1"># 【第二种写法】</span>
+<span class="k">def</span> <span class="nf">is_persion_obj</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Person</span><span class="p">)</span>
+
+<span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">custom_repr</span><span class="o">=</span><span class="p">(</span><span class="n">is_persion_obj</span><span class="p">,</span> <span class="n">print_persion_obj</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+
+
+<span class="c1"># 【第三种写法】</span>
+<span class="nd">@pysnooper</span><span class="o">.</span><span class="n">snoop</span><span class="p">(</span><span class="n">custom_repr</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Person</span><span class="p">),</span> <span class="n">print_persion_obj</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">demo_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>以上就是明哥今天给大家介绍的一款调试神器（<code class="docutils literal notranslate"><span class="pre">PySnooper</span></code>）
+的详细使用手册，是不是觉得还不错？</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c09_08.html" class="btn btn-neutral float-right" title="9.8 【调试技巧】使用 PyCharm 进行远程调试" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c09_06.html" class="btn btn-neutral float-left" title="9.6 【调试技巧】如何调试已经运行的程序？" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

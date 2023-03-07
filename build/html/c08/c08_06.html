@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>8.6 【进阶】花式导包的八种方法 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="8.7 【进阶】包导入的三个冷门知识点" href="c08_07.html" />
+    <link rel="prev" title="8.5 【进阶】常规包与空间命名包" href="c08_05.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c08_01.html">071 跟领导谈话3大注意事项</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_02.html">072 坏消息预防针铺垫法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_03.html">8.3 【基础】导入单元的构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_04.html">8.4 【基础】导入包的标准写法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_05.html">8.5 【进阶】常规包与空间命名包</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.6 【进阶】花式导包的八种方法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#import">1. 直接 import</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 使用 __import__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importlib">3. 使用 importlib 模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imp">4. 使用 imp 模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execfile">5. 使用 execfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exec">6. 使用 exec 执行</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-from-github-com">7. import_from_github_com</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">8. 远程导入模块</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c08_07.html">8.7 【进阶】包导入的三个冷门知识点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_08.html">8.8 【基础】pip 的超全使用指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_09.html">8.9 【进阶】理解模块的缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_10.html">8.10 【进阶】理解查找器与加载器</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p08.html">第八章：71-80</a> &raquo;</li>
+        
+      <li>8.6 【进阶】花式导包的八种方法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c08/c08_06.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>8.6 【进阶】花式导包的八种方法<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<section id="import">
+<h2>1. 直接 import<a class="headerlink" href="#import" title="此标题的永久链接">¶</a></h2>
+<p>人尽皆知的方法，直接导入即可</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+<p>与此类似的还有，不再细讲</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">...</span>
+<span class="kn">import</span> <span class="nn">...</span> <span class="k">as</span> <span class="nn">...</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="o">...</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="o">...</span> <span class="k">as</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>一般情况下，使用 <code class="docutils literal notranslate"><span class="pre">import</span></code> 语句导入模块已经够用的。</p>
+<p>但是在一些特殊场景中，可能还需要其他的导入方式。</p>
+<p>下面我会一一地给你介绍。</p>
+</section>
+<section id="id2">
+<h2>2. 使用 __import__<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">__import__</span></code> 函数可用于导入模块，import 语句也会调用函数。其定义为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">__import__</span><span class="p">(</span><span class="n">name</span><span class="p">[,</span> <span class="nb">globals</span><span class="p">[,</span> <span class="nb">locals</span><span class="p">[,</span> <span class="n">fromlist</span><span class="p">[,</span> <span class="n">level</span><span class="p">]]]])</span>
+</pre></div>
+</div>
+<p>参数介绍：</p>
+<ul class="simple">
+<li><p>name (required): 被加载 module 的名称</p></li>
+<li><p>globals (optional): 包含全局变量的字典，该选项很少使用，采用默认值
+global()</p></li>
+<li><p>locals (optional):
+包含局部变量的字典，内部标准实现未用到该变量，采用默认值 - local()</p></li>
+<li><p>fromlist (Optional): 被导入的 submodule 名称</p></li>
+<li><p>level (Optional): 导入路径选项，Python 2 中默认为 -1，表示同时支持
+absolute import 和 relative import。Python 3 中默认为 0，表示仅支持
+absolute import。如果大于 0，则表示相对导入的父目录的级数，即 1
+类似于 ‘.’，2 类似于 ‘..’。</p></li>
+</ul>
+<p>使用示例如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">os</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+<p>如果要实现 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">xx</span> <span class="pre">as</span> <span class="pre">yy</span></code> 的效果，只要修改左值即可</p>
+<p>如下示例，等价于 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">os</span> <span class="pre">as</span> <span class="pre">myos</span></code>：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+<p>上面说过的 <code class="docutils literal notranslate"><span class="pre">__import__</span></code>
+是一个内建函数，既然是内建函数的话，那么这个内建函数必将存在于
+<code class="docutils literal notranslate"><span class="pre">__buildins__</span></code> 中，因此我们还可以这样导入 os 的模块：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">__builtins__</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="importlib">
+<h2>3. 使用 importlib 模块<a class="headerlink" href="#importlib" title="此标题的永久链接">¶</a></h2>
+<p>importlib 是 Python 中的一个标准库，importlib 能提供的功能非常全面。</p>
+<p>它的简单示例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span><span class="o">=</span><span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;os&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+<p>如果要实现 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">xx</span> <span class="pre">as</span> <span class="pre">yy</span></code>效果，可以这样</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;os&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="imp">
+<h2>4. 使用 imp 模块<a class="headerlink" href="#imp" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">imp</span></code> 模块提供了一些 import
+语句内部实现的接口。例如模块查找（find_module）、模块加载（load_module）等等（模块的导入过程会包含模块查找、加载、缓存等步骤）。可以用该模块来简单实现内建的
+<code class="docutils literal notranslate"><span class="pre">__import__</span></code> 函数功能：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">imp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="p">,</span> <span class="n">pathname</span><span class="p">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span><span class="s1">&#39;sep&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">pathname</span><span class="p">,</span> <span class="n">desc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span>
+<span class="go">&lt;module &#39;sep&#39; from &#39;/usr/lib64/python2.7/os.pyc&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myos</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+<p>从 python 3 开始，内建的 reload 函数被移到了 imp 模块中。而从 Python 3.4
+开始，imp 模块被否决，不再建议使用，其包含的功能被移到了 importlib
+模块下。即从 Python 3.4 开始，importlib 模块是之前 imp 模块和 importlib
+模块的合集。</p>
+</section>
+<section id="execfile">
+<h2>5. 使用 execfile<a class="headerlink" href="#execfile" title="此标题的永久链接">¶</a></h2>
+<p>在 Python 2 中有一个 execfile 函数，利用它可以用来执行一个文件。</p>
+<p>语法如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">execfile</span><span class="p">(</span><span class="n">filename</span><span class="p">[,</span> <span class="nb">globals</span><span class="p">[,</span> <span class="nb">locals</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>参数有这么几个：</p>
+<ul class="simple">
+<li><p>filename：文件名。</p></li>
+<li><p>globals：变量作用域，全局命名空间，如果被提供，则必须是一个字典对象。</p></li>
+<li><p>locals：变量作用域，局部命名空间，如果被提供，可以是任何映射对象。</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">execfile</span><span class="p">(</span><span class="s2">&quot;/usr/lib64/python2.7/os.py&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="exec">
+<h2>6. 使用 exec 执行<a class="headerlink" href="#exec" title="此标题的永久链接">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">execfile</span></code> 只能在 Python2 中使用，Python 3.x 里已经删除了这个函数。</p>
+<p>但是原理值得借鉴，你可以使用 open … read 读取文件内容，然后再用 exec
+去执行模块。</p>
+<p>示例如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/usr/lib64/python2.7/os.py&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">exec</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">getcwd</span><span class="p">()</span>
+<span class="go">&#39;/home/wangbm&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="import-from-github-com">
+<h2>7. import_from_github_com<a class="headerlink" href="#import-from-github-com" title="此标题的永久链接">¶</a></h2>
+<p>有一个包叫做
+<strong>import_from_github_com</strong>，从名字上很容易得知，它是一个可以从 github
+下载安装并导入的包。为了使用它，你需要做的就是按照如下命令使用pip
+先安装它。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>import_from_github_com
+</pre></div>
+</div>
+<p>这个包使用了PEP
+302中新的引入钩子，允许你可以从github上引入包。这个包实际做的就是安装这个包并将它添加到本地。你需要
+Python 3.2 或者更高的版本，并且 git 和 pip 都已经安装才能使用这个包。</p>
+<p>pip 要保证是较新版本，如果不是请执行如下命令进行升级。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</pre></div>
+</div>
+<p>确保环境 ok 后，你就可以在 Python shell 中使用 import_from_github_com</p>
+<p>示例如下</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">github_com.zzzeek</span> <span class="kn">import</span> <span class="n">sqlalchemy</span>
+<span class="go">Collecting git+https://github.com/zzzeek/sqlalchemy</span>
+<span class="go">Cloning https://github.com/zzzeek/sqlalchemy to /tmp/pip-acfv7t06-build</span>
+<span class="go">Installing collected packages: SQLAlchemy</span>
+<span class="go">Running setup.py install for SQLAlchemy ... done</span>
+<span class="go">Successfully installed SQLAlchemy-1.1.0b1.dev0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">locals</span><span class="p">()</span>
+<span class="go">{&#39;__builtins__&#39;: &lt;module &#39;builtins&#39; (built-in)&gt;, &#39;__spec__&#39;: None,</span>
+<span class="go">&#39;__package__&#39;: None, &#39;__doc__&#39;: None, &#39;__name__&#39;: &#39;__main__&#39;,</span>
+<span class="go">&#39;sqlalchemy&#39;: &lt;module &#39;sqlalchemy&#39; from &#39;/usr/local/lib/python3.5/site-packages/\</span>
+<span class="go">sqlalchemy/__init__.py&#39;&gt;,</span>
+<span class="go">&#39;__loader__&#39;: &lt;class &#39;_frozen_importlib.BuiltinImporter&#39;&gt;}</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>看了
+import_from_github_com的源码后，你会注意到它并没有使用importlib。实际上，它的原理就是使用
+pip
+来安装那些没有安装的包，然后使用Python的<code class="docutils literal notranslate"><span class="pre">__import__()</span></code>函数来引入新安装的模块。</p>
+</section>
+<section id="id3">
+<h2>8. 远程导入模块<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>在后面有一篇文章里，深入剖析了导入模块的内部原理，并在最后手动实现了从远程服务器上读取模块内容，并在本地成功将模块导入的导入器。</p>
+<p>具体内容非常的多，你可以点击这个<a class="reference external" href="http://mp.weixin.qq.com/s?__biz=MzIzMzMzOTI3Nw==&amp;mid=2247484838&amp;idx=1&amp;sn=1e6fbf5d7546902c6965c60383f7b639&amp;chksm=e8866544dff1ec52e01b6c9a982dfa150b8e34ad472acca35201373dc51dadb5a8630870982a&amp;scene=21#wechat_redirect">链接</a>进行深入学习。</p>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 新建一个 py 文件（my_importer.py），内容如下</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span> <span class="k">as</span> <span class="nn">urllib2</span>
+
+<span class="k">class</span> <span class="nc">UrlMetaFinder</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">MetaPathFinder</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baseurl</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_baseurl</span> <span class="o">=</span> <span class="n">baseurl</span>
+
+
+    <span class="k">def</span> <span class="nf">find_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_baseurl</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 不是原定义的url就直接返回不存在</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_baseurl</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="n">path</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">loader</span> <span class="o">=</span> <span class="n">UrlMetaLoader</span><span class="p">(</span><span class="n">baseurl</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">loader</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">class</span> <span class="nc">UrlMetaLoader</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">SourceLoader</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baseurl</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baseurl</span> <span class="o">=</span> <span class="n">baseurl</span>
+
+    <span class="k">def</span> <span class="nf">get_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_filename</span><span class="p">(</span><span class="n">fullname</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">get_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">baseurl</span> <span class="o">+</span> <span class="n">fullname</span> <span class="o">+</span> <span class="s1">&#39;.py&#39;</span>
+
+<span class="k">def</span> <span class="nf">install_meta</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+    <span class="n">finder</span> <span class="o">=</span> <span class="n">UrlMetaFinder</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">meta_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">finder</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>并且在远程服务器上开启 http
+服务（为了方便，我仅在本地进行演示），并且手动编辑一个名为 my_info 的
+python 文件，如果后面导入成功会打印 <code class="docutils literal notranslate"><span class="pre">ok</span></code>。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>httpserver<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>httpserver
+$<span class="w"> </span>cat&gt;my_info.py&lt;EOF
+<span class="nv">name</span><span class="o">=</span><span class="s1">&#39;wangbm&#39;</span>
+print<span class="o">(</span><span class="s1">&#39;ok&#39;</span><span class="o">)</span>
+EOF
+$<span class="w"> </span>cat<span class="w"> </span>my_info.py
+<span class="nv">name</span><span class="o">=</span><span class="s1">&#39;wangbm&#39;</span>
+print<span class="o">(</span><span class="s1">&#39;ok&#39;</span><span class="o">)</span>
+$
+$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span><span class="m">12800</span>
+Serving<span class="w"> </span>HTTP<span class="w"> </span>on<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>port<span class="w"> </span><span class="m">12800</span><span class="w"> </span><span class="o">(</span>http://0.0.0.0:12800/<span class="o">)</span><span class="w"> </span>...
+...
+</pre></div>
+</div>
+<p>一切准备好，验证开始。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">my_importer</span> <span class="kn">import</span> <span class="n">install_meta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">install_meta</span><span class="p">(</span><span class="s1">&#39;http://localhost:12800/&#39;</span><span class="p">)</span> <span class="c1"># 往 sys.meta_path 注册 finder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">my_info</span>  <span class="c1"># 打印ok，说明导入成功</span>
+<span class="go">ok</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_info</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># 验证可以取得到变量</span>
+<span class="go">&#39;wangbm&#39;</span>
+</pre></div>
+</div>
+<p>好了，8 种方法都给大家介绍完毕，对于普通开发者来说，其实只要掌握 import
+这种方法足够了，而对于那些想要自己开发框架的人来说，深入学习<code class="docutils literal notranslate"><span class="pre">__import__</span></code>以及
+importlib 是非常有必要的。</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c08_07.html" class="btn btn-neutral float-right" title="8.7 【进阶】包导入的三个冷门知识点" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c08_05.html" class="btn btn-neutral float-left" title="8.5 【进阶】常规包与空间命名包" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

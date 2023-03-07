@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>060 巧妙要钱的6招 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="第七章：61-70" href="../chapters/p07.html" />
+    <link rel="prev" title="059 摆脱尬聊的6个聊天习惯" href="c06_09.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c06_01.html">051 说话显格局的4个维度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_02.html">052 说话受人欢迎的3个套路</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_03.html">053 摆脱社交恐惧症</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_04.html">054 提升说话段位的抓心公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_05.html">055 4招霸气回应羞辱你的人</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_06.html">056 3招处理不良情绪的方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_07.html">057 告别话题”终结者“</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_08.html">058 夸男人和夸女人的区别</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c06_09.html">059 摆脱尬聊的6个聊天习惯</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">060 巧妙要钱的6招</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 只做最精确的异常捕获</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2. 别让异常破坏抽象一致性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">3. 异常处理不应该喧宾夺主</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">总结一下</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p06.html">第六章：51-60</a> &raquo;</li>
+        
+      <li>060 巧妙要钱的6招</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c06/c06_10.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>060 巧妙要钱的6招<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<p>本文作者：piglei</p>
+<p>本文来源：<a class="reference external" href="https://github.com/piglei/one-python-craftsman">https://github.com/piglei/one-python-craftsman</a></p>
+<hr class="docutils" />
+<p>如果你用 Python
+编程，那么你就无法避开异常，因为异常在这门语言里无处不在。打个比方，当你在脚本执行时按
+<code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> 退出，解释器就会产生一个 <code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code> 异常。而
+<code class="docutils literal notranslate"><span class="pre">KeyError</span></code>、<code class="docutils literal notranslate"><span class="pre">ValueError</span></code>、<code class="docutils literal notranslate"><span class="pre">TypeError</span></code>
+等更是日常编程里随处可见的老朋友。</p>
+<p>异常处理工作由“捕获”和“抛出”两部分组成。“捕获”指的是使用
+<code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></code> 包裹特定语句，妥当的完成错误流程处理。而恰当的使用
+<code class="docutils literal notranslate"><span class="pre">raise</span></code> 主动“抛出”异常，更是优雅代码里必不可少的组成部分。</p>
+<p>在这篇文章里，我会分享与异常处理相关的 3
+个好习惯。继续阅读前，我希望你已经了解了下面这些知识点：</p>
+<ul class="simple">
+<li><p>异常的基本语法与用法<em>（建议阅读官方文档</em><a class="reference external" href="https://docs.python.org/3.6/tutorial/errors.html">“Errors and
+Exceptions”</a><em>）</em></p></li>
+<li><p>为什么要使用异常代替错误返回<em>（建议阅读*`《让函数返回结果的技巧》 &lt;https://www.zlovezl.cn/articles/function-returning-tips/&gt;`__*）</em></p></li>
+<li><p>为什么在写 Python 时鼓励使用异常 <em>（建议阅读</em><a class="reference external" href="https://jeffknupp.com/blog/2013/02/06/write-cleaner-python-use-exceptions/">“Write Cleaner
+Python: Use
+Exceptions”</a><em>）</em></p></li>
+</ul>
+<section id="id2">
+<h2>1. 只做最精确的异常捕获<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>假如你不够了解异常机制，就难免会对它有一种天然恐惧感。你可能会觉得：<em>异常是一种不好的东西，好的程序就应该捕获所有的异常，让一切都平平稳稳的运行。</em>而抱着这种想法写出的代码，里面通常会出现大段含糊的异常捕获逻辑。</p>
+<p>让我们用一段可执行脚本作为样例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="k">def</span> <span class="nf">save_website_title</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;获取某个地址的网页标题，然后将其写入到文件中</span>
+
+<span class="sd">    :returns: 如果成功保存，返回 True，否则打印错误，返回 False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;title&gt;(.*)&lt;/title&gt;&#39;</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;save failed: title tag not found in page content&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">grop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;save failed: unable to save title of </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">save_website_title</span><span class="p">(</span><span class="s1">&#39;https://www.qq.com&#39;</span><span class="p">,</span> <span class="s1">&#39;qq_title.txt&#39;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>脚本里的 <code class="docutils literal notranslate"><span class="pre">save_website_title</span></code>
+函数做了好几件事情。它首先通过网络获取网页内容，然后利用正则匹配出标题，最后将标题写在本地文件里。而这里有两个步骤很容易出错：<strong>网络请求</strong>
+与 <strong>本地文件操作</strong>。所以在代码里，我们用一个大大的 <code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></code>
+语句块，将这几个步骤都包裹了起来。<strong>安全第一</strong> ⛑。</p>
+<p>那么，这段看上去简洁易懂的代码，里面藏着什么问题呢？</p>
+<p>如果你旁边刚好有一台安装了 Python
+的电脑，那么你可以试着跑一遍上面的脚本。你会发现，上面的代码是不能成功执行的。而且你还会发现，无论你如何修改网址和目标文件的值，程序仍然会报错
+<em>“save failed: unable to…”</em>。为什么呢？</p>
+<p>问题就藏在这个硕大无比的 <code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></code>
+语句块里。假如你把眼睛贴近屏幕，非常仔细的检查这段代码。你会发现在编写函数时，我犯了一个<strong>小错误</strong>，我把获取正则匹配串的方法错打成了
+<code class="docutils literal notranslate"><span class="pre">obj.grop(1)</span></code>，少了一个 ‘u’（<code class="docutils literal notranslate"><span class="pre">obj.group(1)</span></code>）。</p>
+<p>但正是因为那个过于庞大、含糊的异常捕获，这个由打错方法名导致的原本该被抛出的
+<code class="docutils literal notranslate"><span class="pre">AttibuteError</span></code> 却被吞噬了。从而给我们的 debug
+过程增加了不必要的麻烦。</p>
+<p>异常捕获的目的，不是去捕获尽可能多的异常。假如我们从一开始就坚持：<strong>只做最精准的异常捕获</strong>。那么这样的问题就根本不会发生，精准捕获包括：</p>
+<ul class="simple">
+<li><p>永远只捕获那些可能会抛出异常的语句块</p></li>
+<li><p>尽量只捕获精确的异常类型，而不是模糊的 <code class="docutils literal notranslate"><span class="pre">Exception</span></code></p></li>
+</ul>
+<p>依照这个原则，我们的样例应该被改成这样：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">requests.exceptions</span> <span class="kn">import</span> <span class="n">RequestException</span>
+
+
+<span class="k">def</span> <span class="nf">save_website_title</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;save failed: unable to get page content: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># 这段正则操作本身就是不应该抛出异常的，所以我们没必要使用 try 语句块</span>
+    <span class="c1"># 假如 group 被误打成了 grop 也没关系，程序马上就会通过 AttributeError 来</span>
+    <span class="c1"># 告诉我们。</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;title&gt;(.*)&lt;/title&gt;&#39;</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;save failed: title tag not found in page content&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;save failed: unable to write to file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>2. 别让异常破坏抽象一致性<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>大约四五年前，当时的我正在开发某移动应用的后端 API
+项目。如果你也有过开发后端 API
+的经验，那么你一定知道，这样的系统都需要制定一套<strong>“API
+错误码规范”</strong>，来为客户端处理调用错误时提供方便。</p>
+<p>一个错误码返回大概长这个样子：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// HTTP Status Code: 400</span>
+<span class="c1">// Content-Type: application/json</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;code&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;UNABLE_TO_UPVOTE_YOUR_OWN_REPLY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;detail&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;你不能推荐自己的回复&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>在制定好错误码规范后，接下来的任务就是如何实现它。当时的项目使用了
+Django 框架，而 Django
+的错误页面正是使用了异常机制实现的。打个比方，如果你想让一个请求返回 404
+状态码，那么只要在该请求处理过程中执行 <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">Http404</span></code> 即可。</p>
+<p>所以，我们很自然的从 Django
+获得了灵感。首先，我们在项目内定义了错误码异常类：<code class="docutils literal notranslate"><span class="pre">APIErrorCode</span></code>。然后依据“错误码规范”，写了很多继承该类的错误码。当需要返回错误信息给用户时，只需要做一次
+<code class="docutils literal notranslate"><span class="pre">raise</span></code> 就能搞定。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">UNABLE_TO_UPVOTE</span>
+<span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">USER_HAS_BEEN_BANNED</span>
+<span class="o">...</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>毫无意外，所有人都很喜欢用这种方式来返回错误码。因为它用起来非常方便，无论调用栈多深，只要你想给用户返回错误码，调用
+<code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">error_codes.ANY_THING</span></code> 就好。</p>
+<p>随着时间推移，项目也变得越来越庞大，抛出 <code class="docutils literal notranslate"><span class="pre">APIErrorCode</span></code>
+的地方也越来越多。有一天，我正准备复用一个底层图片处理函数时，突然碰到了一个问题。</p>
+<p>我看到了一段让我非常纠结的代码：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 在某个处理图像的模块内部</span>
+<span class="c1"># &lt;PROJECT_ROOT&gt;/util/image/processor.py</span>
+<span class="k">def</span> <span class="nf">process_image</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="c1"># 说明（非项目原注释）：该异常将会被 Django 的中间件捕获，往前端返回</span>
+        <span class="c1"># &quot;上传的图片格式有误&quot; 信息</span>
+        <span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">INVALID_IMAGE_UPLOADED</span>
+    <span class="o">...</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">process_image</span></code>
+函数会尝试解析一个文件对象，如果该对象不能被作为图片正常打开，就抛出
+<code class="docutils literal notranslate"><span class="pre">error_codes.INVALID_IMAGE_UPLOADED</span> <span class="pre">（APIErrorCode</span> <span class="pre">子类）</span></code>
+异常，从而给调用方返回错误代码 JSON。</p>
+<p>让我给你从头理理这段代码。最初编写 <code class="docutils literal notranslate"><span class="pre">process_image</span></code>
+时，我虽然把它放在了 <code class="docutils literal notranslate"><span class="pre">util.image</span></code> 模块里，但当时调这个函数的地方就只有
+<em>“处理用户上传图片的 POST 请求”</em> 而已。为了偷懒，我让函数直接抛出
+<code class="docutils literal notranslate"><span class="pre">APIErrorCode</span></code> 异常来完成了错误处理工作。</p>
+<p>再来说当时的问题。那时我需要写一个在后台运行的批处理图片脚本，而它刚好可以复用
+<code class="docutils literal notranslate"><span class="pre">process_image</span></code>
+函数所实现的功能。但这时不对劲的事情出现了，如果我想复用该函数，那么：</p>
+<ul class="simple">
+<li><p>我必须去捕获一个名为 <code class="docutils literal notranslate"><span class="pre">INVALID_IMAGE_UPLOADED</span></code> 的异常</p>
+<ul>
+<li><p><strong>哪怕我的图片根本就不是来自于用户上传</strong></p></li>
+</ul>
+</li>
+<li><p>我必须引入 <code class="docutils literal notranslate"><span class="pre">APIErrorCode</span></code> 异常类作为依赖来捕获异常</p>
+<ul>
+<li><p><strong>哪怕我的脚本和 Django API 根本没有任何关系</strong></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>这就是异常类抽象层级不一致导致的结果。</strong>APIErrorCode
+异常类的意义，在于表达一种能够直接被终端用户（人）识别并消费的“错误代码”。<strong>它在整个项目里，属于最高层的抽象之一。</strong>但是出于方便，我们却在底层模块里引入并抛出了它。这打破了
+<code class="docutils literal notranslate"><span class="pre">image.processor</span></code> 模块的抽象一致性，影响了它的可复用性和可维护性。</p>
+<p>这类情况属于“模块抛出了<strong>高于</strong>所属抽象层级的异常”。避免这类错误需要注意以下几点：</p>
+<ul class="simple">
+<li><p>让模块只抛出与当前抽象层级一致的异常</p>
+<ul>
+<li><p>比如 <code class="docutils literal notranslate"><span class="pre">image.processer</span></code> 模块应该抛出自己封装的 <code class="docutils literal notranslate"><span class="pre">ImageOpenError</span></code>
+异常</p></li>
+</ul>
+</li>
+<li><p>在必要的地方进行异常包装与转换</p>
+<ul>
+<li><p>比如，应该在贴近高层抽象（视图 View 函数）的地方，将图像处理模块的
+<code class="docutils literal notranslate"><span class="pre">ImageOpenError</span></code> 低级异常包装转换为 <code class="docutils literal notranslate"><span class="pre">APIErrorCode</span></code> 高级异常</p></li>
+</ul>
+</li>
+</ul>
+<p>修改后的代码：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># &lt;PROJECT_ROOT&gt;/util/image/processor.py</span>
+<span class="k">class</span> <span class="nc">ImageOpenError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">process_image</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ImageOpenError</span><span class="p">(</span><span class="n">exc</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+    <span class="o">...</span> <span class="o">...</span>
+
+<span class="c1"># &lt;PROJECT_ROOT&gt;/app/views.py</span>
+<span class="k">def</span> <span class="nf">foo_view_function</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">process_image</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">ImageOpenError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">INVALID_IMAGE_UPLOADED</span>
+</pre></div>
+</div>
+<p>除了应该避免抛出<strong>高于</strong>当前抽象级别的异常外，我们同样应该避免泄露<strong>低于</strong>当前抽象级别的异常。</p>
+<p>如果你用过 <code class="docutils literal notranslate"><span class="pre">requests</span></code>
+模块，你可能已经发现它请求页面出错时所抛出的异常，并不是它在底层所使用的
+<code class="docutils literal notranslate"><span class="pre">urllib3</span></code> 模块的原始异常，而是通过 <code class="docutils literal notranslate"><span class="pre">requests.exceptions</span></code>
+包装过一次的异常。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.invalid-host-foo.com&#39;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">&lt;class &#39;requests.exceptions.ConnectionError&#39;&gt;</span>
+</pre></div>
+</div>
+<p>这样做同样是为了保证异常类的抽象一致性。因为 urllib3 模块是 requests
+模块依赖的底层实现细节，而这个细节有可能在未来版本发生变动。所以必须对它抛出的异常进行恰当的包装，避免未来的底层变更对
+<code class="docutils literal notranslate"><span class="pre">requests</span></code> 用户端错误处理逻辑产生影响。</p>
+</section>
+<section id="id4">
+<h2>3. 异常处理不应该喧宾夺主<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p>在前面我们提到异常捕获要精准、抽象级别要一致。但在现实世界中，如果你严格遵循这些流程，那么很有可能会碰上另外一个问题：<strong>异常处理逻辑太多，以至于扰乱了代码核心逻辑</strong>。具体表现就是，代码里充斥着大量的
+<code class="docutils literal notranslate"><span class="pre">try</span></code>、<code class="docutils literal notranslate"><span class="pre">except</span></code>、<code class="docutils literal notranslate"><span class="pre">raise</span></code> 语句，让核心逻辑变得难以辨识。</p>
+<p>让我们看一段例子：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">upload_avatar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;用户上传新头像&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">avatar_file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;avatar&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">AVATAR_FILE_NOT_PROVIDED</span>
+
+    <span class="k">try</span><span class="p">:</span>
+       <span class="n">resized_avatar_file</span> <span class="o">=</span> <span class="n">resize_avatar</span><span class="p">(</span><span class="n">avatar_file</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">FileTooLargeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">AVATAR_FILE_TOO_LARGE</span>
+    <span class="k">except</span> <span class="n">ResizeAvatarError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">AVATAR_FILE_INVALID</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">avatar</span> <span class="o">=</span> <span class="n">resized_avatar_file</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">error_codes</span><span class="o">.</span><span class="n">INTERNAL_SERVER_ERROR</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">({})</span>
+</pre></div>
+</div>
+<p>这是一个处理用户上传头像的视图函数。这个函数内做了三件事情，并且针对每件事都做了异常捕获。如果做某件事时发生了异常，就返回对用户友好的错误到前端。</p>
+<p>这样的处理流程纵然合理，但是显然代码里的异常处理逻辑有点“喧宾夺主”了。一眼看过去全是代码缩进，很难提炼出代码的核心逻辑。</p>
+<p>早在 2.5 版本时，Python
+语言就已经提供了对付这类场景的工具：“上下文管理器（context
+manager）”。上下文管理器是一种配合 <code class="docutils literal notranslate"><span class="pre">with</span></code> 语句使用的特殊 Python
+对象，通过它，可以让异常处理工作变得更方便。</p>
+<p>那么，如何利用上下文管理器来改善我们的异常处理流程呢？让我们直接看代码吧。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">raise_api_error</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;captures specified exception and raise ApiErrorCode instead</span>
+
+<span class="sd">    :raises: AttributeError if code_name is not valid</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">captures</span><span class="p">,</span> <span class="n">code_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">captures</span> <span class="o">=</span> <span class="n">captures</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">error_codes</span><span class="p">,</span> <span class="n">code_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 该方法将在进入上下文时调用</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="c1"># 该方法将在退出上下文时调用</span>
+        <span class="c1"># exc_type, exc_val, exc_tb 分别表示该上下文内抛出的</span>
+        <span class="c1"># 异常类型、异常值、错误栈</span>
+        <span class="k">if</span> <span class="n">exc_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">exc_type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">captures</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="kn">from</span> <span class="nn">exc_val</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>在上面的代码里，我们定义了一个名为 <code class="docutils literal notranslate"><span class="pre">raise_api_error</span></code>
+的上下文管理器，它在进入上下文时什么也不做。但是在退出上下文时，会判断当前上下文中是否抛出了类型为
+<code class="docutils literal notranslate"><span class="pre">self.captures</span></code> 的异常，如果有，就用 <code class="docutils literal notranslate"><span class="pre">APIErrorCode</span></code> 异常类替代它。</p>
+<p>使用该上下文管理器后，整个函数可以变得更清晰简洁：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">upload_avatar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;用户上传新头像&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">raise_api_error</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="s1">&#39;AVATAR_FILE_NOT_PROVIDED&#39;</span><span class="p">):</span>
+        <span class="n">avatar_file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;avatar&#39;</span><span class="p">]</span>
+
+    <span class="k">with</span> <span class="n">raise_api_error</span><span class="p">(</span><span class="n">ResizeAvatarError</span><span class="p">,</span> <span class="s1">&#39;AVATAR_FILE_INVALID&#39;</span><span class="p">),</span>\
+            <span class="n">raise_api_error</span><span class="p">(</span><span class="n">FileTooLargeError</span><span class="p">,</span> <span class="s1">&#39;AVATAR_FILE_TOO_LARGE&#39;</span><span class="p">):</span>
+        <span class="n">resized_avatar_file</span> <span class="o">=</span> <span class="n">resize_avatar</span><span class="p">(</span><span class="n">avatar_file</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">raise_api_error</span><span class="p">(</span><span class="ne">Exception</span><span class="p">,</span> <span class="s1">&#39;INTERNAL_SERVER_ERROR&#39;</span><span class="p">):</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">avatar</span> <span class="o">=</span> <span class="n">resized_avatar_file</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">({})</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Hint：建议阅读 <a class="reference external" href="https://www.python.org/dev/peps/pep-0343/">PEP 343 – The “with” Statement |
+Python.org</a>，了解与上下文管理器有关的更多知识。</p>
+<p>模块
+<a class="reference external" href="https://docs.python.org/3/library/contextlib.html">contextlib</a>
+也提供了非常多与编写上下文管理器相关的工具函数与样例。</p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h2>总结一下<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h2>
+<p>在这篇文章中，我分享了与异常处理相关的三个建议。最后再总结一下要点：</p>
+<ul class="simple">
+<li><p>只捕获可能会抛出异常的语句，避免含糊的捕获逻辑</p></li>
+<li><p>保持模块异常类的抽象一致性，必要时对底层异常类进行包装</p></li>
+<li><p>使用“上下文管理器”可以简化重复的异常处理逻辑</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../chapters/p07.html" class="btn btn-neutral float-right" title="第七章：61-70" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c06_09.html" class="btn btn-neutral float-left" title="059 摆脱尬聊的6个聊天习惯" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

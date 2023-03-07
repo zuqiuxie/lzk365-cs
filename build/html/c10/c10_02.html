@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10.2 【并发编程】创建多线程的几种方法 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="10.3 【并发编程】谈谈线程中的“锁机制”" href="c10_03.html" />
+    <link rel="prev" title="10.1 【并发编程】从性能角度初探并发编程" href="c10_01.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c10_01.html">10.1 【并发编程】从性能角度初探并发编程</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.2 【并发编程】创建多线程的几种方法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 用函数创建多线程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2. 用类创建多线程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">3. 线程对象的方法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c10_03.html">10.3 【并发编程】谈谈线程中的“锁机制”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_05.html">10.5 【并发编程】线程中的信息隔离</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_07.html">10.7 【并发编程】从 yield 开始入门协程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_09.html">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_10.html">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
+        
+      <li>10.2 【并发编程】创建多线程的几种方法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c10/c10_02.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>10.2 【并发编程】创建多线程的几种方法<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<p>今天的内容会比较基础，主要是为了让新手也能无障碍地阅读，所以还是要再巩固下基础。学完了基础，你们也就能很顺畅地跟着我的思路理解以后的文章。</p>
+<p>经过总结，Python创建多线程主要有如下两种方法：</p>
+<ul class="simple">
+<li><p>函数</p></li>
+<li><p>类</p></li>
+</ul>
+<p>接下来，我们就来揭开多线程的神秘面纱。</p>
+<section id="id2">
+<h2>1. 用函数创建多线程<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>在Python3中，Python提供了一个内置模块
+<code class="docutils literal notranslate"><span class="pre">threading.Thread</span></code>，可以很方便地让我们创建多线程。</p>
+<p><code class="docutils literal notranslate"><span class="pre">threading.Thread()</span></code> 一般接收两个参数：</p>
+<ul class="simple">
+<li><p>线程函数名：要放置线程让其后台执行的函数，由我们自已定义，注意不要加<code class="docutils literal notranslate"><span class="pre">()</span></code>；</p></li>
+<li><p>线程函数的参数：线程函数名所需的参数，以元组的形式传入。若不需要参数，可以不指定。</p></li>
+</ul>
+<p><strong>举个例子</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+
+<span class="c1"># 自定义线程函数。</span>
+<span class="k">def</span> <span class="nf">target</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Python&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 创建线程01，不指定参数</span>
+<span class="n">thread_01</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+<span class="c1"># 启动线程01</span>
+<span class="n">thread_01</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+
+<span class="c1"># 创建线程02，指定参数，注意逗号</span>
+<span class="n">thread_02</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;MING&quot;</span><span class="p">,))</span>
+<span class="c1"># 启动线程02</span>
+<span class="n">thread_02</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>可以看到输出</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="n">Python</span>
+<span class="n">hello</span> <span class="n">MING</span>
+<span class="n">hello</span> <span class="n">Python</span>
+<span class="n">hello</span> <span class="n">MING</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>2. 用类创建多线程<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>相比较函数而言，使用类创建线程，会比较麻烦一点。</p>
+<p>首先，我们要自定义一个类，对于这个类有两点要求，</p>
+<ul class="simple">
+<li><p>必须继承 <code class="docutils literal notranslate"><span class="pre">threading.Thread</span></code> 这个父类；</p></li>
+<li><p>必须复写 <code class="docutils literal notranslate"><span class="pre">run</span></code> 方法。</p></li>
+</ul>
+<p>这里的 <code class="docutils literal notranslate"><span class="pre">run</span></code>
+方法，和我们上面<code class="docutils literal notranslate"><span class="pre">线程函数</span></code>的性质是一样的，可以写我们的业务逻辑程序。在
+<code class="docutils literal notranslate"><span class="pre">start()</span></code> 后将会调用。</p>
+<p>来看一下例子 为了方便对比，<code class="docutils literal notranslate"><span class="pre">run</span></code>函数我复用上面的<code class="docutils literal notranslate"><span class="pre">main</span></code>。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+
+<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Python&quot;</span><span class="p">):</span>
+        <span class="c1"># 注意：super().__init__() 必须写</span>
+        <span class="c1"># 且最好写在第一行</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">=</span><span class="nb">type</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># 创建线程01，不指定参数</span>
+    <span class="n">thread_01</span> <span class="o">=</span> <span class="n">MyThread</span><span class="p">()</span>
+    <span class="c1"># 创建线程02，指定参数</span>
+    <span class="n">thread_02</span> <span class="o">=</span> <span class="n">MyThread</span><span class="p">(</span><span class="s2">&quot;MING&quot;</span><span class="p">)</span>
+
+    <span class="n">thread_01</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">thread_02</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>当然结果也是一样的。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="n">Python</span>
+<span class="n">hello</span> <span class="n">MING</span>
+<span class="n">hello</span> <span class="n">Python</span>
+<span class="n">hello</span> <span class="n">MING</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>3. 线程对象的方法<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p>上面介绍了当前 Python 中创建线程两种主要方法。</p>
+<p>创建线程是件很容易的事，但要想用好线程，还需要学习线程对象的几个函数。</p>
+<p>经过我的总结，大约常用的方法有如下这些：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 如上所述，创建一个线程</span>
+<span class="n">t</span><span class="o">=</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">func</span><span class="p">)</span>
+
+<span class="c1"># 启动子线程</span>
+<span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="c1"># 阻塞子线程，待子线程结束后，再往下执行</span>
+<span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="c1"># 判断线程是否在执行状态，在执行返回True，否则返回False</span>
+<span class="n">t</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span>
+<span class="n">t</span><span class="o">.</span><span class="n">isAlive</span><span class="p">()</span>
+
+<span class="c1"># 设置线程是否随主线程退出而退出，默认为False</span>
+<span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># 设置线程名</span>
+<span class="n">t</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;My-Thread&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c10_03.html" class="btn btn-neutral float-right" title="10.3 【并发编程】谈谈线程中的“锁机制”" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c10_01.html" class="btn btn-neutral float-left" title="10.1 【并发编程】从性能角度初探并发编程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

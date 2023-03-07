@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10.3 【并发编程】谈谈线程中的“锁机制” &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="10.4 【并发编程】线程消息通信机制" href="c10_04.html" />
+    <link rel="prev" title="10.2 【并发编程】创建多线程的几种方法" href="c10_02.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c10_01.html">10.1 【并发编程】从性能角度初探并发编程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_02.html">10.2 【并发编程】创建多线程的几种方法</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.3 【并发编程】谈谈线程中的“锁机制”</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 什么是锁？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2. 互斥锁的使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">3. 为何要使用锁？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rlock">4. 可重入锁（RLock）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">5. 防止死锁的加锁机制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gil">6. 饱受争议的GIL（全局锁）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c10_04.html">10.4 【并发编程】线程消息通信机制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_05.html">10.5 【并发编程】线程中的信息隔离</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_06.html">10.6 【并发编程】线程池创建的几种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_07.html">10.7 【并发编程】从 yield 开始入门协程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_08.html">10.8 【并发编程】深入理解yield from语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_09.html">10.9 【并发编程】初识异步IO框架：asyncio 上篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c10_10.html">10.10 【并发编程】深入异步IO框架：asyncio 中篇</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p10.html">第十章：91-100</a> &raquo;</li>
+        
+      <li>10.3 【并发编程】谈谈线程中的“锁机制”</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c10/c10_03.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>10.3 【并发编程】谈谈线程中的“锁机制”<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<section id="id2">
+<h2>1. 什么是锁？<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>在开发中，<strong>锁</strong> 可以理解为通行证。</p>
+<p>当你对一段逻辑代码加锁时，意味着在同一时间有且仅能有一个线程在执行这段代码。</p>
+<p>在 Python 中的锁可以分为两种：</p>
+<ol class="arabic simple">
+<li><p>互斥锁</p></li>
+<li><p>可重入锁</p></li>
+</ol>
+</section>
+<section id="id3">
+<h2>2. 互斥锁的使用<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p>来简单看下代码，学习如何加锁，获取钥匙，释放锁。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="c1"># 生成锁对象，全局唯一</span>
+<span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+
+<span class="c1"># 获取锁。未获取到会阻塞程序，直到获取到锁才会往下执行</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+
+<span class="c1"># 释放锁，归还锁，其他人可以拿去用了</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>需要注意的是，lock.acquire() 和
+lock.release()必须成对出现。否则就有可能造成死锁。</p>
+<p>很多时候，我们虽然知道，他们必须成对出现，但是还是难免会有忘记的时候。
+为了，规避这个问题。我推荐使用使用上下文管理器来加锁。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+    <span class="c1"># 这里写自己的代码</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">with</span></code> 语句会在这个代码块执行前自动获取锁，在执行结束后自动释放锁。</p>
+</section>
+<section id="id4">
+<h2>3. 为何要使用锁？<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p>你现在肯定还是一脸懵逼，这么麻烦，我不用锁不行吗？有的时候还真不行。</p>
+<p>那么为了说明锁存在的意义。我们分别来看下，不用锁的情形有怎样的问题。</p>
+<p>定义两个函数，分别在两个线程中执行。这两个函数 <code class="docutils literal notranslate"><span class="pre">共用</span></code> 一个变量 <code class="docutils literal notranslate"><span class="pre">n</span></code>
+。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">job1</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">n</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;job1&#39;</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">job2</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">n</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">n</span><span class="o">+=</span><span class="mi">10</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;job2&#39;</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">t1</span><span class="o">=</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">job1</span><span class="p">)</span>
+<span class="n">t2</span><span class="o">=</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">job2</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">t2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>看代码貌似没什么问题，执行下看看输出</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span> <span class="mi">1</span>
+<span class="n">job1</span> <span class="mi">2</span>
+<span class="n">job1</span> <span class="n">job2</span> <span class="mi">13</span>
+<span class="n">job2</span> <span class="mi">23</span>
+<span class="n">job2</span> <span class="mi">333</span>
+<span class="n">job1</span> <span class="mi">34</span>
+<span class="n">job1</span> <span class="mi">35</span>
+<span class="n">job2</span>
+<span class="n">job1</span> <span class="mi">45</span> <span class="mi">46</span>
+<span class="n">job2</span> <span class="mi">56</span>
+<span class="n">job1</span> <span class="mi">57</span>
+<span class="n">job2</span>
+<span class="n">job1</span> <span class="mi">67</span>
+<span class="n">job2</span> <span class="mi">68</span> <span class="mi">78</span>
+<span class="n">job1</span> <span class="mi">79</span>
+<span class="n">job2</span>
+<span class="n">job1</span> <span class="mi">89</span>
+<span class="n">job2</span> <span class="mi">90</span> <span class="mi">100</span>
+<span class="n">job2</span> <span class="mi">110</span>
+</pre></div>
+</div>
+<p>是不是很乱？完全不是我们预想的那样。</p>
+<p>解释下这是为什么？因为两个线程共用一个全局变量，又由于两线程是交替执行的，当<code class="docutils literal notranslate"><span class="pre">job1</span></code>
+执行三次 <code class="docutils literal notranslate"><span class="pre">+1</span></code> 操作时，<code class="docutils literal notranslate"><span class="pre">job2</span></code>就不管三七二十一
+给n做了<code class="docutils literal notranslate"><span class="pre">+10</span></code>操作。两个线程之间，执行完全没有规矩，没有约束。所以会看到输出当然也很乱。</p>
+<p>加了锁后，这个问题也就解决，来看看</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">job1</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">n</span><span class="p">,</span> <span class="n">lock</span>
+    <span class="c1"># 获取锁</span>
+    <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;job1&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">job2</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">n</span><span class="p">,</span> <span class="n">lock</span>
+    <span class="c1"># 获取锁</span>
+    <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">10</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;job2&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># 生成锁对象</span>
+<span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">job1</span><span class="p">)</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">job2</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">t2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>由于<code class="docutils literal notranslate"><span class="pre">job1</span></code>的线程，率先拿到了锁，所以在for循环中，没有人有权限对n进行操作。当<code class="docutils literal notranslate"><span class="pre">job1</span></code>执行完毕释放锁后，<code class="docutils literal notranslate"><span class="pre">job2</span></code>这才拿到了锁，开始自己的for循环。</p>
+<p>看看执行结果，真如我们预想的那样。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span> <span class="mi">1</span>
+<span class="n">job1</span> <span class="mi">2</span>
+<span class="n">job1</span> <span class="mi">3</span>
+<span class="n">job1</span> <span class="mi">4</span>
+<span class="n">job1</span> <span class="mi">5</span>
+<span class="n">job1</span> <span class="mi">6</span>
+<span class="n">job1</span> <span class="mi">7</span>
+<span class="n">job1</span> <span class="mi">8</span>
+<span class="n">job1</span> <span class="mi">9</span>
+<span class="n">job1</span> <span class="mi">10</span>
+<span class="n">job2</span> <span class="mi">20</span>
+<span class="n">job2</span> <span class="mi">30</span>
+<span class="n">job2</span> <span class="mi">40</span>
+<span class="n">job2</span> <span class="mi">50</span>
+<span class="n">job2</span> <span class="mi">60</span>
+<span class="n">job2</span> <span class="mi">70</span>
+<span class="n">job2</span> <span class="mi">80</span>
+<span class="n">job2</span> <span class="mi">90</span>
+<span class="n">job2</span> <span class="mi">100</span>
+<span class="n">job2</span> <span class="mi">110</span>
+</pre></div>
+</div>
+<p>这里，你应该也知道了，加锁是为了对锁内资源（变量）进行锁定，避免其他线程篡改已被锁定的资源，以达到我们预期的效果。</p>
+<p>为了避免大家忘记释放锁，后面的例子，我将都使用with上下文管理器来加锁。大家注意一下。</p>
+</section>
+<section id="rlock">
+<h2>4. 可重入锁（RLock）<a class="headerlink" href="#rlock" title="此标题的永久链接">¶</a></h2>
+<p>有时候在同一个线程中，我们可能会多次请求同一资源，俗称锁嵌套。</p>
+<p>如果还是按照常规的做法，会造成死锁的。比如，下面这段代码，你可以试着运行一下。会发现并没有输出结果。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">main</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>是因为第二次获取锁(通行证)时，发现锁(通行证)已经被同一线程的人拿走了，拿东西总有个先来后到，别人拿走了，你要想用，你就得干等着，直到有人归还锁（通行证），假如别人一直不归还，那程序就会在这里一直阻塞。</p>
+<p>上面的代码中，使用了嵌套锁，在锁还没有释放的时候，又再一次请求锁，这就当然会造成死锁了。</p>
+<p>那么如何解决这个问题呢？</p>
+<p><code class="docutils literal notranslate"><span class="pre">threading</span></code>模块除了提供<code class="docutils literal notranslate"><span class="pre">Lock</span></code>锁之外，还提供了一种可重入锁<code class="docutils literal notranslate"><span class="pre">RLock</span></code>，专门来处理这个问题。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># 生成可重入锁对象</span>
+    <span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">main</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>执行一下，发现已经有输出了。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+<span class="mi">6</span>
+<span class="mi">7</span>
+<span class="mi">8</span>
+<span class="mi">9</span>
+<span class="mi">10</span>
+</pre></div>
+</div>
+<p>需要注意的是，可重入锁（RLock），只在同一线程里放松对锁(通行证)的获取，意思是，只要在同一线程里，程序就当你是同一个人，这个锁就可以复用，其他的话与<code class="docutils literal notranslate"><span class="pre">Lock</span></code>并无区别。</p>
+</section>
+<section id="id5">
+<h2>5. 防止死锁的加锁机制<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h2>
+<p>在编写多线程程序时，可能无意中就会写了一个死锁。可以说，死锁的形式有多种多样，但是本质都是相同的，都是对资源不合理竞争的结果。</p>
+<p>以本人的经验总结，死锁通常以下几种 -
+同一线程，嵌套获取同把互斥锁，造成死锁。 -
+多个线程，不按顺序同时获取多个锁。造成死锁</p>
+<p>对于第一种，上面已经说过了，使用可重入锁。</p>
+<p>主要是第二种。可能你还没明白，是如何死锁的。</p>
+<p>举个例子。</p>
+<blockquote>
+<div><p>线程1，嵌套获取A,B两个锁，线程2，嵌套获取B,A两个锁。
+由于两个线程是交替执行的，是有机会遇到线程1获取到锁A，而未获取到锁B，在同一时刻，线程2获取到锁B，而未获取到锁A。由于锁B已经被线程2获取了，所以线程1就卡在了获取锁B处，由于是嵌套锁，线程1未获取并释放B，是不能释放锁A的，这是导致线程2也获取不到锁A，也卡住了。两个线程，各执一锁，各不让步。造成死锁。</p>
+</div></blockquote>
+<p>经过数学证明，只要两个（或多个）线程获取嵌套锁时，按照固定顺序就能保证程序不会进入死锁状态。</p>
+<p>那么问题就转化成如何保证这些锁是按顺序的？</p>
+<p>有两个办法 - 人工自觉，人工识别。 - 写一个辅助函数来对锁进行排序。</p>
+<p>第一种，就不说了。</p>
+<p>第二种，可以参考如下代码</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="c1"># Thread-local state to stored information on locks already acquired</span>
+<span class="n">_local</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">()</span>
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">acquire</span><span class="p">(</span><span class="o">*</span><span class="n">locks</span><span class="p">):</span>
+    <span class="c1"># Sort locks by object identifier</span>
+    <span class="n">locks</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">locks</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="c1"># Make sure lock order of previously acquired locks is not violated</span>
+    <span class="n">acquired</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_local</span><span class="p">,</span><span class="s1">&#39;acquired&#39;</span><span class="p">,[])</span>
+    <span class="k">if</span> <span class="n">acquired</span> <span class="ow">and</span> <span class="nb">max</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">lock</span><span class="p">)</span> <span class="k">for</span> <span class="n">lock</span> <span class="ow">in</span> <span class="n">acquired</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">id</span><span class="p">(</span><span class="n">locks</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Lock Order Violation&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Acquire all of the locks</span>
+    <span class="n">acquired</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">locks</span><span class="p">)</span>
+    <span class="n">_local</span><span class="o">.</span><span class="n">acquired</span> <span class="o">=</span> <span class="n">acquired</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">lock</span> <span class="ow">in</span> <span class="n">locks</span><span class="p">:</span>
+            <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># Release locks in reverse order of acquisition</span>
+        <span class="k">for</span> <span class="n">lock</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">locks</span><span class="p">):</span>
+            <span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="k">del</span> <span class="n">acquired</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">locks</span><span class="p">):]</span>
+</pre></div>
+</div>
+<p>如何使用呢？</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="n">x_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+<span class="n">y_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">thread_1</span><span class="p">():</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">acquire</span><span class="p">(</span><span class="n">x_lock</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">acquire</span><span class="p">(</span><span class="n">y_lock</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Thread-1&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">thread_2</span><span class="p">():</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">acquire</span><span class="p">(</span><span class="n">y_lock</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">acquire</span><span class="p">(</span><span class="n">x_lock</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Thread-2&#39;</span><span class="p">)</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">thread_1</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">t2</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">thread_2</span><span class="p">)</span>
+<span class="n">t2</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">t2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>看到没有，表面上<code class="docutils literal notranslate"><span class="pre">thread_1</span></code>的先获取锁x，再获取锁<code class="docutils literal notranslate"><span class="pre">y</span></code>，而<code class="docutils literal notranslate"><span class="pre">thread_2</span></code>是先获取锁<code class="docutils literal notranslate"><span class="pre">y</span></code>，再获取<code class="docutils literal notranslate"><span class="pre">x</span></code>。
+但是实际上，<code class="docutils literal notranslate"><span class="pre">acquire</span></code>函数，已经对<code class="docutils literal notranslate"><span class="pre">x</span></code>，<code class="docutils literal notranslate"><span class="pre">y</span></code>两个锁进行了排序。所以<code class="docutils literal notranslate"><span class="pre">thread_1</span></code>，<code class="docutils literal notranslate"><span class="pre">hread_2</span></code>都是以同一顺序来获取锁的，是不是造成死锁的。</p>
+</section>
+<section id="gil">
+<h2>6. 饱受争议的GIL（全局锁）<a class="headerlink" href="#gil" title="此标题的永久链接">¶</a></h2>
+<p>在第一节的时候，我就和大家介绍到，多线程和多进程是不一样的。</p>
+<p>多进程是真正的并行，而多线程是伪并行，实际上他只是交替执行。</p>
+<p>是什么导致多线程，只能交替执行呢？是一个叫<code class="docutils literal notranslate"><span class="pre">GIL</span></code>（<code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Interpreter</span> <span class="pre">Lock</span></code>，全局解释器锁）的东西。</p>
+<p>什么是GIL呢？
+&gt;任何Python线程执行前，必须先获得GIL锁，然后，每执行100条字节码，解释器就自动释放GIL锁，让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行，即使100个线程跑在100核CPU上，也只能用到1个核。</p>
+<p>需要注意的是，GIL并不是Python的特性，它是在实现Python解析器(CPython)时所引入的一个概念。而Python解释器，并不是只有CPython，除它之外，还有<code class="docutils literal notranslate"><span class="pre">PyPy</span></code>，<code class="docutils literal notranslate"><span class="pre">Psyco</span></code>，<code class="docutils literal notranslate"><span class="pre">JPython</span></code>，<code class="docutils literal notranslate"><span class="pre">IronPython</span></code>等。</p>
+<p>在绝大多数情况下，我们通常都认为 Python <code class="docutils literal notranslate"><span class="pre">==</span></code>
+CPython，所以也就默许了Python具有GIL锁这个事。</p>
+<p>都知道GIL影响性能，那么如何避免受到GIL的影响？ - 使用多进程代替多线程。
+- 更换Python解释器，不使用CPython</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c10_04.html" class="btn btn-neutral float-right" title="10.4 【并发编程】线程消息通信机制" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c10_02.html" class="btn btn-neutral float-left" title="10.2 【并发编程】创建多线程的几种方法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

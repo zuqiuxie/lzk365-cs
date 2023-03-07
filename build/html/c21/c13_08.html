@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>13.4 【项目生成】cookiecutter 的使用 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="13.4 【项目生成】cookiecutter 的使用" href="c13_09.html" />
+    <link rel="prev" title="13.4 【项目生成】cookiecutter 的使用" href="c13_07.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c13_01.html">13.1 【静态检查】mypy 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_02.html">13.2 【代码测试】pytest 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_03.html">13.3 【代码提交】pre-commit hook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_04.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_05.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_06.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_07.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.4 【项目生成】cookiecutter 的使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 快速安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 如何使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 基本原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4. 配置文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">5. 总结一下</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c13_09.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c13_10.html">13.4 【项目生成】cookiecutter 的使用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p21.html">第二十一章：201-210</a> &raquo;</li>
+        
+      <li>13.4 【项目生成】cookiecutter 的使用</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c21/c13_08.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="cookiecutter">
+<h1>13.4 【项目生成】cookiecutter 的使用<a class="headerlink" href="#cookiecutter" title="此标题的永久链接">¶</a></h1>
+<blockquote>
+<div><p>转载自：<a class="reference external" href="https://note.qidong.name/2018/10/cookiecutter/">https://note.qidong.name/2018/10/cookiecutter/</a></p>
+</div></blockquote>
+<p>IDE都会有一套生成新项目的向导（Wizard），通过点点点，就可以得到一个可以运行的某类程序。
+这样的程序，具备了推荐的项目结构，配置的基本的编译、打包、测试，尽管功能只是一个<code class="docutils literal notranslate"><span class="pre">helloworld</span></code>。
+这个功能，极大地降低了初学者的进入门槛，也统一了某类项目的文件结构，是一个了不起的进步。
+最早使用这类手段的，似乎是Visual Studio。</p>
+<p>令人惋惜的是，Python的IDE——PyCharm并不自带这个功能。
+这其中，也有Python项目千变万化的因素。
+Python的适用范围太广，从桌面到服务器，从游戏到数据分析，都做一套显然投入太大。
+而Python又是一门解释型语言，随便写个文件也能直接执行，似乎没有这个必要。</p>
+<p>然而，我要说，还是有必要的！</p>
+<p>因为Python系缺失一个Wizard，也缺少项目结构的标准，于是出现了<a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a>。
+这是一个项目生成器，也可称为引擎，因为它只完成了最核心的功能。
+真正决定一个项目长什么样的模板，却可以自由定制。
+也因此，它能生成任何一种语言的项目。</p>
+<section id="id1">
+<h2>1. 快速安装<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cookiecutter
+</pre></div>
+</div>
+<p><a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a>就是一个已经发布的Python包，因此用Python的手段可以直接安装。</p>
+<p>对于非Python系的程序员来说，也可以使用包管理器的方式安装。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Mac</span>
+$<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>cookiecutter
+<span class="c1"># For Debian/Ubuntu</span>
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>cookiecutter
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>2. 如何使用<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>
+<p>首先，寻找一个合适的<a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a>项目。
+最主要的方式，就是访问其GitHub主页的<a class="reference external" href="https://github.com/audreyr/cookiecutter/tree/db14e06a1dcc0187beeafde72685c3acef93eb68#a-pantry-full-of-cookiecutters">A Pantry Full of
+Cookiecutters</a>。</p>
+<p>如果挑选完毕（这里以<a class="reference external" href="https://github.com/audreyr/cookiecutter-pypackage">cookiecutter-pypackage</a>为例），则可直接执行<code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code>生成项目。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cookiecutter<span class="w"> </span>https://github.com/audreyr/cookiecutter-pypackage.git
+full_name<span class="w"> </span><span class="o">[</span>Yan<span class="w"> </span>QiDong<span class="o">]</span>:
+email<span class="w"> </span><span class="o">[</span>yanqd0@outlook.com<span class="o">]</span>:
+github_username<span class="w"> </span><span class="o">[</span>yanqd0<span class="o">]</span>:
+project_name<span class="w"> </span><span class="o">[</span>Python<span class="w"> </span>Boilerplate<span class="o">]</span>:<span class="w"> </span>trycookie
+project_slug<span class="w"> </span><span class="o">[</span>trycookie<span class="o">]</span>:
+project_short_description<span class="w"> </span><span class="o">[</span>Python<span class="w"> </span>Boilerplate<span class="w"> </span>contains<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>boilerplate<span class="w"> </span>you<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>a<span class="w"> </span>Python<span class="w"> </span>package.<span class="o">]</span>:<span class="w"> </span>A<span class="w"> </span>description
+pypi_username<span class="w"> </span><span class="o">[</span>yanqd0<span class="o">]</span>:
+version<span class="w"> </span><span class="o">[</span><span class="m">0</span>.1.0<span class="o">]</span>:
+use_pytest<span class="w"> </span><span class="o">[</span>n<span class="o">]</span>:
+use_pypi_deployment_with_travis<span class="w"> </span><span class="o">[</span>y<span class="o">]</span>:
+add_pyup_badge<span class="w"> </span><span class="o">[</span>n<span class="o">]</span>:
+Select<span class="w"> </span>command_line_interface:
+<span class="m">1</span><span class="w"> </span>-<span class="w"> </span>Click
+<span class="m">2</span><span class="w"> </span>-<span class="w"> </span>No<span class="w"> </span>command-line<span class="w"> </span>interface
+Choose<span class="w"> </span>from<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="o">[</span><span class="m">1</span><span class="o">]</span>:
+create_author_file<span class="w"> </span><span class="o">[</span>y<span class="o">]</span>:
+Select<span class="w"> </span>open_source_license:
+<span class="m">1</span><span class="w"> </span>-<span class="w"> </span>MIT<span class="w"> </span>license
+<span class="m">2</span><span class="w"> </span>-<span class="w"> </span>BSD<span class="w"> </span>license
+<span class="m">3</span><span class="w"> </span>-<span class="w"> </span>ISC<span class="w"> </span>license
+<span class="m">4</span><span class="w"> </span>-<span class="w"> </span>Apache<span class="w"> </span>Software<span class="w"> </span>License<span class="w"> </span><span class="m">2</span>.0
+<span class="m">5</span><span class="w"> </span>-<span class="w"> </span>GNU<span class="w"> </span>General<span class="w"> </span>Public<span class="w"> </span>License<span class="w"> </span>v3
+<span class="m">6</span><span class="w"> </span>-<span class="w"> </span>Not<span class="w"> </span>open<span class="w"> </span><span class="nb">source</span>
+Choose<span class="w"> </span>from<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">6</span><span class="o">)</span><span class="w"> </span><span class="o">[</span><span class="m">1</span><span class="o">]</span>:
+</pre></div>
+</div>
+<p>在项目生成过程中，会产生一些提示，需要输入对应信息。
+这和各类Wizard的GUI中，填写项目名、包名什么的，是同类操作。
+以上是，除了项目名叫<code class="docutils literal notranslate"><span class="pre">trycookie</span></code>，基本都选默认的一个结果。</p>
+<p>查看项目结构：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>tree<span class="w"> </span>-a<span class="w"> </span>trycookie
+trycookie
+├──<span class="w"> </span>.editorconfig
+├──<span class="w"> </span>.github
+│<span class="w">   </span>└──<span class="w"> </span>ISSUE_TEMPLATE.md
+├──<span class="w"> </span>.gitignore
+├──<span class="w"> </span>.travis.yml
+├──<span class="w"> </span>AUTHORS.rst
+├──<span class="w"> </span>CONTRIBUTING.rst
+├──<span class="w"> </span>HISTORY.rst
+├──<span class="w"> </span>LICENSE
+├──<span class="w"> </span>MANIFEST.in
+├──<span class="w"> </span>Makefile
+├──<span class="w"> </span>README.rst
+├──<span class="w"> </span>docs
+│<span class="w">   </span>├──<span class="w"> </span>Makefile
+│<span class="w">   </span>├──<span class="w"> </span>authors.rst
+│<span class="w">   </span>├──<span class="w"> </span>conf.py
+│<span class="w">   </span>├──<span class="w"> </span>contributing.rst
+│<span class="w">   </span>├──<span class="w"> </span>history.rst
+│<span class="w">   </span>├──<span class="w"> </span>index.rst
+│<span class="w">   </span>├──<span class="w"> </span>installation.rst
+│<span class="w">   </span>├──<span class="w"> </span>make.bat
+│<span class="w">   </span>├──<span class="w"> </span>readme.rst
+│<span class="w">   </span>└──<span class="w"> </span>usage.rst
+├──<span class="w"> </span>requirements_dev.txt
+├──<span class="w"> </span>setup.cfg
+├──<span class="w"> </span>setup.py
+├──<span class="w"> </span>tests
+│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+│<span class="w">   </span>└──<span class="w"> </span>test_trycookie.py
+├──<span class="w"> </span>tox.ini
+└──<span class="w"> </span>trycookie
+<span class="w">    </span>├──<span class="w"> </span>__init__.py
+<span class="w">    </span>├──<span class="w"> </span>cli.py
+<span class="w">    </span>└──<span class="w"> </span>trycookie.py
+
+<span class="m">4</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">30</span><span class="w"> </span>files
+</pre></div>
+</div>
+<p>如此庞大而复杂的一个项目结构，融合了作者<a class="reference external" href="https://github.com/audreyr">audreyr</a>对一个开源PyPI项目的理解。
+虽然未必适用于任何一个人，但对于什么也不懂的菜鸟来说，却无疑是福音。</p>
+</section>
+<section id="id3">
+<h2>3. 基本原理<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h2>
+<p><a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a>的工作原理，是先下载一个模板项目，然后替换模板项目的某些内容，生成新的项目。
+在以上的示例中，<code class="docutils literal notranslate"><span class="pre">https://github.com/audreyr/cookiecutter-pypackage.git</span></code>就是一个项目的Git链接。
+这可以换成任何一个可以用<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>来下载的链接，包括各种私有Git托管平台。</p>
+<p>如果是GitHub，还可以用以下的等效形式：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cookiecutter<span class="w"> </span>gh:audreyr/cookiecutter-pypackage
+</pre></div>
+</div>
+<p><a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a>的简短形式，支持以下三种平台。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform</p></th>
+<th class="head"><p>abbreviation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/">GitHub</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gh</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://bitbucket.org/">BitBucket</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bb</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://gitlab.com/">GitLab</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gl</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a>也支持Mercurial（<code class="docutils literal notranslate"><span class="pre">hg</span></code>）。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cookiecutter<span class="w"> </span>hg+ssh://hg@bitbucket.org/audreyr/cookiecutter-pypackage
+</pre></div>
+</div>
+<p>使用过模板的项目，默认都已经被下载到<code class="docutils literal notranslate"><span class="pre">~/.cookiecutter</span></code>目录下。
+如果需要再次使用，而又无需更新，可以直接用项目名。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cookiecutter<span class="w"> </span>cookiecutter-pypackage
+</pre></div>
+</div>
+<p>利用这个特点，可以先用各种手段，把模板项目下载到<code class="docutils literal notranslate"><span class="pre">~/.cookiecutter</span></code>目录下，再来使用。</p>
+<p>参考：<a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/usage.html">Usage — cookiecutter 1.6.0
+documentation</a></p>
+</section>
+<section id="id4">
+<h2>4. 配置文件<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h2>
+<p>默认情况下，<code class="docutils literal notranslate"><span class="pre">~/.cookiecutterrc</span></code>就是配置文件。
+它实际上是一个YAML文件。 以下是孤的配置文件示例。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># vim: set filetype=yaml:</span>
+
+<span class="nt">default_context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">full_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yan</span><span class="nv"> </span><span class="s">QiDong&quot;</span>
+<span class="w">  </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;yanqd0@outlook.com&quot;</span>
+<span class="w">  </span><span class="nt">github_username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;yanqd0&quot;</span>
+<span class="nt">cookiecutters_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;~/.cookiecutters/&quot;</span>
+<span class="nt">abbreviations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/audreyr/cookiecutter-pypackage.git</span>
+<span class="w">    </span><span class="nt">gh</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/{0}.git</span>
+</pre></div>
+</div>
+<p>可配置项中，<code class="docutils literal notranslate"><span class="pre">default_context</span></code>是设置生成项目时，一些提示信息的默认参数。
+<code class="docutils literal notranslate"><span class="pre">cookiecutters_dir</span></code>则是项目的下载位置，一般默认就好。
+<code class="docutils literal notranslate"><span class="pre">abbreviations</span></code>是自定义简短形式，属于高级定制功能，仅适用于重度用户。
+通常，填一填<code class="docutils literal notranslate"><span class="pre">default_context</span></code>就好。</p>
+<p>如果对<code class="docutils literal notranslate"><span class="pre">~/.cookiecutterrc</span></code>这个配置文件的名称和位置不满意，
+可以通过环境变量<code class="docutils literal notranslate"><span class="pre">COOKIECUTTER_CONFIG</span></code>，
+或者在命令行指定参数<code class="docutils literal notranslate"><span class="pre">--config-file</span></code>来指定新的配置文件。</p>
+<p>参考：<a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/advanced/user_config.html">User Config (0.7.0+) — cookiecutter 1.6.0
+documentation</a></p>
+</section>
+<section id="id5">
+<h2>5. 总结一下<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h2>
+<p><a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a>是一个简单好用的项目生成器引擎，并且已经有很多各种类型的模板。
+除了Python项目，还有很多其它语言的项目模板。
+它可以极大地省去一个项目初始化的重复劳动，也可以帮助菜鸟程序员成长。</p>
+<p>当然，如果不满意，还是可以自己修改、定制模板的。</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c13_09.html" class="btn btn-neutral float-right" title="13.4 【项目生成】cookiecutter 的使用" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c13_07.html" class="btn btn-neutral float-left" title="13.4 【项目生成】cookiecutter 的使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

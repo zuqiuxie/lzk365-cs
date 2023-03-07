@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ZH-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>8.9 【进阶】理解模块的缓存 &mdash; lzk365 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="8.10 【进阶】理解查找器与加载器" href="c08_10.html" />
+    <link rel="prev" title="8.8 【基础】pip 的超全使用指南" href="c08_08.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lzk365
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p01.html">第一章：1-10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p02.html">第二章：11-20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p03.html">第三章：21-30</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p04.html">第四章：31-40</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p05.html">第五章：41-50</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p06.html">第六章：51-60</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p07.html">第七章：61-70</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../chapters/p08.html">第八章：71-80</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c08_01.html">071 跟领导谈话3大注意事项</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_02.html">072 坏消息预防针铺垫法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_03.html">8.3 【基础】导入单元的构成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_04.html">8.4 【基础】导入包的标准写法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_05.html">8.5 【进阶】常规包与空间命名包</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_06.html">8.6 【进阶】花式导包的八种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_07.html">8.7 【进阶】包导入的三个冷门知识点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_08.html">8.8 【基础】pip 的超全使用指南</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.9 【进阶】理解模块的缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c08_10.html">8.10 【进阶】理解查找器与加载器</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p09.html">第九章：81-90</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p10.html">第十章：91-100</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p11.html">第十一章：101-110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p12.html">第十二章：111-120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p13.html">第十三章：121-130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p14.html">第十四章：131-140</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p15.html">第十五章：141-150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p16.html">第十六章：151-160</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p17.html">第十七章：161-170</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p18.html">第十八章：171-180</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p19.html">第十九章：181-190</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p20.html">第二十章：191-200</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p21.html">第二十一章：201-210</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p22.html">第二十二章：211-220</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p23.html">第二十三章：221-230</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p24.html">第二十四章：231-240</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p25.html">第二十五章：241-250</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p26.html">第二十六章：251-260</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p27.html">第二十七章：261-270</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p28.html">第二十八章：271-280</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p29.html">第二十九章：281-290</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p30.html">第三十章：291-300</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p31.html">第三十一章：301-310</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p32.html">第三十二章：311-320</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p33.html">第三十三章：321-330</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p34.html">第三十四章：331-340</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p35.html">第三十五章：341-350</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/p36.html">第三十六章：351-360</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于作者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lzk365</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../chapters/p08.html">第八章：71-80</a> &raquo;</li>
+        
+      <li>8.9 【进阶】理解模块的缓存</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/c08/c08_09.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="id1">
+<h1>8.9 【进阶】理解模块的缓存<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h1>
+<p>在一个模块内部重复引用另一个相同模块，实际并不会导入两次，原因是在使用关键字
+<code class="docutils literal notranslate"><span class="pre">import</span></code> 导入模块时，它会先检索 <code class="docutils literal notranslate"><span class="pre">sys.modules</span></code>
+里是否已经载入这个模块了，如果已经载入，则不会再次导入，如果不存在，才会去检索导入这个模块。</p>
+<p>来实验一下，在 <code class="docutils literal notranslate"><span class="pre">my_mod02</span></code> 这个模块里，我 import 两次 <code class="docutils literal notranslate"><span class="pre">my_mod01</span></code>
+这个模块，按逻辑每一次 import 会一次 <code class="docutils literal notranslate"><span class="pre">my_mod01</span></code> 里的代码（即打印
+<code class="docutils literal notranslate"><span class="pre">in</span> <span class="pre">mod01</span></code>），但是验证结果是，只打印了一次。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>my_mod01.py
+print<span class="o">(</span><span class="s1">&#39;in mod01&#39;</span><span class="o">)</span>
+
+$<span class="w"> </span>cat<span class="w"> </span>my_mod02.py
+import<span class="w"> </span>my_mod01
+import<span class="w"> </span>my_mod01
+
+$<span class="w"> </span>python<span class="w"> </span>my_mod02.py
+<span class="k">in</span><span class="w"> </span>mod01
+</pre></div>
+</div>
+<p>该现象的解释是：因为有 <code class="docutils literal notranslate"><span class="pre">sys.modules</span></code> 的存在。</p>
+<p><code class="docutils literal notranslate"><span class="pre">sys.modules</span></code>
+是一个字典（key：模块名，value：模块对象），它存放着在当前 namespace
+所有已经导入的模块对象。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># test_module.py</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;NotFound&#39;</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;NotFound&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>运行结果如下，可见在 导入后 json 模块后，<code class="docutils literal notranslate"><span class="pre">sys.modules</span></code> 才有了 json
+模块的对象。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>test_module.py
+NotFound
+&lt;module<span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="w"> </span>from<span class="w"> </span><span class="s1">&#39;C:\Python27\lib\json\__init__.pyc&#39;</span>&gt;
+</pre></div>
+</div>
+<p>由于有缓存的存在，使得我们无法重新载入一个模块。</p>
+<p>但若你想反其道行之，可以借助 importlib
+这个神奇的库来实现。事实也确实有此场景，比如在代码调试中，在发现代码有异常并修改后，我们通常要重启服务再次载入程序。这时候，若有了模块重载，就无比方便了，修改完代码后也无需服务的重启，就能继续调试。</p>
+<p>还是以上面的例子来理解，<code class="docutils literal notranslate"><span class="pre">my_mod02.py</span></code> 改写成如下</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_mod02.py</span>
+
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">my_mod01</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">my_mod01</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>使用 python3 来执行这个模块，与上面不同的是，这边执行了两次
+<code class="docutils literal notranslate"><span class="pre">my_mod01.py</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>my_mod02.py
+<span class="k">in</span><span class="w"> </span>mod01
+<span class="k">in</span><span class="w"> </span>mod01
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="c08_10.html" class="btn btn-neutral float-right" title="8.10 【进阶】理解查找器与加载器" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c08_08.html" class="btn btn-neutral float-left" title="8.8 【基础】pip 的超全使用指南" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, wb.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
