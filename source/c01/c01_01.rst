@@ -50,3 +50,20 @@
 如果你还想掌握更多，也希望你持续关注这365说话之道。我接下来会持续更新365堂说话之道，帮你学会说话，走遍天下都不怕。
 
 好了，如果你觉得这视频对你有帮助，也欢迎点赞、转发、收藏、好评，谢谢大家。
+
+.. raw:: html
+
+   <script src="https://readmore.openwrite.cn/js/readmore.js" type="text/javascript"></script>
+
+.. raw:: html
+
+   <script>**
+       **const** btw = **new** BTWPlugin();
+       btw.init({
+           **id**: **'container'**,
+           **blogId**: **'31049-1677927051165-771'**,
+           **name**: **'彬彬有礼的彬彬'**,
+           **qrcode**: **'https://raw.githubusercontent.com/zuqiuxie/lzk365/main/source/image/logo-binbinyouli.png'**,
+           **keyword**: **'more'**,
+       });
+   **</script>

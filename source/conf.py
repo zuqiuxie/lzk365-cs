@@ -26,15 +26,3 @@ language = 'ZH_CN'
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
-
-<script src="https://readmore.openwrite.cn/js/readmore.js" type="text/javascript"></script>
-<script>
-    const btw = new BTWPlugin();
-    btw.init({
-        id: 'container',
-        blogId: '31049-1677927051165-771',
-        name: '彬彬有礼的彬彬',
-        qrcode: 'https://raw.githubusercontent.com/zuqiuxie/lzk365/main/source/image/logo-binbinyouli.png',
-        keyword: 'more',
-    });
-</script>
